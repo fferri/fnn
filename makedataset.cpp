@@ -1,5 +1,6 @@
 #include <iostream>
-#include <queue>
+#include <vector>
+#include <cstring>
 #include <string>
 #include <cctype>
 #include "words.hpp"
@@ -16,11 +17,11 @@ int main(int argc, char **argv) {
 	int ngramSize = atoi(argv[2]);
 	if(ngramSize < 2) usage();
 
-	queue<string> ngram;
+	vector<string> ngram;
     string word;
     while(cin.good() && ngram.size() < ngramSize) {
     	getline(cin, word);
-    	ngram.push(word);
+    	ngram.push_back(word);
     }
     while(cin.good()) {
     	// TODO: do something with the n-gram
@@ -29,8 +30,8 @@ int main(int argc, char **argv) {
     	cout << endl;
 
     	getline(cin, word);
-    	ngram.push(word);
-    	ngram.pop();
+    	ngram.push_back(word);
+    	ngram.erase(ngram.begin(), ngram.begin()++);
     }
     return 0;
 }
