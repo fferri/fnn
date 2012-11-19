@@ -1,13 +1,12 @@
-#include <fstream>
 #include <iostream>
 #include <cctype>
 
 using namespace std;
 
-#define iswhitespace(x) ((x) == '\n' || (x) == '\t' || (x) == ' ')
+#define iswhitespace(x) ((x)=='\n'||(x)=='\t'||(x)==' ')
 
 int main(int argc, char **argv) {
-	char c;
+    char c;
     int space = 0;
     while(cin.good()) {
         cin.get(c);
@@ -16,6 +15,6 @@ int main(int argc, char **argv) {
             if(c != ' ' || !space) cout << c;
             space = (c == ' ');
         }
-	}
+    }
     return 0;
 }
