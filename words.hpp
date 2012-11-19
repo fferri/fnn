@@ -12,22 +12,20 @@ using std::map;
 class Words {
 public:
 	Words();
-	inline long getId(string& word) {return rmap[word];}
-	inline string get(long id) {return map[id];}
-	inline size_t size() {return map.size();}
+	inline long getId(string word) {return rmap[word];}
+	inline string get(long id) {return fmap[id];}
+	inline size_t size() {return fmap.size();}
 	inline bool contains(string& word) {return rmap.count(word);}
 
 protected:
-	void add(size_t id, string& word);
-	void readWordsFromFile(string& filename);
+	void add(size_t id, string word);
+	void readWordsFromFile(string filename);
 
 	// id to word map
-	map<size_t, string> map;
+	map<size_t, string> fmap;
 
 	// inverse mapping
 	map<string, size_t> rmap;
-
-	static const string filename = "commonWords.txt";
 };
 
 extern Words words;

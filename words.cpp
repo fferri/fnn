@@ -3,28 +3,28 @@
 using namespace std;
 
 Words::Words() {
-	readWordsFromFile(Words::filename);
+	readWordsFromFile("commonWords.txt");
 }
 
-void Words::add(long id, string& word) {
-	if(contains(s)) {
+void Words::add(size_t id, string word) {
+	if(contains(word)) {
 		cerr << "warning: duplicate word: " << word << endl;
 		return;
 	}
-	map[id] = word;
+	fmap[id] = word;
 	rmap[word] = id;
 }
 
-void Words::readWordsFromFile(string& filename) {
-	ifstream in(filename);
+void Words::readWordsFromFile(string filename) {
+	ifstream in(filename.c_str());
 	string s;
 	while(in.good()) {
 		in >> s;
-		add(newId(), s);
+		add(fmap.size(), s);
 	}
 }
 
-Words words = new Words();
+Words words;
 
 // test:
 
