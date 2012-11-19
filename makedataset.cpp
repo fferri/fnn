@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
 
     	getline(cin, word);
     	ngram.push_back(word);
-    	ngram.erase(ngram.begin(), ngram.begin()++);
+    	ngram.erase(ngram.begin(), ngram.begin()+1);
     }
     return 0;
 }
