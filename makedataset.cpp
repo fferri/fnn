@@ -2,7 +2,9 @@
 #include <vector>
 #include <cstring>
 #include <string>
+#include <cstring>
 #include <cctype>
+#include <cstdlib>
 #include "words.hpp"
 
 using namespace std;
