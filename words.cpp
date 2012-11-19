@@ -3,7 +3,6 @@
 using namespace std;
 
 Words::Words() {
-	readWordsFromFile("commonWords.txt");
 }
 
 void Words::add(size_t id, string word) {
@@ -24,10 +23,18 @@ void Words::readWordsFromFile(string filename) {
 	}
 }
 
+void Words::incrCount(string word) {
+	size_t wordId;
+	if(!contains(word)) {
+		wordId = fmap.size();
+		add(wordId, word);
+		counts[wordId] = 1;
+	} else {
+		wordId = getId(word);
+		counts[wordId]++;
+	}
+}
+
+
 Words words;
 
-// test:
-
-int main(int argc, char *argv[]) {
-	cout << "that = " << words.getId("that") << endl;
-}

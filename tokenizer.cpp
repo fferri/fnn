@@ -7,42 +7,29 @@ using namespace std;
 
 #define iswhitespace(x) ((x)=='\n'||(x)=='\t'||(x)==' ')
 
-void print(string& str, map<string, unsigned int>& DB) {
-	map<string, unsigned int>::iterator it;
-	cout << str << "\t";
-	it = DB.find(str);
-	if(it != DB.end())
-		it->second++;
-	else
-		it = DB.insert(it, pair<string, unsigned int>(str, 1));
-
-	cout << it->second << endl;
-}
-
 int main(int argc, char **argv) {
-    char c;
-    string str;
-    map<string, unsigned int> DB;
+	char c;
+	string str;
 
-    while(cin.good()) {
-	cin.get(c);
+	while(cin.good()) {
+		cin.get(c);
 
-        if(ispunct(c) || iswhitespace(c)) {
-		if(!str.empty()) {
-			print(str, DB);
-			str.clear();
+		if(ispunct(c) || iswhitespace(c)) {
+			if(!str.empty()) {
+				cout << str << endl;
+				str.clear();
+			}
 		}
-	}	
-	
-	if(!iswhitespace(c)) {
-		str.push_back(c);
 
-		if(ispunct(c)) {
-			print(str, DB);
-			str.clear();
+		if(!iswhitespace(c)) {
+			str.push_back(c);
+
+			if(ispunct(c)) {
+				cout << str << endl;
+				str.clear();
+			}
 		}
 	}
-    }
 
-    return 0;
+	return 0;
 }
