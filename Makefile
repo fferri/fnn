@@ -1,16 +1,21 @@
 CXXFLAGS = \
-	-I/usr/include \
-	-I/usr/local/include \
-	-I/opt/local/include \
+	$(shell pkg-config --cflags fann) \
 	-ggdb -O0
 
 LDLIBS = \
-	-L/usr/lib \
-	-L/usr/local/lib \
-	-L/opt/local/lib \
+	$(shell pkg-config --libs fann) \
 	-lstdc++
 
 TARGETS = filter train wordstats tokenizer
+
+UNAME := $(shell uname)
+
+ifeq ($(UNAME), Linux)
+# Linux specific crap
+endif
+ifeq ($(UNAME), Darwin)
+# OSX specific crap
+endif
 
 all: $(TARGETS)
 
