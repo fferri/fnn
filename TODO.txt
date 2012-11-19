@@ -1,7 +1,7 @@
 * txt file
 * filter (fe) DONE
 * tokenizer (rob) DONE
-* word stats (rob)
+* word stats (rob) DONE se ti piace nell'unico file
 * list of common words file
 * dataset encoder/decoder
 * network setup

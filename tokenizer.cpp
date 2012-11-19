@@ -1,36 +1,46 @@
 #include <iostream>
 #include <cctype>
 #include <string>
+#include <map>
 
 using namespace std;
 
 #define iswhitespace(x) ((x)=='\n'||(x)=='\t'||(x)==' ')
 
+void print(string& str, map<string, unsigned int>& DB) {
+	map<string, unsigned int>::iterator it;
+	cout << str << "\t";
+	it = DB.find(str);
+	if(it != DB.end())
+		it->second++;
+	else
+		it = DB.insert(it, pair<string, unsigned int>(str, 1));
+
+	cout << it->second << endl;
+}
+
 int main(int argc, char **argv) {
     char c;
     string str;
-    bool spaceChecked = false;
+    map<string, unsigned int> DB;
 
     while(cin.good()) {
 	cin.get(c);
 
         if(ispunct(c) || iswhitespace(c)) {
 		if(!str.empty()) {
-			cout << str << endl;
+			print(str, DB);
 			str.clear();
 		}
-		
-		if(ispunct(c) || !spaceChecked)
-			cout << c << endl;
-
-		if(iswhitespace(c))
-			spaceChecked = true;
-		else
-			spaceChecked = false;
-	}
-	else {
+	}	
+	
+	if(!iswhitespace(c)) {
 		str.push_back(c);
-		spaceChecked = false;
+
+		if(ispunct(c)) {
+			print(str, DB);
+			str.clear();
+		}
 	}
     }
 
