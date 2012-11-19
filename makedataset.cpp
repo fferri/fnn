@@ -32,6 +32,8 @@ int main(int argc, char **argv) {
 	int ngramSize = atoi(argv[2]);
 	if(ngramSize < 2) usage();
 
+	words.readWordsFromFile();
+
 	vector<string> ngram;
     string word;
     while(cin.good() && ngram.size() < ngramSize) {

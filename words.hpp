@@ -22,7 +22,7 @@ public:
 	void incrCount(string word);
 	inline size_t getWordCount(size_t id) {return counts[id];}
 
-	void readWordsFromFile(string filename);
+	void readWordsFromFile(string filename = "commonWords.txt");
 
 protected:
 	void add(size_t id, string word);
