@@ -11,6 +11,9 @@ int main(int argc, char **argv) {
     	getline(cin, word);
     	words.incrCount(word);
     }
+    for(size_t i = 0; i < words.size(); i++) {
+    	cout << words.getWordCount(i) << " " << words.get(i) << endl;
+    }
     return 0;
 }
 
