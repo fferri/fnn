@@ -9,6 +9,19 @@
 
 using namespace std;
 
+void print1ofNWordEncoding(string& word) {
+	size_t wordId = words.getId(word);
+	for(size_t i = 0; i < words.size(); i++)
+		cout << (i == wordId) << " ";
+}
+
+void printTrainingSample(vector<string>& ngram) {
+	for(int i = 0; i < ngram.size(); i++)
+		print1ofNWordEncoding(ngram[i]);
+	cout << endl;
+	cout << 1 << endl;
+}
+
 void usage() {
 	cout << "makedataset -n <NGRAM_SIZE>" << endl;
 	exit(1);
@@ -27,9 +40,7 @@ int main(int argc, char **argv) {
     }
     while(cin.good()) {
     	// TODO: do something with the n-gram
-    	cout << ngramSize << "-GRAM: ";
-    	for(int i = 0; i < ngram.size(); i++) cout << " " << ngram[i];
-    	cout << endl;
+    	printTrainingSample(ngram);
 
     	getline(cin, word);
     	ngram.push_back(word);

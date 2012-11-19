@@ -20,6 +20,8 @@ train: LDLIBS   += $(shell pkg-config --libs fann)
 
 wordstats: wordstats.o words.o
 
+makedataset: makedataset.o words.o
+
 clean:
 	rm -f *.o *~ $(TARGETS)
 	rm -rf *.dSYM
