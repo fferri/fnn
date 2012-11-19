@@ -1,4 +1,5 @@
 * filter
+* tokenizer
 * word stats
 * list of common words file
 * dataset encoder/decoder
