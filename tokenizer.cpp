@@ -10,9 +10,14 @@ using namespace std;
 int main(int argc, char **argv) {
 	char c;
 	string str;
+	int tolow = 0;
+
+	if(argc == 2 && !strcmp(argv[1], "-l")) tolow = 1;
 
 	while(cin.good()) {
 		cin.get(c);
+
+		if(tolow) c = tolower(c);
 
 		if(ispunct(c) || iswhitespace(c)) {
 			if(!str.empty()) {
