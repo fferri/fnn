@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cctype>
+#include <cstring>
 #include <string>
 #include <map>
 
