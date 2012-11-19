@@ -1,5 +1,7 @@
 #!/bin/bash
 
-export PATH="$(cd "$(dirname $0)/.."; pwd):$PATH"
+export SCRIPTS_DIR="$(cd "$(dirname $0)/"; pwd)"
+export BIN_DIR="$(cd "$(dirname $0)/.."; pwd)"
+export PATH="$BIN_DIR:$PATH"
 
-filter | tokenizer -l | wordstats | sort -n
+filter | sed -E -f "$SCRIPTS_DIR/subst.sed" | tokenizer -l | wordstats | sort -n
