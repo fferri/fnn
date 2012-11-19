@@ -1,0 +1,5 @@
+* list of common words file
+* dataset encoder/decoder
+* network setup
+* training/validartion/test/regularization...
+* report
