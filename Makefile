@@ -1,10 +1,6 @@
-CXXFLAGS = \
-	$(shell pkg-config --cflags fann) \
-	-ggdb -O0
+CXXFLAGS = -ggdb -O0
 
-LDLIBS = \
-	$(shell pkg-config --libs fann) \
-	-lstdc++
+LDLIBS = -lstdc++
 
 TARGETS = filter train wordstats tokenizer
 
@@ -19,7 +15,8 @@ endif
 
 all: $(TARGETS)
 
-train: LDLIBS += -lfann
+train: CXXFLAGS += $(shell pkg-config --cflags fann)
+train: LDLIBS   += $(shell pkg-config --libs fann)
 
 wordstats: wordstats.o words.o
 
