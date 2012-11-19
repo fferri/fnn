@@ -1,3 +1,5 @@
+* filter
+* word stats
 * list of common words file
 * dataset encoder/decoder
 * network setup
