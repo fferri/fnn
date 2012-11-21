@@ -35,6 +35,21 @@ void Words::incrCount(string word) {
 	}
 }
 
+void Words::readStatsFile(string filename) {
+	ifstream in(filename.c_str());
+	int stat;
+	string word;
+	size_t wordId;
+
+	while(in.good()) {
+		in >> stat;
+		in >> word;
+		wordId = fmap.size();
+		add(wordId, word);
+		counts[wordId] = stat;
+	}
+}
+
 
 Words words;
 

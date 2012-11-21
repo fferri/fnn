@@ -22,6 +22,8 @@ wordstats: wordstats.o words.o
 
 makedataset: makedataset.o words.o
 
+tokenizer: tokenizer.o words.o
+
 clean:
 	rm -f *.o *~ $(TARGETS)
 	rm -rf *.dSYM
