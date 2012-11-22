@@ -2,6 +2,7 @@
 #include <cctype>
 #include <cstring>
 #include <string>
+#include <vector>
 #include "words.hpp"
 #include <unistd.h>
 
@@ -9,9 +10,17 @@ using namespace std;
 
 #define iswhitespace(x) ((x)=='\n'||(x)=='\t'||(x)==' ')
 
+// sentences to skip at beginning
 long skipSent = 0;
+
+// sentences to output and then stop
 long numSent = -1;
+
+// convert to lowercase
 int tolow = 0;
+
+// minimum word frequency treshold for not discarding sentence
+int treshold = 0;
 
 void parseOptions(int argc, char *argv[]) {
 	char *cvalue = NULL;
@@ -20,7 +29,7 @@ void parseOptions(int argc, char *argv[]) {
 
 	opterr = 0;
 
-	while((c = getopt(argc, argv, "s:n:l")) != -1)
+	while((c = getopt(argc, argv, "s:n:t:l")) != -1)
 		switch(c) {
 		case 's':
 			skipSent = atoi(optarg);
@@ -31,9 +40,12 @@ void parseOptions(int argc, char *argv[]) {
 		case 'l':
 			tolow = 1;
 			break;
+        case 't':
+            treshold = atoi(optarg);
+            break;
 		case '?':
-			if(optopt == 's' || optopt == 'n')
-				fprintf(stderr, "Option -%c requires an argument.\n", optopt);
+			if(optopt == 's' || optopt == 'n' || optopt == 't')
+				fprintf(stderr, "Option -%c requires an integer argument.\n", optopt);
 			else if(isprint(optopt))
 				fprintf(stderr, "Unknown option `-%c'.\n", optopt);
 			else
@@ -44,21 +56,16 @@ void parseOptions(int argc, char *argv[]) {
 			abort();
 			break;
 		}
-
-	//printf("aflag = %d, bflag = %d, cvalue = %s\n", aflag, bflag, cvalue);
-
-	//for(index = optind; index < argc; index++)
-		//printf("Non-option argument %s\n", argv[index]);
-	//return 0;
 }
 
 int main(int argc, char **argv) {
 	char c;
 	string str;
-	bool todel = false;
+	vector<string> sent;
 
 	long n = 0;
 	bool print = true;
+	bool todel = false;
 	words.readStatsFile();
 	 
 	parseOptions(argc, argv);
@@ -72,7 +79,10 @@ int main(int argc, char **argv) {
 
 		if(ispunct(c) || iswhitespace(c)) {
 			if(!str.empty()) {
-				if(print) cout << str << endl;
+                if(words.getWordCount(words.getId(str)) < treshold)
+                	todel = true;
+
+                sent.push_back(str);
 				str.clear();
 			}
 		}
@@ -81,10 +91,17 @@ int main(int argc, char **argv) {
 			str.push_back(c);
 
 			if(ispunct(c)) {
-				if(print) cout << str << endl;
+				sent.push_back(str);
 				str.clear();
 
-				if(c == '.') n++;
+				if(c == '.') {
+					if(print && !todel) {
+						for(vector<string>::iterator i = sent.begin(); i != sent.end(); i++)
+							cout << *i << endl;
+					}
+                    n++;
+                    todel = false;
+                }
 			}
 		}
 	}
