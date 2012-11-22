@@ -1,7 +1,14 @@
 #include <fann.h>
+#include <cstdlib>
 #include "words.hpp"
 
-int main() {
+using namespace std;
+
+int main(int argc, char *argv[]) {
+	if(argc < 3) {
+		cerr << "usage: train <trainfile.dat> <epochs>" << endl;
+		exit(1);
+	}
 	const unsigned int word_local_encoding_size = 900;
 	const unsigned int num_input_words = 3;
 
@@ -12,7 +19,7 @@ int main() {
 	const unsigned int num_output = 1;
 
 	const float desired_error = (const float) 0.001;
-	const unsigned int max_epochs = 500000;
+	unsigned int max_epochs = atoi(argv[2]);
 	const unsigned int epochs_between_reports = 1000;
 
 	struct fann *ann = fann_create_standard(num_layers, num_input, num_neurons_hidden_1, num_neurons_hidden_2, num_output);
@@ -22,7 +29,7 @@ int main() {
 
 	struct fann_train_data *data;
 
-	fann_train_on_data(ann, data, max_epochs, epochs_between_reports, desired_error);
+	fann_train_on_file(ann, argv[1], max_epochs, epochs_between_reports, desired_error);
 
 	fann_save(ann, "wordPredict.net");
 

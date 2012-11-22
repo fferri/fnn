@@ -10,7 +10,7 @@
 using namespace std;
 
 void print1ofNWordEncoding(string& word) {
-	size_t wordId = words.getId(word);
+	size_t wordId = words.contains(word) ? words.getId(word) : words.size();
 	for(size_t i = 0; i < words.size(); i++)
 		cout << (i == wordId) << " ";
 }
@@ -36,12 +36,13 @@ int main(int argc, char **argv) {
 
 	vector<string> ngram;
     string word;
+    // fill n-gram fifo:
     while(cin.good() && ngram.size() < ngramSize) {
     	getline(cin, word);
     	ngram.push_back(word);
     }
+    // output training samples:
     while(cin.good()) {
-    	// TODO: do something with the n-gram
     	printTrainingSample(ngram);
 
     	getline(cin, word);
