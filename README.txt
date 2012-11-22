@@ -8,22 +8,20 @@ Command line arguments for tokenizer:
             (sentences having a word below treshold will not be output)
 
 
-Producing a commonWords.txt file:
----------------------------------
 
-Let's say you want a treshold of 20:
-
- cat text/* | ./scripts/buildDictionary.sh -l -t 20 > commonWords.txt
-
-
-Producing a stats.txt file:
----------------------------
-
- cat text/* | ./scripts/printStats.sh -l -t 20 > stats.txt
 
 
 Producing a training/test set:
 ------------------------------
+
+ # produce full words file
+ cat text/* | ./scripts/buildDictionary.sh -l > commonWords.txt
+
+ # produce full stats file
+ cat text/* | ./scripts/printStats.sh -l > stats.txt
+
+ # produce restricted words file
+ cat text/* | ./scripts/buildDictionary.sh -l -t 20 > commonWords.txt
 
  cat text/* | ./scripts/makeTrainingFile.sh -l -t 20 -n ## -s ## > filename.dat
  add the header MANUALLY to filename.dat
