@@ -2,7 +2,7 @@ CXXFLAGS = -ggdb -O0
 
 LDLIBS = -lstdc++
 
-TARGETS = filter train wordstats tokenizer makedataset merge
+TARGETS = filter train wordstats tokenizer makedataset merge substwords
 
 UNAME := $(shell uname)
 

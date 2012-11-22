@@ -4,6 +4,7 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <sstream>
 #include <iostream>
 #include <fstream>
 
@@ -13,9 +14,14 @@ using std::map;
 class Words {
 public:
 	Words();
+
 	inline long getId(string word) {return rmap[word];}
+
 	inline string get(size_t id) {return fmap[id];}
+
 	inline size_t size() {return fmap.size();}
+
+	inline bool contains(size_t wordId) {return fmap.count(wordId);}
 	inline bool contains(string word) {return rmap.count(word);}
 
 	inline string randWord() {return fmap[rand() % fmap.size()];}
@@ -26,6 +32,9 @@ public:
 
 	void readWordsFromFile(string filename = "commonWords.txt");
 	void readStatsFile(string filename = "stats.txt");
+
+	string get1ofNWordEncoding(size_t wordId);
+	size_t getWordIdFrom1ofNEncoding(string s);
 
 protected:
 	void add(size_t id, string word);

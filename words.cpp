@@ -50,6 +50,25 @@ void Words::readStatsFile(string filename) {
 	}
 }
 
+string Words::get1ofNWordEncoding(size_t wordId) {
+	string s = "";
+	for(size_t i = 0; i < size(); i++) {
+		if(i) s+= " ";
+		s += (i == wordId);
+	}
+	return s;
+}
+
+size_t Words::getWordIdFrom1ofNEncoding(string s) {
+	stringstream ss(s);
+	string t;
+	size_t wordId = 0;
+	while(ss >> t) {
+		wordId++;
+		if(t == "1") return wordId;
+	}
+	return fmap.size();
+}
 
 Words words;
 

@@ -1,26 +1,63 @@
 #include <fann.h>
 #include <cstdlib>
+#include <unistd.h>
 #include "words.hpp"
 
 using namespace std;
 
-int main(int argc, char *argv[]) {
-	if(argc < 3) {
-		cerr << "usage: train <trainfile.dat> <epochs>" << endl;
+unsigned int word_local_encoding_size = 900;
+unsigned int num_input_words = 3;
+
+unsigned int num_layers = 4;
+unsigned int num_input = word_local_encoding_size * num_input_words;
+unsigned int num_neurons_hidden_1 = 100 * num_input_words;
+unsigned int num_neurons_hidden_2 = 1000;
+unsigned int num_output = 1;
+
+float desired_error = 0.001;
+unsigned int max_epochs = 10000;
+unsigned int epochs_between_reports = 100;
+
+char *training_file = NULL;
+
+void parseOptions(int argc, char *argv[]) {
+	int c;
+	while((c = getopt(argc, argv, "e:E:")) != -1)
+		switch(c) {
+		case 'e':
+			max_epochs = atol(optarg);
+			break;
+		case 'E':
+			epochs_between_reports = atol(optarg);
+			break;
+		case '?':
+			if(optopt == 'e' || optopt == 'E')
+				fprintf(stderr, "Option -%c requires an integer argument.\n", optopt);
+			else if(isprint(optopt))
+				fprintf(stderr, "Unknown option `-%c'.\n", optopt);
+			else
+				fprintf(stderr, "Unknown option character `\\x%x'.\n", optopt);
+			exit(1);
+			break;
+		default:
+			abort();
+			break;
+		}
+	for(int index = optind; index < argc; index++)
+		if(training_file) {
+			fprintf(stderr, "Specify only one training file!\n");
+			exit(1);
+		} else {
+			training_file = argv[index];
+		}
+	if(!training_file) {
+		fprintf(stderr, "Specify at least one training file!\n");
 		exit(1);
 	}
-	const unsigned int word_local_encoding_size = 900;
-	const unsigned int num_input_words = 3;
+}
 
-	const unsigned int num_layers = 4;
-	const unsigned int num_input = word_local_encoding_size * num_input_words;
-	const unsigned int num_neurons_hidden_1 = 100 * num_input_words;
-	const unsigned int num_neurons_hidden_2 = 1000;
-	const unsigned int num_output = 1;
-
-	const float desired_error = (const float) 0.001;
-	unsigned int max_epochs = atoi(argv[2]);
-	const unsigned int epochs_between_reports = 1000;
+int main(int argc, char *argv[]) {
+	parseOptions(argc, argv);
 
 	struct fann *ann = fann_create_standard(num_layers, num_input, num_neurons_hidden_1, num_neurons_hidden_2, num_output);
 
@@ -29,7 +66,7 @@ int main(int argc, char *argv[]) {
 
 	struct fann_train_data *data;
 
-	fann_train_on_file(ann, argv[1], max_epochs, epochs_between_reports, desired_error);
+	fann_train_on_file(ann, training_file, max_epochs, epochs_between_reports, desired_error);
 
 	fann_save(ann, "wordPredict.net");
 

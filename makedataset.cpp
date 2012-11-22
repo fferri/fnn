@@ -9,12 +9,6 @@
 
 using namespace std;
 
-void print1ofNWordEncoding(string& word) {
-	size_t wordId = words.contains(word) ? words.getId(word) : words.size();
-	for(size_t i = 0; i < words.size(); i++)
-		cout << (i == wordId) << " ";
-}
-
 void usage() {
 	cout << "makedataset -n <NGRAM_SIZE>" << endl;
 	exit(1);
@@ -31,7 +25,7 @@ void makeRandomSentence(vector<string>& sentence, int len) {
 void outputSentenceData(vector<string>& sent, int target, int ngramSize) {
 	for(int i = 0; i < (sent.size() - ngramSize + 1); i++) {
 		for(int j = 0; j < ngramSize; j++)
-			print1ofNWordEncoding(sent[i+j]);
+			cout << (j ? " " : "") << words.get1ofNWordEncoding(words.getId(sent[i+j]));
 		cout << endl << target << endl;
 	}
 }

@@ -23,12 +23,7 @@ int tolow = 0;
 int treshold = 0;
 
 void parseOptions(int argc, char *argv[]) {
-	char *cvalue = NULL;
-	int index;
 	int c;
-
-	opterr = 0;
-
 	while((c = getopt(argc, argv, "s:n:t:l")) != -1)
 		switch(c) {
 		case 's':
