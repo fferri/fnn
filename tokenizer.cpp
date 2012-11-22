@@ -62,7 +62,6 @@ int main(int argc, char **argv) {
 	char c;
 	string str;
 	vector<string> sent;
-
 	long n = 0;
 	bool print = true;
 	bool todel = false;
