@@ -21,6 +21,9 @@ void Words::readWordsFromFile(string filename) {
 		in >> s;
 		add(fmap.size(), s);
 	}
+	if(!size()) {
+		cerr << "warning: readWordsFromFile(" << filename << ") read 0 words" << endl;
+	}
 }
 
 void Words::incrCount(string word) {
@@ -54,7 +57,7 @@ string Words::get1ofNWordEncoding(size_t wordId) {
 	string s = "";
 	for(size_t i = 0; i < size(); i++) {
 		if(i) s+= " ";
-		s += (i == wordId);
+		if(i == wordId) s += "1"; else s += "0";
 	}
 	return s;
 }

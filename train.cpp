@@ -5,13 +5,13 @@
 
 using namespace std;
 
-unsigned int word_local_encoding_size = 900;
+unsigned int word_local_encoding_size = 724;
 unsigned int num_input_words = 3;
 
 unsigned int num_layers = 4;
 unsigned int num_input = word_local_encoding_size * num_input_words;
-unsigned int num_neurons_hidden_1 = 100 * num_input_words;
-unsigned int num_neurons_hidden_2 = 1000;
+unsigned int num_neurons_hidden_1 = 500 * num_input_words;
+unsigned int num_neurons_hidden_2 = 700;
 unsigned int num_output = 1;
 
 float desired_error = 0.001;
@@ -63,8 +63,6 @@ int main(int argc, char *argv[]) {
 
 	fann_set_activation_function_hidden(ann, FANN_SIGMOID_SYMMETRIC);
 	fann_set_activation_function_output(ann, FANN_SIGMOID_SYMMETRIC);
-
-	struct fann_train_data *data;
 
 	fann_train_on_file(ann, training_file, max_epochs, epochs_between_reports, desired_error);
 

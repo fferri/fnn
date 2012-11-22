@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
 	for(int count = 1; count >= 0; count--) {
 		vector<string> sentence;
 
-		if(!count) cout << numTrainingSamples << " " << words.size() << " 1" << endl;
+		if(!count) cout << numTrainingSamples << " " << (ngramSize * words.size()) << " 1" << endl;
 
 		for(vector<string>::iterator i = allWords.begin(); i != allWords.end(); ++i) {
 			word = *i;

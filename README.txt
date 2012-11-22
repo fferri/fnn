@@ -24,7 +24,5 @@ Producing a training/test set:
  cat text/* | ./scripts/buildDictionary.sh -l -t 20 > commonWords.txt
 
  cat text/* | ./scripts/makeTrainingFile.sh -l -t 20 -n ## -s ## > filename.dat
- add the header MANUALLY to filename.dat
 
- remember to use THE SAME TRESHOLD for commonWords.txt, stats.txt and ther
- training file
+ remember to use THE SAME TRESHOLD in the last two steps
