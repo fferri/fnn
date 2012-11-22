@@ -95,10 +95,11 @@ int main(int argc, char **argv) {
 				str.clear();
 
 				if(c == '.') {
-					if(print && !todel) {
+					if(print && !todel)
 						for(vector<string>::iterator i = sent.begin(); i != sent.end(); i++)
 							cout << *i << endl;
-					}
+
+					sent.clear();
                     n++;
                     todel = false;
                 }
