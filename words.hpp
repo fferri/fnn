@@ -18,6 +18,8 @@ public:
 	inline size_t size() {return fmap.size();}
 	inline bool contains(string word) {return rmap.count(word);}
 
+	inline string randWord() {return fmap[rand() % fmap.size()];}
+
 	// used only when computing word counts, calls add() as well:
 	void incrCount(string word);
 	inline size_t getWordCount(size_t id) {return counts[id];}

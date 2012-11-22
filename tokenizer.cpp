@@ -14,7 +14,7 @@ using namespace std;
 long skipSent = 0;
 
 // sentences to output and then stop
-long numSent = -1;
+long numSent = 0;
 
 // convert to lowercase
 int tolow = 0;
@@ -32,10 +32,10 @@ void parseOptions(int argc, char *argv[]) {
 	while((c = getopt(argc, argv, "s:n:t:l")) != -1)
 		switch(c) {
 		case 's':
-			skipSent = atoi(optarg);
+			skipSent = atol(optarg);
 			break;
 		case 'n':
-			numSent = atoi(optarg);
+			numSent = atol(optarg);
 			break;
 		case 'l':
 			tolow = 1;
@@ -62,17 +62,16 @@ int main(int argc, char **argv) {
 	char c;
 	string str;
 	vector<string> sent;
-	long n = 0;
-	bool print = true;
 	bool todel = false;
-	words.readStatsFile();
-	 
+
 	parseOptions(argc, argv);
+
+	long n = -skipSent;
+	if(treshold > 0)
+		words.readStatsFile();
 
 	while(cin.good()) {
 		cin.get(c);
-
-		print = (n >= skipSent) && (numSent == -1 || n < (skipSent + numSent));
 
 		if(tolow) c = tolower(c);
 
@@ -94,16 +93,21 @@ int main(int argc, char **argv) {
 				str.clear();
 
 				if(c == '.') {
-					if(print && !todel)
-						for(vector<string>::iterator i = sent.begin(); i != sent.end(); i++)
-							cout << *i << endl;
+					if(!todel) {
+						if(n >= 0) {
+							for(vector<string>::iterator i = sent.begin(); i != sent.end(); i++)
+								cout << *i << endl;
+						}
+						n++;
+					}
 
 					sent.clear();
-                    n++;
                     todel = false;
                 }
 			}
 		}
+
+		if(n >= numSent && numSent > 0) break;
 	}
 
 	return 0;

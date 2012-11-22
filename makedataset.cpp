@@ -15,16 +15,25 @@ void print1ofNWordEncoding(string& word) {
 		cout << (i == wordId) << " ";
 }
 
-void printTrainingSample(vector<string>& ngram) {
-	for(int i = 0; i < ngram.size(); i++)
-		print1ofNWordEncoding(ngram[i]);
-	cout << endl;
-	cout << 1 << endl;
-}
-
 void usage() {
 	cout << "makedataset -n <NGRAM_SIZE>" << endl;
 	exit(1);
+}
+
+void makeRandomSentence(vector<string>& sentence, int len) {
+	while(len--) {
+		string word;
+		do {word = words.randWord();} while(word == ".");
+		sentence.push_back(word);
+	}
+}
+
+void outputSentenceData(vector<string>& sent, int target, int ngramSize) {
+	for(int i = 0; i < (sent.size() - ngramSize + 1); i++) {
+		for(int j = 0; j < ngramSize; j++)
+			print1ofNWordEncoding(sent[i+j]);
+		cout << endl << target << endl;
+	}
 }
 
 int main(int argc, char **argv) {
@@ -34,20 +43,20 @@ int main(int argc, char **argv) {
 
 	words.readWordsFromFile();
 
-	vector<string> ngram;
     string word;
-    // fill n-gram fifo:
-    while(cin.good() && ngram.size() < ngramSize) {
-    	getline(cin, word);
-    	ngram.push_back(word);
-    }
-    // output training samples:
-    while(cin.good()) {
-    	printTrainingSample(ngram);
+    vector<string> sentence;
 
+    while(cin.good()) {
     	getline(cin, word);
-    	ngram.push_back(word);
-    	ngram.erase(ngram.begin(), ngram.begin()+1);
+    	sentence.push_back(word);
+
+    	if(word == ".") {
+    		outputSentenceData(sentence, 1, ngramSize);
+    		sentence.clear();
+    		makeRandomSentence(sentence, 12);
+    		outputSentenceData(sentence, -1, ngramSize);
+    		sentence.clear();
+    	}
     }
     return 0;
 }
