@@ -1,7 +1,9 @@
-#include <fann.h>
 #include <cstdlib>
+#include <sstream>
 #include <unistd.h>
 #include "words.hpp"
+
+#include <fann.h>
 
 using namespace std;
 
@@ -64,9 +66,13 @@ int main(int argc, char *argv[]) {
 	fann_set_activation_function_hidden(ann, FANN_SIGMOID_SYMMETRIC);
 	fann_set_activation_function_output(ann, FANN_SIGMOID_SYMMETRIC);
 
-	fann_train_on_file(ann, training_file, max_epochs, epochs_between_reports, desired_error);
+	for(long epoch = 0; epoch < max_epochs; epoch++) {
+		fann_train_on_file(ann, training_file, 1, 1, desired_error);
+		stringstream fn;
+		fn << "wordPredict-" << epoch << ".net";
+		fann_save(ann, fn.str().c_str());
+	}
 
-	fann_save(ann, "wordPredict.net");
 
 	fann_destroy(ann);
 
