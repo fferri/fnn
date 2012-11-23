@@ -68,11 +68,8 @@ int main(int argc, char *argv[]) {
 
 	for(long epoch = 0; epoch < max_epochs; epoch++) {
 		fann_train_on_file(ann, training_file, 1, 1, desired_error);
-		stringstream fn;
-		fn << "wordPredict-" << epoch << ".net";
-		fann_save(ann, fn.str().c_str());
+		fann_save(ann, "wordPredict.net");
 	}
-
 
 	fann_destroy(ann);
 
