@@ -5,26 +5,30 @@
 
 char *test_file = NULL;
 
+char* net_file = NULL;
+
 void usage() {
 	fprintf(stderr, ""
 			"usage: predict [options] <testFile.dat>\n"
+			"	-f <file>    use neural network model from file\n"
 			"\n"
 			);
 
 }
 void parseOptions(int argc, char *argv[]) {
 	int c;
-	while((c = getopt(argc, argv, "e:")) != -1)
+	while((c = getopt(argc, argv, "f:")) != -1)
 		switch(c) {
-		case 'e':
+		case 'f':
+			net_file = optarg;
 			break;
 		case '?':
-			if(optopt == 'e' || optopt == 'E')
-				fprintf(stderr, "Option -%c requires an integer argument.\n", optopt);
+			if(optopt == 'f')
+				fprintf(stderr, "option -%c requires a file argument.\n\n", optopt);
 			else if(isprint(optopt))
-				fprintf(stderr, "Unknown option `-%c'.\n", optopt);
+				fprintf(stderr, "unknown option `-%c'.\n\n", optopt);
 			else
-				fprintf(stderr, "Unknown option character `\\x%x'.\n", optopt);
+				fprintf(stderr, "unknown option character `\\x%x'.\n\n", optopt);
 			usage();
 			exit(1);
 			break;
@@ -32,16 +36,21 @@ void parseOptions(int argc, char *argv[]) {
 			abort();
 			break;
 		}
+	if(!net_file) {
+		fprintf(stderr, "specify the neural network model file with -f\n\n");
+		usage();
+		exit(1);
+	}
 	for(int index = optind; index < argc; index++)
 		if(test_file) {
-			fprintf(stderr, "Specify only one training file!\n");
+			fprintf(stderr, "specify only one training file!\n\n");
 			usage();
 			exit(1);
 		} else {
 			test_file = argv[index];
 		}
 	if(!test_file) {
-		fprintf(stderr, "Specify at least one training file!\n");
+		fprintf(stderr, "specify at least one training file!\n\n");
 		usage();
 		exit(1);
 	}
@@ -50,7 +59,7 @@ void parseOptions(int argc, char *argv[]) {
 int main(int argc, char *argv[]) {
 	parseOptions(argc, argv);
 
-	struct fann *ann = fann_create_from_file("wordPredict.net");
+	struct fann *ann = fann_create_from_file(net_file);
 
 	//fann_type *input = (fann_type *)calloc(ann->num_input, sizeof(fann_type));
 	fann_train_data * data = fann_read_train_from_file(test_file);
