@@ -203,17 +203,17 @@ int main(int argc, char *argv[]) {
 				fann_test_data(ann, validation_data);
 				float ve = fann_get_MSE(ann);
 				float ver = get_classification_error_rate(ann, validation_data);
-				fprintf_x2(stderr, logfile, "epoch: %ld, pseudoMSE: %f, validationMSE: %f, classification err: %f, validation err: %f\n", epoch, pseudo_mse, ve, cer, ver);
+				fprintf_x2(stderr, logfile, "epoch: %ld, pseudoMSE: %f, validationMSE: %f, classification err: %f, validation err: %f\n", (1+epoch), pseudo_mse, ve, cer, ver);
 				fflush(logfile);
 			} else {
-				fprintf_x2(stderr, logfile, "epoch: %ld, pseudoMSE: %f, classification err: %f\n", epoch, pseudo_mse, cer);
+				fprintf_x2(stderr, logfile, "epoch: %ld, pseudoMSE: %f, classification err: %f\n", (1+epoch), pseudo_mse, cer);
 				fflush(logfile);
 			}
 		}
 		fann_save(ann, net_file);
 
 		if(pseudo_mse < desired_error) {
-			fprintf_x2(stderr, logfile, "epoch: %ld, reached desired error. terminating.\n", epoch);
+			fprintf_x2(stderr, logfile, "epoch: %ld, reached desired error. terminating.\n", (1+epoch));
 			break;
 		}
 	}
