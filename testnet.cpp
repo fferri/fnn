@@ -3,7 +3,7 @@
 
 #include <fann.h>
 
-char *argv_words[2];
+char *test_file = NULL;
 
 void usage() {
 	fprintf(stderr, ""
@@ -32,16 +32,17 @@ void parseOptions(int argc, char *argv[]) {
 			abort();
 			break;
 		}
-	int wi = 0;
-	for(int index = optind; index < argc; index++, wi++) {
-		if(wi >= 2) {
-			fprintf(stderr, "please specify exactly 2 words\n");
+	for(int index = optind; index < argc; index++)
+		if(test_file) {
+			fprintf(stderr, "Specify only one training file!\n");
+			usage();
 			exit(1);
+		} else {
+			test_file = argv[index];
 		}
-		argv_words[wi] = argv[index];
-	}
-	if(wi < 1) {
-		fprintf(stderr, "please specify exactly 2 words\n");
+	if(!test_file) {
+		fprintf(stderr, "Specify at least one training file!\n");
+		usage();
 		exit(1);
 	}
 }
@@ -49,26 +50,23 @@ void parseOptions(int argc, char *argv[]) {
 int main(int argc, char *argv[]) {
 	parseOptions(argc, argv);
 
-	words.readWordsFromFile();
-
 	struct fann *ann = fann_create_from_file("wordPredict.net");
 
-	size_t numWords = words.size();
+	//fann_type *input = (fann_type *)calloc(ann->num_input, sizeof(fann_type));
+	fann_train_data * data = fann_read_train_from_file(test_file);
 	fann_type* out;
-	fann_type* in = (fann_type *)calloc(numWords * 3, sizeof(fann_type));
 
-	size_t wid0 = words.getId(argv_words[0]),
-			wid1 = words.getId(argv_words[1]);
-	in[wid0] = 1;
-	in[numWords + wid1] = 1;
+	size_t num_cases = 0, num_errors = 0;
+	for(size_t i = 0; i < data->num_data; i++) {
+		out = fann_run(ann, data->input[i]);
+		num_cases++;
+		if(out[0] * data->output[i][0] < 0) num_errors++;
 
-	for(size_t i = 0; i < words.size(); i++) {
-		for(size_t j = 0; j < words.size(); j++) in[numWords * 2 + j] = 0;
-		in[numWords * 2 + i] = 1;
-
-		out = fann_run(ann, in);
-		fprintf(stdout, "%f %s\n", out[0], words.get(i).c_str());
+		float err = num_errors * 100.0 / (float)num_cases;
+		fprintf(stdout, "\rClassification error: %f%%       ", err);
 	}
+	fprintf(stdout, "\n");
+
 
 	fann_destroy(ann);
 

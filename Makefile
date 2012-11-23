@@ -1,8 +1,10 @@
 CXXFLAGS = -ggdb -O0
+FANN_CXXFLAGS = $(shell pkg-config --cflags fann)
 
 LDLIBS = -lstdc++
+FANN_LDLIBS = $(shell pkg-config --libs fann)
 
-TARGETS = filter train wordstats tokenizer makedataset merge substwords
+TARGETS = filter wordstats tokenizer makedataset merge substwords train testnet predict
 
 UNAME := $(shell uname)
 
@@ -15,8 +17,17 @@ endif
 
 all: $(TARGETS)
 
-train: CXXFLAGS += $(shell pkg-config --cflags fann)
-train: LDLIBS   += $(shell pkg-config --libs fann)
+train: CXXFLAGS += $(FANN_CXXFLAGS)
+train: LDLIBS   += $(FANN_LDLIBS)
+train: train.o words.o
+
+testnet: CXXFLAGS += $(FANN_CXXFLAGS)
+testnet: LDLIBS   += $(FANN_LDLIBS)
+testnet: testnet.o words.o
+
+predict: CXXFLAGS += $(FANN_CXXFLAGS) 
+predict: LDLIBS   += $(FANN_LDLIBS)
+predict: predict.o words.o
 
 wordstats: wordstats.o words.o
 
