@@ -127,6 +127,16 @@ void parseOptions(int argc, char *argv[]) {
 	}
 }
 
+float get_classification_error_rate(struct fann* ann, fann_train_data* data) {
+	size_t d = 0, e = 0;
+	for(size_t i = 0; i < data->num_data; i++) {
+		d++;
+		fann_type* out = fann_run(ann, data->input[i]);
+		if(out[0] * data->output[i][0] < 0) e++;
+	}
+	return (float)e/(float)d;
+}
+
 int main(int argc, char *argv[]) {
 	parseOptions(argc, argv);
 
@@ -187,13 +197,16 @@ int main(int argc, char *argv[]) {
 		float pseudo_mse = fann_train_epoch(ann, train_data);
 
 		if(0 == (epoch % epochs_between_reports)) {
+			float cer = get_classification_error_rate(ann, train_data);
 			if(validation_data) {
+				fann_reset_MSE(ann);
 				fann_test_data(ann, validation_data);
 				float ve = fann_get_MSE(ann);
-				fprintf_x2(stderr, logfile, "epoch: %ld, pseudoMSE: %f, validationMSE: %f\n", epoch, pseudo_mse, ve);
+				float ver = get_classification_error_rate(ann, validation_data);
+				fprintf_x2(stderr, logfile, "epoch: %ld, pseudoMSE: %f, validationMSE: %f, classification err: %f, validation err: %f\n", epoch, pseudo_mse, ve, cer, ver);
 				fflush(logfile);
 			} else {
-				fprintf_x2(stderr, logfile, "epoch: %ld, pseudoMSE: %f\n", epoch, pseudo_mse);
+				fprintf_x2(stderr, logfile, "epoch: %ld, pseudoMSE: %f, classification err: %f\n", epoch, pseudo_mse, cer);
 				fflush(logfile);
 			}
 		}
