@@ -6,7 +6,7 @@ FANN_LDLIBS = $(shell pkg-config --libs fann)
 
 TARGETS = filter wordstats tokenizer makedataset merge substwords train testnet predict
 
-UNAME := $(shell uname)
+UNAME = $(shell uname)
 
 ifeq ($(UNAME), Linux)
 # Linux specific crap
@@ -19,6 +19,10 @@ all: $(TARGETS)
 
 SRCS = $(shell ls -1 *.cpp)
 DEPS = $(SRCS:%.cpp=%.d)
+OBJS = $(SRCS:%.cpp=%.o)
+
+deps: $(DEPS)
+
 $(DEPS) : %.d : %.cpp
 	$(CXX) -MM $(CXXFLAGS) $(FANN_CXXFLAGS) $< -o $@
 
@@ -44,7 +48,17 @@ makedataset: makedataset.o words.o
 
 tokenizer: tokenizer.o words.o
 
-clean:
-	rm -f *.o *~ $(TARGETS)
+.PHONY: clean cleanobjs cleandeps cleantargets
+
+clean: cleanobjs cleandeps cleantargets
+	rm -f *~
 	rm -rf *.dSYM
-	rm -f $(DEPS)
+
+cleantargets:
+	$(RM) -f $(TARGETS)
+
+cleanobjs:
+	$(RM) -f $(OBJS)
+
+cleandeps:
+	$(RM) -f $(DEPS)
