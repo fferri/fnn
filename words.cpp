@@ -15,10 +15,12 @@ void Words::add(size_t id, string word) {
 }
 
 void Words::readWordsFromFile(string filename) {
+	clear();
 	ifstream in(filename.c_str());
 	string s;
 	while(in.good()) {
-		in >> s;
+		getline(in, s);
+		if(s == "") continue;
 		add(fmap.size(), s);
 	}
 	if(!size()) {
@@ -41,12 +43,14 @@ void Words::incrCount(string word) {
 void Words::readStatsFile(string filename) {
 	ifstream in(filename.c_str());
 	int stat;
-	string word;
+	string line, word;
 	size_t wordId;
-
 	while(in.good()) {
-		in >> stat;
-		in >> word;
+		getline(in, line);
+		if(line == "") continue;
+		stringstream liness(line);
+		liness >> stat;
+		liness >> word;
 		wordId = fmap.size();
 		add(wordId, word);
 		counts[wordId] = stat;

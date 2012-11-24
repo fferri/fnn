@@ -25,6 +25,8 @@ public:
 	inline bool contains(size_t wordId) {return fmap.count(wordId);}
 	inline bool contains(string word) {return rmap.count(word);}
 
+	inline void clear() {fmap.clear(); rmap.clear(); counts.clear();}
+
 	inline string randWord() {return fmap[rand() % fmap.size()];}
 
 	// used only when computing word counts, calls add() as well:
