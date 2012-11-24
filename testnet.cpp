@@ -1,7 +1,7 @@
 #include <cstdlib>
 #include "words.hpp"
 
-#include <fann.h>
+#include <floatfann.h>
 
 char *test_file = NULL;
 

@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include "words.hpp"
 
-#include <fann.h>
+#include <floatfann.h>
 
 using namespace std;
 
@@ -40,19 +40,6 @@ void usage() {
 			"	-H <num hid 2>    set number of units in 2nd hidden layer [default: %d]\n"
 			"\n",
 			desired_error, max_epochs, epochs_between_reports, num_neurons_hidden_1, num_neurons_hidden_2);
-}
-
-long getVocabularySize() {
-	words.readWordsFromFile();
-	fprintf(stderr, "vocabulary size is %ld\n", words.size());
-	return words.size();
-}
-
-long getTrainingInputSize(FILE* f) {
-	long a, b, c;
-	fscanf(f, "%ld %ld %ld", &a, &b, &c);
-	fprintf(stderr, "training header: %ld %ld %ld\n", a, b, c);
-	return b;
 }
 
 void parseOptions(int argc, char *argv[]) {
@@ -99,6 +86,7 @@ void parseOptions(int argc, char *argv[]) {
 			break;
 		}
 	if(!net_file) {
+#ifndef DONT_AUTOGENERATE_MODEL_FILENAME
 		// try to generate a net file name automatically
 		fprintf(stderr, "no net file name (-f) specified. trying to generate on automatically...\n");
 		net_file = (char *)calloc(250, sizeof(char));
@@ -108,9 +96,12 @@ void parseOptions(int argc, char *argv[]) {
 			if(FILE *f = fopen(net_file, "r")) fclose(f);
 			else break;
 		}
-		//fprintf(stderr, "please specify the neural network model file with -f\n\n");
-		//usage();
-		//exit(1);
+
+#else
+		fprintf(stderr, "please specify the neural network model file with -f\n\n");
+		usage();
+		exit(1);
+#endif
 	}
 	for(int index = optind; index < argc; index++)
 		if(training_file) {
@@ -140,15 +131,20 @@ float get_classification_error_rate(struct fann* ann, fann_train_data* data) {
 int main(int argc, char *argv[]) {
 	parseOptions(argc, argv);
 
+	words.readWordsFromFile();
+	fprintf(stderr, "vocabulary size is %ld\n", words.size());
+
 	if(FILE * file = fopen(training_file, "r")) {
-		long sz1 = getTrainingInputSize(file);
+		long a, b, c;
+		fscanf(file, "%ld %ld %ld", &a, &b, &c);
+		fprintf(stderr, "training header: %ld %ld %ld\n", a, b, c);
 		fclose(file);
-		long sz2 = num_input_words * getVocabularySize();
-		if(sz1 != sz2) {
+		long sz2 = num_input_words * words.size();
+		if(b != sz2) {
 			fprintf(stderr, "ERROR: training input size does not match vocabulary size!\n");
 			exit(1);
 		}
-		num_input = sz1;
+		num_input = b;
 	} else {
 		fprintf(stderr, "ERROR: training file does not exists");
 		usage();

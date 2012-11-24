@@ -4,7 +4,7 @@
 #include <vector>
 #include "words.hpp"
 
-#include <fann.h>
+#include <floatfann.h>
 
 using namespace std;
 
