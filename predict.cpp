@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <utility>
+#include <algorithm>
 #include <vector>
 #include "words.hpp"
 
