@@ -17,6 +17,11 @@ endif
 
 all: $(TARGETS)
 
+-include Makefile.deps
+
+Makefile.deps:
+	$(CXX) $(CXXFLAGS) $(FANN_CXXFLAGS) -MM *.[ch]pp > Makefile.deps
+
 train: CXXFLAGS += $(FANN_CXXFLAGS)
 train: LDLIBS   += $(FANN_LDLIBS)
 train: train.o words.o
