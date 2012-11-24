@@ -17,10 +17,14 @@ endif
 
 all: $(TARGETS)
 
--include Makefile.deps
+SRCS = $(shell ls -1 *.cpp)
+DEPS = $(SRCS:%.cpp=%.d)
+$(DEPS) : %.d : %.cpp
+	$(CXX) -MM $(CXXFLAGS) $(FANN_CXXFLAGS) $< -o $@
 
-Makefile.deps:
-	$(CXX) $(CXXFLAGS) $(FANN_CXXFLAGS) -MM *.[ch]pp > Makefile.deps
+ifneq ($(MAKECMDGOALS),clean)
+-include $(DEPS)
+endif
 
 train: CXXFLAGS += $(FANN_CXXFLAGS)
 train: LDLIBS   += $(FANN_LDLIBS)
@@ -43,3 +47,4 @@ tokenizer: tokenizer.o words.o
 clean:
 	rm -f *.o *~ $(TARGETS)
 	rm -rf *.dSYM
+	rm -f $(DEPS)
