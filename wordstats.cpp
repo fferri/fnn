@@ -6,11 +6,10 @@
 using namespace std;
 
 void usage() {
-	fprintf(stderr, ""
-			"usage: wordstats [options]\n"
-			"	-h  shows this message\n"
-			"\n"
-			);
+	cerr
+	<< "usage: wordstats [options]" << endl
+	<< "	-h  shows this message" << endl
+	<< endl;
 }
 
 void parseOptions(int argc, char *argv[]) {
@@ -23,11 +22,11 @@ void parseOptions(int argc, char *argv[]) {
 			break;
 		case '?':
 			if(optopt == 's')
-				fprintf(stderr, "option -%c requires an argument.\n\n", optopt);
+				cerr << "option -" << (char)optopt << " requires an argument." << endl << endl;
 			else if(isprint(optopt))
-				fprintf(stderr, "unknown option `-%c'.\n\n", optopt);
+				cerr << "unknown option `-" << (char)optopt << "'." << endl << endl;
 			else
-				fprintf(stderr, "unknown option character `\\x%x'.\n\n", optopt);
+				cerr << "unknown option character." << endl << endl;
 			usage();
 			exit(1);
 			break;

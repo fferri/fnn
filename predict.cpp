@@ -1,6 +1,8 @@
+#include <iostream>
 #include <cstdlib>
 #include <utility>
 #include <algorithm>
+#include <string>
 #include <vector>
 
 #include "words.hpp"
@@ -10,10 +12,11 @@
 
 using namespace std;
 
-char *argv_words[2];
+vector<string> argv_words;
 
-char *net_filename = NULL;
-char *words_filename = NULL;
+string net_filename;
+string words_filename;
+
 int max_results = 0;
 
 struct sort_score {
@@ -23,12 +26,11 @@ struct sort_score {
 };
 
 void usage() {
-	fprintf(stderr, ""
-			"usage: predict [options] <word1> <word2>\n"
-			"	-f <file>    use neural network model from file\n"
-			"	-n <num>     output at most <num> reults\n"
-			"\n"
-			);
+	cerr
+	<< "usage: predict [options] <word1> <word2> ..." << endl
+	<< "	-f <file>    use neural network model from file" << endl
+	<< "	-n <num>     output at most <num> reults" << endl
+	<< endl;
 }
 
 void parseOptions(int argc, char *argv[]) {
@@ -43,11 +45,11 @@ void parseOptions(int argc, char *argv[]) {
 			break;
 		case '?':
 			if(optopt == 'f')
-				fprintf(stderr, "option -%c requires a file argument.\n\n", optopt);
+				cerr << "option -%c requires a file argument." << endl << endl;
 			else if(isprint(optopt))
-				fprintf(stderr, "unknown option `-%c'.\n\n", optopt);
+				cerr << "unknown option `-%c'." << endl << endl;
 			else
-				fprintf(stderr, "unknown option character `\\x%x'.\n\n", optopt);
+				cerr << "unknown option character `\\x%x'." << endl << endl;
 			usage();
 			exit(1);
 			break;
@@ -55,26 +57,26 @@ void parseOptions(int argc, char *argv[]) {
 			abort();
 			break;
 		}
-	if(!net_filename) {
-		fprintf(stderr, "please specify the neural network model file with -f\n\n");
+	if(net_filename.empty()) {
+		cerr << "specify the neural network model file with -f" << endl << endl;
 		usage();
 		exit(1);
 	}
 	if(!fileExists(net_filename)) {
-		fprintf(stderr, "error: net file does not exist\n\n");
+		cerr << "error: net file does not exist" << endl << endl;
 		exit(1);
 	}
 	int wi = 0;
 	for(int index = optind; index < argc; index++, wi++) {
 		if(wi >= 2) {
-			fprintf(stderr, "please specify exactly 2 words\n\n");
+			cerr << "specify exactly 2 words" << endl << endl;
 			usage();
 			exit(1);
 		}
 		argv_words[wi] = argv[index];
 	}
 	if(wi < 1) {
-		fprintf(stderr, "please specify exactly 2 words\n\n");
+		cerr << "specify exactly 2 words" << endl << endl;
 		usage();
 		exit(1);
 	}
@@ -90,13 +92,14 @@ void setWord(fann_type* input_vec, size_t word_i, string word) {
 int main(int argc, char *argv[]) {
 	parseOptions(argc, argv);
 
+	words_filename = getWordsFilename(net_filename).c_str();
 	if(!fileExists(words_filename)) {
-		fprintf(stderr, "error: words filename (%s) does not exist\n\n", words_filename);
+		cerr << "error: words filename '" << words_filename << "' does not exist" << endl << endl;
 		exit(1);
 	}
 	words.readWordsFromFile(words_filename);
 
-	struct fann *ann = fann_create_from_file(net_filename);
+	struct fann *ann = fann_create_from_file(net_filename.c_str());
 
 	size_t numWords = words.size();
 	fann_type* out;
@@ -122,7 +125,7 @@ int main(int argc, char *argv[]) {
 
 	// output scores
 	for(size_t i = 0; i < score.size(); i++) {
-		fprintf(stdout, "%f %s\n", score[i].second, words.get(score[i].first).c_str());
+		cerr << score[i].second << " " << words.get(score[i].first).c_str() << endl;
 		if(max_results) if(!--max_results) break;
 	}
 

@@ -1,18 +1,22 @@
 #include <cstdlib>
+#include <iostream>
+#include <string>
+
 #include "words.hpp"
 
 #include <floatfann.h>
 
-char *test_file = NULL;
+using namespace std;
 
-char* net_filename = NULL;
+string test_filename;
+
+string net_filename;
 
 void usage() {
-	fprintf(stderr, ""
-			"usage: predict [options] <testFile.dat>\n"
-			"	-f <file>    use neural network model from file\n"
-			"\n"
-			);
+	cerr
+	<< "usage: predict [options] <testFile.dat>" << endl
+	<< "	-f <file>    use neural network model from file" << endl
+	<< endl;
 
 }
 void parseOptions(int argc, char *argv[]) {
@@ -24,11 +28,11 @@ void parseOptions(int argc, char *argv[]) {
 			break;
 		case '?':
 			if(optopt == 'f')
-				fprintf(stderr, "option -%c requires a file argument.\n\n", optopt);
+				cerr << "option -" << (char)optopt << " requires a file argument." << endl << endl;
 			else if(isprint(optopt))
-				fprintf(stderr, "unknown option `-%c'.\n\n", optopt);
+				cerr << "unknown option `-" << (char)optopt << "'." << endl << endl;
 			else
-				fprintf(stderr, "unknown option character `\\x%x'.\n\n", optopt);
+				cerr << "unknown option character." << endl << endl;
 			usage();
 			exit(1);
 			break;
@@ -36,21 +40,21 @@ void parseOptions(int argc, char *argv[]) {
 			abort();
 			break;
 		}
-	if(!net_filename) {
-		fprintf(stderr, "specify the neural network model file with -f\n\n");
+	if(net_filename.empty()) {
+		cerr << "specify the neural network model file with -f" << endl << endl;
 		usage();
 		exit(1);
 	}
 	for(int index = optind; index < argc; index++)
-		if(test_file) {
-			fprintf(stderr, "specify only one training file!\n\n");
+		if(!test_filename.empty()) {
+			cerr << "specify only one training file!" << endl << endl;
 			usage();
 			exit(1);
 		} else {
-			test_file = argv[index];
+			test_filename = argv[index];
 		}
-	if(!test_file) {
-		fprintf(stderr, "specify at least one training file!\n\n");
+	if(test_filename.empty()) {
+		cerr << "specify at least one training file!" << endl << endl;
 		usage();
 		exit(1);
 	}
@@ -59,10 +63,9 @@ void parseOptions(int argc, char *argv[]) {
 int main(int argc, char *argv[]) {
 	parseOptions(argc, argv);
 
-	struct fann *ann = fann_create_from_file(net_filename);
+	struct fann *ann = fann_create_from_file(net_filename.c_str());
 
-	//fann_type *input = (fann_type *)calloc(ann->num_input, sizeof(fann_type));
-	fann_train_data * data = fann_read_train_from_file(test_file);
+	fann_train_data * data = fann_read_train_from_file(test_filename.c_str());
 	fann_type* out;
 
 	size_t num_cases = 0, num_errors = 0;
@@ -72,9 +75,9 @@ int main(int argc, char *argv[]) {
 		if(out[0] * data->output[i][0] < 0) num_errors++;
 
 		float err = num_errors * 100.0 / (float)num_cases;
-		fprintf(stdout, "\rClassification error: %f%%       ", err);
+		cerr << "\rClassification error: " << err << "%%       ";
 	}
-	fprintf(stdout, "\n");
+	cerr << endl;
 
 
 	fann_destroy(ann);

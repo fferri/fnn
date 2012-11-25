@@ -16,16 +16,15 @@ long numTrainingSamples = 0;
 
 int ngramSize = 3;
 
-const char* words_filename = NULL;
+string words_filename;
 
 void usage() {
-	fprintf(stderr, ""
-			"usage: makedataset [options]\n"
-			"\n"
-			"	-n <num>    N-gram size\n"
-			"	-f <file>   wordlist filename\n"
-			"\n"
-			);
+	cerr
+	<< "usage: makedataset [options]" << endl
+	<< endl
+	<< "	-n <num>    N-gram size [default: " << ngramSize << "]" << endl
+	<< "	-f <file>   wordlist filename" << endl
+	<< endl;
 }
 
 void parseOptions(int argc, char *argv[]) {
@@ -40,11 +39,11 @@ void parseOptions(int argc, char *argv[]) {
         	break;
 		case '?':
 			if(optopt == 'n' || optopt == 'f')
-				fprintf(stderr, "option -%c requires an argument.\n\n", optopt);
+				cerr << "option -" << (char)optopt << " requires an argument." << endl << endl;
 			else if(isprint(optopt))
-				fprintf(stderr, "unknown option `-%c'.\n\n", optopt);
+				cerr << "unknown option `-" << (char)optopt << "'." << endl << endl;
 			else
-				fprintf(stderr, "unknown option character `\\x%x'.\n\n", optopt);
+				cerr << "unknown option character." << endl << endl;
 			usage();
 			exit(1);
 			break;
@@ -52,17 +51,17 @@ void parseOptions(int argc, char *argv[]) {
 			abort();
 			break;
 		}
-	if(!words_filename) {
-		fprintf(stderr, "specify the words filename\n\n");
+	if(words_filename.empty()) {
+		cerr << "specify the words filename." << endl << endl;
 		usage();
 		exit(1);
 	}
 	if(!fileExists(words_filename)) {
-		fprintf(stderr, "error: words filename does not exist\n\n");
+		cerr << "error: words filename does not exist." << endl << endl;
 		exit(1);
 	}
 	if(ngramSize < 3) {
-		fprintf(stderr, "error: invalid ngram size: %d\n\n", ngramSize);
+		cerr << "error: invalid ngram size: " << ngramSize << endl << endl;
 		usage();
 		exit(1);
 	}

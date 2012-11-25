@@ -1,5 +1,8 @@
 #include <cstdlib>
+#include <string>
 #include <sstream>
+#include <boost/format.hpp>
+
 #include <unistd.h>
 
 #include "words.hpp"
@@ -8,6 +11,7 @@
 #include <floatfann.h>
 
 using namespace std;
+using boost::format;
 
 unsigned int word_local_encoding_size = 724;
 unsigned int num_input_words = 3;
@@ -22,28 +26,32 @@ float desired_error = 0.001;
 unsigned int max_epochs = 10000;
 unsigned int epochs_between_reports = 1;
 
-char *training_file = NULL;
-char *validation_file = NULL;
+string training_filename;
+string validation_filename;
 
-const char *net_filename = NULL;
-const char *log_filename = NULL;
-const char *words_filename = NULL;
+string net_filename;
+string log_filename;
+string words_filename;
 
-#define fprintf_x2(fd1, fd2, fmt, ...) fprintf(fd1, fmt, ##__VA_ARGS__), fprintf(fd2, fmt, ##__VA_ARGS__)
+ofstream log_file;
+
+void log(string s) {
+	cerr << s;
+	if(log_file) log_file << s;
+}
 
 void usage() {
-	fprintf(stderr, ""
-			"usage: train [options] <trainingFile.dat>\n"
-			"\n"
-			"	-f <file>         save trained model to file\n"
-			"	-F <file>         check mse against validation file\n"
-			"	-d <err value>    desired error value (0..1) [default: %f]\n"
-			"	-e <num epochs>   set the number of max epochs [default: %d]\n"
-			"	-E <num epochs>   epochs between reports [default: %d]\n"
-			"	-h <num hid 1>    set number of units in 1st hidden layer [default: %d]\n"
-			"	-H <num hid 2>    set number of units in 2nd hidden layer [default: %d]\n"
-			"\n",
-			desired_error, max_epochs, epochs_between_reports, num_neurons_hidden_1, num_neurons_hidden_2);
+	cerr
+	<< "usage: train [options] <trainingFile.dat>" << endl
+	<< endl
+	<< "	-f <file>         save trained model to file" << endl
+	<< "	-F <file>         check mse against validation file" << endl
+	<< "	-d <err value>    desired error value (0..1) [default: " << desired_error << "]" << endl
+	<< "	-e <num epochs>   set the number of max epochs [default: " << max_epochs << "]" << endl
+	<< "	-E <num epochs>   epochs between reports [default: " << epochs_between_reports << "]" << endl
+	<< "	-h <num hid 1>    set number of units in 1st hidden layer [default: " << num_neurons_hidden_1 << "]" << endl
+	<< "	-H <num hid 2>    set number of units in 2nd hidden layer [default: " << num_neurons_hidden_2 << "]" << endl
+	<< endl;
 }
 
 void parseOptions(int argc, char *argv[]) {
@@ -66,22 +74,22 @@ void parseOptions(int argc, char *argv[]) {
 			net_filename = optarg;
 			break;
 		case 'F':
-			validation_file = optarg;
+			validation_filename = optarg;
 			break;
 		case 'd':
 			desired_error = atof(optarg);
 			break;
 		case '?':
 			if(optopt == 'e' || optopt == 'E' || optopt == 'h' || optopt == 'H')
-				fprintf(stderr, "option -%c requires an integer argument.\n\n", optopt);
+				cerr << "option -" << (char)optopt << " requires an integer argument." << endl << endl;
 			if(optopt == 'd')
-				fprintf(stderr, "option -%c requires a floating point argument.\n\n", optopt);
+				cerr << "option -" << (char)optopt << " requires a floating point argument." << endl << endl;
 			if(optopt == 'f' || optopt == 'F')
-				fprintf(stderr, "option -%c requires a file argument.\n\n", optopt);
+				cerr << "option -" << (char)optopt << " requires a file argument." << endl << endl;
 			else if(isprint(optopt))
-				fprintf(stderr, "unknown option `-%c'.\n\n", optopt);
+				cerr << "unknown option -" << (char)optopt << "." << endl << endl;
 			else
-				fprintf(stderr, "unknown option character `\\x%x'.\n\n", optopt);
+				cerr << "unknown option character." << endl << endl;
 			usage();
 			exit(1);
 			break;
@@ -89,31 +97,32 @@ void parseOptions(int argc, char *argv[]) {
 			abort();
 			break;
 		}
-	if(!net_filename) {
+	if(net_filename.empty()) {
 #ifndef DONT_AUTOGENERATE_MODEL_FILENAME
 		// try to generate a net file name automatically
-		fprintf(stderr, "no net file name (-f) specified. trying to generate on automatically...\n");
+		cerr << "no net file name (-f) specified. trying to generate on automatically..." << endl;
 		int i = 1;
 		while(true) {
 			net_filename = makeNetFilename(num_neurons_hidden_1, num_neurons_hidden_2, i++).c_str();
 			if(!fileExists(net_filename)) break;
 		}
+		cerr << "  will use '" << net_filename << "' as net filename" << endl;
 #else
-		fprintf(stderr, "please specify the neural network model file with -f\n\n");
+		cerr << "please specify the neural network model file with -f" << endl << endl;
 		usage();
 		exit(1);
 #endif
 	}
 	for(int index = optind; index < argc; index++)
-		if(training_file) {
-			fprintf(stderr, "specify only one training file!\n\n");
+		if(!training_filename.empty()) {
+			cerr << "specify only one training file." << endl << endl;
 			usage();
 			exit(1);
 		} else {
-			training_file = argv[index];
+			training_filename = argv[index];
 		}
-	if(!training_file) {
-		fprintf(stderr, "specify at least one training file!\n\n");
+	if(training_filename.empty()) {
+		cerr << "specify a training file." << endl << endl;
 		usage();
 		exit(1);
 	}
@@ -132,90 +141,92 @@ float get_classification_error_rate(struct fann* ann, fann_train_data* data) {
 int main(int argc, char *argv[]) {
 	parseOptions(argc, argv);
 
-	words_filename = getWordsFilename(net_filename).c_str();
+	words_filename = getWordsFilename(net_filename);
 	if(!fileExists(words_filename)) {
-		cerr << "error: " << words_filename << " does not exist" << endl;
+		cerr << "error: " << words_filename << " does not exist." << endl;
 		exit(1);
 	}
+	cerr << "reading wordlist from '" << words_filename << "'..." << endl;
 	words.readWordsFromFile(words_filename);
-	fprintf(stderr, "vocabulary size is %ld\n", words.size());
+	cerr << "  wordlist size is " << words.size() << endl;
 
-	if(FILE * file = fopen(training_file, "r")) {
+	ifstream training_file(training_filename.c_str());
+	if(training_file) {
 		long a, b, c;
-		fscanf(file, "%ld %ld %ld", &a, &b, &c);
-		fprintf(stderr, "training header: %ld %ld %ld\n", a, b, c);
-		fclose(file);
+		training_file >> a >> b >> c;
+		cerr << "training file header: " << a << " " << b << " " << c << endl;
+		training_file.close();
 		long sz2 = num_input_words * words.size();
 		if(b != sz2) {
-			fprintf(stderr, "ERROR: training input size does not match vocabulary size!\n");
+			cerr << "ERROR: training input size does not match vocabulary size." << endl;
 			exit(1);
 		}
 		num_input = b;
 	} else {
-		fprintf(stderr, "ERROR: training file does not exists");
+		cerr << "ERROR: training file does not exists." << endl;
 		usage();
 		exit(1);
 	}
 
 	struct fann *ann;
-	if(FILE * file = fopen(net_filename, "r")) {
-		fclose(file);
-		fprintf(stderr, "reading existing network file '%s'...\n", net_filename);
-		ann = fann_create_from_file(net_filename);
-		fprintf(stderr, "  input:   %d units\n", ann->num_input);
-		fprintf(stderr, "  output:  %d units\n", ann->num_output);
+	if(fileExists(net_filename)) {
+		cerr << "reading existing network file '" << net_filename << "'..." << endl;
+		ann = fann_create_from_file(net_filename.c_str());
+		cerr << "  input:   " << ann->num_input << " units" << endl;
+		cerr << "  output:  " << ann->num_output << " units" << endl;
 		if(ann->num_input != num_input) {
-			fprintf(stderr, "ERROR: network num_inputs does not match training data and/or vocabulary!\n");
+			cerr << "ERROR: network num_inputs does not match training data and/or vocabulary." << endl;
 			exit(1);
 		}
 	} else {
-		fprintf(stderr, "will create a new neural network model file '%s' with %d layers:\n"
-				"  input layer:      %d units\n"
-				"  hidden layer 1:   %d units\n"
-				"  hidden layer 2:   %d units\n"
-				"  output layer:     %d units\n",
-				net_filename, num_layers, num_input, num_neurons_hidden_1, num_neurons_hidden_2, num_output);
+		cerr << "will create a new neural network model file '" << net_filename << "' with " << num_layers << " layers:" << endl;
+		cerr << "  input layer:      " << num_input << " units" << endl;
+		cerr << "  hidden layer 1:   " << num_neurons_hidden_1 << "  units" << endl;
+		cerr << "  hidden layer 2:   " << num_neurons_hidden_2 << "  units" << endl;
+		cerr << "  output layer:     " << num_output << "  units" << endl;
 		ann = fann_create_standard(num_layers, num_input, num_neurons_hidden_1, num_neurons_hidden_2, num_output);
 	}
 
-	log_filename = getLogFilename(net_filename).c_str();
-	fprintf(stderr, "logging performance to %s\n", log_filename);
-	FILE *logfile = fopen(log_filename, "a");
+	log_filename = getLogFilename(net_filename);
+	cerr << "logging performance to " << log_filename << endl;
+	log_file.open(log_filename.c_str(), fstream::out | fstream::app);
 
-	fprintf_x2(stderr, logfile, "starting a new training session.\ncmdline arguments are:");
+	log("starting a new training session.\ncmdline arguments are:");
 	for(int i = 0; i < argc; i++)
-		fprintf_x2(stderr, logfile, " %s", argv[i]);
-	fprintf_x2(stderr, logfile, "\n");
-	fflush(logfile);
+		log(" "), log(argv[i]);
+	log("\n");
 
 	fann_set_activation_function_hidden(ann, FANN_SIGMOID_SYMMETRIC);
 	fann_set_activation_function_output(ann, FANN_SIGMOID_SYMMETRIC);
 
-	fann_train_data *train_data = fann_read_train_from_file(training_file);
+	fann_train_data *train_data = fann_read_train_from_file(training_filename.c_str());
 	fann_train_data *validation_data = NULL;
-	if(validation_file) validation_data = fann_read_train_from_file(validation_file);
+	if(!validation_filename.empty()) validation_data = fann_read_train_from_file(validation_filename.c_str());
 
 	for(long epoch = 0; epoch < max_epochs; epoch++) {
 		float pseudo_mse = fann_train_epoch(ann, train_data);
 
 		if(0 == (epoch % epochs_between_reports)) {
+			stringstream ss;
 			float cer = get_classification_error_rate(ann, train_data);
 			if(validation_data) {
 				fann_reset_MSE(ann);
 				fann_test_data(ann, validation_data);
 				float ve = fann_get_MSE(ann);
 				float ver = get_classification_error_rate(ann, validation_data);
-				fprintf_x2(stderr, logfile, "epoch: %ld, pseudoMSE: %f, validationMSE: %f, classification err: %f, validation err: %f\n", (1+epoch), pseudo_mse, ve, cer, ver);
-				fflush(logfile);
+				ss << "epoch: " << (epoch + 1) << ", pseudoMSE: " << pseudo_mse << ", validationMSE: " << ve << ", classification err: " << cer << ", validation err: " << ver << endl;
+				log(ss.str());
 			} else {
-				fprintf_x2(stderr, logfile, "epoch: %ld, pseudoMSE: %f, classification err: %f\n", (1+epoch), pseudo_mse, cer);
-				fflush(logfile);
+				ss << "epoch: " << (epoch + 1) << ", pseudoMSE: " << pseudo_mse << ", classification err: " << cer << endl;
+				log(ss.str());
 			}
 		}
-		fann_save(ann, net_filename);
+		fann_save(ann, net_filename.c_str());
 
 		if(pseudo_mse < desired_error) {
-			fprintf_x2(stderr, logfile, "epoch: %ld, reached desired error. terminating.\n", (1+epoch));
+			stringstream ss;
+			ss << "epoch: " << (epoch + 1) << ", reached desired error. terminating." << endl;
+			log(ss.str());
 			break;
 		}
 	}

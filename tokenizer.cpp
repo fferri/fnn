@@ -20,20 +20,19 @@ bool tolow = false;
 
 int treshold = 0;
 
-const char *stats_filename = NULL;
+string stats_filename;
 
 void usage() {
-	fprintf(stderr, ""
-			"usage: tokenizer [options]\n"
-			"\n"
-			"	-s <num>    skip <num> sentences at beginning\n"
-			"	-n <num>    take only <num> sentences\n"
-			"	-l          convert everything to lowercase\n"
-			"	-t <num>    minimum word count threshold for including sentence\n"
-			"	-f <file>   stats filename\n"
-			"	-h          shows this message\n"
-			"\n"
-			);
+	cerr
+	<< "usage: tokenizer [options]" << endl
+	<< endl
+	<< "	-s <num>    skip <num> sentences at beginning" << endl
+	<< "	-n <num>    take only <num> sentences" << endl
+	<< "	-l          convert everything to lowercase" << endl
+	<< "	-t <num>    minimum word count threshold for including sentence" << endl
+	<< "	-f <file>   stats filename" << endl
+	<< "	-h          shows this message" << endl
+	<< endl;
 }
 
 void parseOptions(int argc, char *argv[]) {
@@ -61,11 +60,11 @@ void parseOptions(int argc, char *argv[]) {
         	break;
 		case '?':
 			if(optopt == 's' || optopt == 'n' || optopt == 't')
-				fprintf(stderr, "option -%c requires an integer argument.\n\n", optopt);
+				cerr << "option -" << (char)optopt << " requires an integer argument." << endl << endl;
 			else if(isprint(optopt))
-				fprintf(stderr, "unknown option `-%c'.\n\n", optopt);
+				cerr << "unknown option `-" << (char)optopt << "'." << endl << endl;
 			else
-				fprintf(stderr, "unknown option character `\\x%x'.\n\n", optopt);
+				cerr << "unknown option character." << endl << endl;
 			usage();
 			exit(1);
 			break;
@@ -74,16 +73,16 @@ void parseOptions(int argc, char *argv[]) {
 			break;
 		}
 	if(treshold > 0) {
-		if(!stats_filename) {
-			fprintf(stderr, "specify the stats filename\n\n");
+		if(stats_filename.empty()) {
+			cerr << "specify the stats filename" << endl << endl;
 			usage();
 			exit(1);
 		} else if(!fileExists(stats_filename)) {
-			fprintf(stderr, "error: stats file does not exist\n\n");
+			cerr << "error: stats file does not exist" << endl << endl;
 			exit(1);
 		}
-	} else if(stats_filename) {
-		fprintf(stderr, "info: stats filename not needed without the -t option\n\n");
+	} else if(!stats_filename.empty()) {
+		cerr << "info: stats filename not needed without the -t option" << endl << endl;
 	}
 }
 

@@ -21,7 +21,7 @@ string makeNetFilename(int hid1, int hid2, int seq) {
 	return str(boost::format("wordpredict-h%1%-H%2%-%3$04d.net") % hid1 % hid2 % seq);
 }
 
-bool fileExists(const char *filename) {
-  std::ifstream ifile(filename);
+bool fileExists(string filename) {
+  std::ifstream ifile(filename.c_str());
   return ifile;
 }

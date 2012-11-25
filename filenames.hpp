@@ -11,6 +11,6 @@ string getWordsFilename(string net_file);
 
 string makeNetFilename(int hid1, int hid2, int seq);
 
-bool fileExists(const char *filename);
+bool fileExists(string filename);
 
 #endif /* FILENAMES_HPP_ */
