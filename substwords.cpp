@@ -1,4 +1,3 @@
-#include <iostream>
 #include <string>
 
 using namespace std;
@@ -26,12 +25,8 @@ bool isOrdinal(string& s) {
 	return false;
 }
 
-int main() {
-	string word;
-	while(cin.good()) {
-		getline(cin, word);
-		if(isOrdinal(word)) cout << "NUM_ORDINAL" << endl;
-		else if(isNumber(word)) cout << "NUM_CARDINAL" << endl;
-		else cout << word << endl;
-	}
+string performSubstitutions(string word) {
+	if(isOrdinal(word)) return "NUM_ORDINAL";
+	if(isNumber(word)) return "NUM_CARDINAL";
+	return word;
 }

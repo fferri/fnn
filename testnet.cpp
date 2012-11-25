@@ -5,7 +5,7 @@
 
 char *test_file = NULL;
 
-char* net_file = NULL;
+char* net_filename = NULL;
 
 void usage() {
 	fprintf(stderr, ""
@@ -20,7 +20,7 @@ void parseOptions(int argc, char *argv[]) {
 	while((c = getopt(argc, argv, "f:")) != -1)
 		switch(c) {
 		case 'f':
-			net_file = optarg;
+			net_filename = optarg;
 			break;
 		case '?':
 			if(optopt == 'f')
@@ -36,7 +36,7 @@ void parseOptions(int argc, char *argv[]) {
 			abort();
 			break;
 		}
-	if(!net_file) {
+	if(!net_filename) {
 		fprintf(stderr, "specify the neural network model file with -f\n\n");
 		usage();
 		exit(1);
@@ -59,7 +59,7 @@ void parseOptions(int argc, char *argv[]) {
 int main(int argc, char *argv[]) {
 	parseOptions(argc, argv);
 
-	struct fann *ann = fann_create_from_file(net_file);
+	struct fann *ann = fann_create_from_file(net_filename);
 
 	//fann_type *input = (fann_type *)calloc(ann->num_input, sizeof(fann_type));
 	fann_train_data * data = fann_read_train_from_file(test_file);

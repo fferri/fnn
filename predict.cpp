@@ -2,7 +2,9 @@
 #include <utility>
 #include <algorithm>
 #include <vector>
+
 #include "words.hpp"
+#include "filenames.hpp"
 
 #include <floatfann.h>
 
@@ -10,7 +12,8 @@ using namespace std;
 
 char *argv_words[2];
 
-char *net_file = NULL;
+char *net_filename = NULL;
+char *words_filename = NULL;
 int max_results = 0;
 
 struct sort_score {
@@ -33,7 +36,7 @@ void parseOptions(int argc, char *argv[]) {
 	while((c = getopt(argc, argv, "f:n:")) != -1)
 		switch(c) {
 		case 'f':
-			net_file = optarg;
+			net_filename = optarg;
 			break;
 		case 'n':
 			max_results = atoi(optarg);
@@ -52,9 +55,13 @@ void parseOptions(int argc, char *argv[]) {
 			abort();
 			break;
 		}
-	if(!net_file) {
+	if(!net_filename) {
 		fprintf(stderr, "please specify the neural network model file with -f\n\n");
 		usage();
+		exit(1);
+	}
+	if(!fileExists(net_filename)) {
+		fprintf(stderr, "error: net file does not exist\n\n");
 		exit(1);
 	}
 	int wi = 0;
@@ -83,9 +90,13 @@ void setWord(fann_type* input_vec, size_t word_i, string word) {
 int main(int argc, char *argv[]) {
 	parseOptions(argc, argv);
 
-	words.readWordsFromFile();
+	if(!fileExists(words_filename)) {
+		fprintf(stderr, "error: words filename (%s) does not exist\n\n", words_filename);
+		exit(1);
+	}
+	words.readWordsFromFile(words_filename);
 
-	struct fann *ann = fann_create_from_file(net_file);
+	struct fann *ann = fann_create_from_file(net_filename);
 
 	size_t numWords = words.size();
 	fann_type* out;

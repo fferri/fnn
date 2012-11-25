@@ -1,7 +1,9 @@
 #include <cstdlib>
 #include <sstream>
 #include <unistd.h>
+
 #include "words.hpp"
+#include "filenames.hpp"
 
 #include <floatfann.h>
 
@@ -23,7 +25,9 @@ unsigned int epochs_between_reports = 1;
 char *training_file = NULL;
 char *validation_file = NULL;
 
-char *net_file = NULL;
+const char *net_filename = NULL;
+const char *log_filename = NULL;
+const char *words_filename = NULL;
 
 #define fprintf_x2(fd1, fd2, fmt, ...) fprintf(fd1, fmt, ##__VA_ARGS__), fprintf(fd2, fmt, ##__VA_ARGS__)
 
@@ -59,7 +63,7 @@ void parseOptions(int argc, char *argv[]) {
 			num_neurons_hidden_2 = atoi(optarg);
 			break;
 		case 'f':
-			net_file = optarg;
+			net_filename = optarg;
 			break;
 		case 'F':
 			validation_file = optarg;
@@ -85,18 +89,15 @@ void parseOptions(int argc, char *argv[]) {
 			abort();
 			break;
 		}
-	if(!net_file) {
+	if(!net_filename) {
 #ifndef DONT_AUTOGENERATE_MODEL_FILENAME
 		// try to generate a net file name automatically
 		fprintf(stderr, "no net file name (-f) specified. trying to generate on automatically...\n");
-		net_file = (char *)calloc(250, sizeof(char));
 		int i = 1;
 		while(true) {
-			snprintf(net_file, 250, "wordpredict-h%d-H%d-%03d.net", num_neurons_hidden_1, num_neurons_hidden_2, i++);
-			if(FILE *f = fopen(net_file, "r")) fclose(f);
-			else break;
+			net_filename = makeNetFilename(num_neurons_hidden_1, num_neurons_hidden_2, i++).c_str();
+			if(!fileExists(net_filename)) break;
 		}
-
 #else
 		fprintf(stderr, "please specify the neural network model file with -f\n\n");
 		usage();
@@ -131,7 +132,12 @@ float get_classification_error_rate(struct fann* ann, fann_train_data* data) {
 int main(int argc, char *argv[]) {
 	parseOptions(argc, argv);
 
-	words.readWordsFromFile();
+	words_filename = getWordsFilename(net_filename).c_str();
+	if(!fileExists(words_filename)) {
+		cerr << "error: " << words_filename << " does not exist" << endl;
+		exit(1);
+	}
+	words.readWordsFromFile(words_filename);
 	fprintf(stderr, "vocabulary size is %ld\n", words.size());
 
 	if(FILE * file = fopen(training_file, "r")) {
@@ -152,10 +158,10 @@ int main(int argc, char *argv[]) {
 	}
 
 	struct fann *ann;
-	if(FILE * file = fopen(net_file, "r")) {
+	if(FILE * file = fopen(net_filename, "r")) {
 		fclose(file);
-		fprintf(stderr, "reading existing network file '%s'...\n", net_file);
-		ann = fann_create_from_file(net_file);
+		fprintf(stderr, "reading existing network file '%s'...\n", net_filename);
+		ann = fann_create_from_file(net_filename);
 		fprintf(stderr, "  input:   %d units\n", ann->num_input);
 		fprintf(stderr, "  output:  %d units\n", ann->num_output);
 		if(ann->num_input != num_input) {
@@ -168,14 +174,14 @@ int main(int argc, char *argv[]) {
 				"  hidden layer 1:   %d units\n"
 				"  hidden layer 2:   %d units\n"
 				"  output layer:     %d units\n",
-				net_file, num_layers, num_input, num_neurons_hidden_1, num_neurons_hidden_2, num_output);
+				net_filename, num_layers, num_input, num_neurons_hidden_1, num_neurons_hidden_2, num_output);
 		ann = fann_create_standard(num_layers, num_input, num_neurons_hidden_1, num_neurons_hidden_2, num_output);
 	}
 
-	string logfileName(net_file);
-	logfileName = logfileName.substr(0, logfileName.length() - 3) + "log";
-	fprintf(stderr, "logging performance to %s\n", logfileName.c_str());
-	FILE *logfile = fopen(logfileName.c_str(), "a");
+	log_filename = getLogFilename(net_filename).c_str();
+	fprintf(stderr, "logging performance to %s\n", log_filename);
+	FILE *logfile = fopen(log_filename, "a");
+
 	fprintf_x2(stderr, logfile, "starting a new training session.\ncmdline arguments are:");
 	for(int i = 0; i < argc; i++)
 		fprintf_x2(stderr, logfile, " %s", argv[i]);
@@ -206,7 +212,7 @@ int main(int argc, char *argv[]) {
 				fflush(logfile);
 			}
 		}
-		fann_save(ann, net_file);
+		fann_save(ann, net_filename);
 
 		if(pseudo_mse < desired_error) {
 			fprintf_x2(stderr, logfile, "epoch: %ld, reached desired error. terminating.\n", (1+epoch));

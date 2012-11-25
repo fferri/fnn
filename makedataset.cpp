@@ -5,15 +5,67 @@
 #include <cstring>
 #include <cctype>
 #include <cstdlib>
+#include <unistd.h>
+
 #include "words.hpp"
+#include "filenames.hpp"
 
 using namespace std;
 
 long numTrainingSamples = 0;
 
+int ngramSize = 3;
+
+const char* words_filename = NULL;
+
 void usage() {
-	cout << "makedataset -n <NGRAM_SIZE>" << endl;
-	exit(1);
+	fprintf(stderr, ""
+			"usage: makedataset [options]\n"
+			"\n"
+			"	-n <num>    N-gram size\n"
+			"	-f <file>   wordlist filename\n"
+			"\n"
+			);
+}
+
+void parseOptions(int argc, char *argv[]) {
+	int c;
+	while((c = getopt(argc, argv, "n:f:")) != -1)
+		switch(c) {
+		case 'n':
+			ngramSize = atoi(optarg);
+			break;
+        case 'f':
+        	words_filename = optarg;
+        	break;
+		case '?':
+			if(optopt == 'n' || optopt == 'f')
+				fprintf(stderr, "option -%c requires an argument.\n\n", optopt);
+			else if(isprint(optopt))
+				fprintf(stderr, "unknown option `-%c'.\n\n", optopt);
+			else
+				fprintf(stderr, "unknown option character `\\x%x'.\n\n", optopt);
+			usage();
+			exit(1);
+			break;
+		default:
+			abort();
+			break;
+		}
+	if(!words_filename) {
+		fprintf(stderr, "specify the words filename\n\n");
+		usage();
+		exit(1);
+	}
+	if(!fileExists(words_filename)) {
+		fprintf(stderr, "error: words filename does not exist\n\n");
+		exit(1);
+	}
+	if(ngramSize < 3) {
+		fprintf(stderr, "error: invalid ngram size: %d\n\n", ngramSize);
+		usage();
+		exit(1);
+	}
 }
 
 void makeRandomSentence(vector<string>& sentence, int len) {
@@ -38,11 +90,9 @@ void outputSentenceData(vector<string>& sent, int target, int ngramSize, int cou
 }
 
 int main(int argc, char **argv) {
-	if(argc != 3 || strcmp(argv[1], "-n")) usage();
-	int ngramSize = atoi(argv[2]);
-	if(ngramSize < 2) usage();
+	parseOptions(argc, argv);
 
-	words.readWordsFromFile();
+	words.readWordsFromFile(words_filename);
 
 	string word;
 
@@ -65,7 +115,7 @@ int main(int argc, char **argv) {
 				if(sentence.size() >= ngramSize) {
 					outputSentenceData(sentence, 1, ngramSize, count);
 					sentence.clear();
-					makeRandomSentence(sentence, 12);
+					makeRandomSentence(sentence, 32);
 					outputSentenceData(sentence, -1, ngramSize, count);
 					sentence.clear();
 				} else {

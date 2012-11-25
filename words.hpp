@@ -33,8 +33,8 @@ public:
 	void incrCount(string word);
 	inline size_t getWordCount(size_t id) {return counts[id];}
 
-	void readWordsFromFile(string filename = "commonWords.txt");
-	void readStatsFile(string filename = "stats.txt");
+	void readWordsFromFile(string filename);
+	void readStatsFile(string filename);
 
 	string get1ofNWordEncoding(size_t wordId);
 	size_t getWordIdFrom1ofNEncoding(string s);
