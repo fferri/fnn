@@ -1,5 +1,11 @@
-CXXFLAGS = -ggdb -O0 -std=c++0x -I/opt/local/include
+CXXFLAGS = -std=c++0x -I/opt/local/include
 FANN_CXXFLAGS = $(shell pkg-config --cflags fann)
+
+ifeq ($(DEBUG), 1)
+	CXXFLAGS += -ggdb -O0
+else
+	CXXFLAGS += -O3
+endif
 
 LDLIBS = -lstdc++
 FANN_LDLIBS = $(shell pkg-config --libs fann)

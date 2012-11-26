@@ -60,7 +60,44 @@
 \begin_body
 
 \begin_layout Title
-Word prediction with Neural Nets
+Word Prediction with Neural Nets
+\end_layout
+
+\begin_layout Author
+Roberto Capobianco, Federico Ferri
+ 
+\lang english
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+ Sapienza University of Rome
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+ MSE in Artificial Intelligence and Robotics
 \end_layout
 
 \begin_layout Abstract
