@@ -61,13 +61,14 @@
 
 \begin_layout Title
 Word Prediction with Neural Nets
+\begin_inset Newpage newpage
+\end_inset
+
+
 \end_layout
 
 \begin_layout Author
-Roberto Capobianco, Federico Ferri
- 
-\lang english
-
+Roberto Capobianco, Federico Ferri 
 \begin_inset ERT
 status open
 
@@ -467,11 +468,28 @@ l resources required by the training procedure.
 \end_layout
 
 \begin_layout Subsection
-N-gram model
+n-gram model
 \end_layout
 
 \begin_layout Standard
-*Negative examples generation
+The sequences of words which are provided as an input for the neural network
+ are modeled using a n-gram distribution.
+ In detail, words are modeled such that each n-gram is composed of n words.
+ Obviously, the only explicit dependency range is (n-1) tokens for an n-gram
+ model, and since natural languages incorporate many cases of unbounded
+ dependencies, this means that an n-gram model cannot in principle distinguish
+ unbounded dependencies from noise.
+ In our experiments, we mainly used trigrams that have been generated from
+ the dataset obtained with the procedure described in the previous section.
+ During this sequencing activity, we also pre processed strings in order
+ to remove strange characters, to collapse subsequent whitespaces to a single
+ space and reducing punctuation.
+ Finally, we applied the 1-of-N encoding to each n-gram, thus obtaining
+ a (N*n) input vector, which also determined the size of the network.
+\end_layout
+
+\begin_layout Subsection
+Negative examples generation
 \end_layout
 
 \begin_layout Section
