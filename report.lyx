@@ -367,7 +367,7 @@ Dataset
 One of the most challenging problems of this project was that of choosing
  a suitable dataset in order to obtain a good prediction.
  The size of the dataset used for the training and validation procedure,
- in fact, is a highly influencing aspect of this work.
+ in fact, is a highly influencing aspect of the work.
 \end_layout
 
 \begin_layout Subsection
@@ -420,10 +420,13 @@ l resources required by the training procedure.
  In order to achieve the objective of reducing the dictionary size, mantaining
  a various dataset, we produced a statistics file containing a number for
  each word corresponding to the times that it appeared in the text.
- Basing on these statistics file a new dictionary containing only the words
- appearing more times than an assigned treshold has been produced.
- In this way, all the phrases in the raw dataset containing words not present
- in the dictionary itself have not been considered in the final dataset.
+ Through the use of these statistics, a new dictionary containing only the
+ words appearing more times than an assigned treshold has been produced.
+ In this way, all the phrases in the raw dataset containing words which
+ were not in the final dictionary have been no more considered in the final
+ dataset.
+ As a main result of this procedure, we obtained a big reduction of the
+ input vector.
 \end_layout
 
 \begin_layout Subsection
