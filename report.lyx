@@ -67,6 +67,13 @@ Word prediction with Neural Nets
 Abstract goes here
 \end_layout
 
+\begin_layout Abstract
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section*
 Table of contents
 \end_layout
@@ -80,7 +87,14 @@ LatexCommand tableofcontents
 
 \end_layout
 
-\begin_layout Section*
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Introduction
 \end_layout
 
@@ -104,11 +118,11 @@ This means speech recognizers have to know which words are likely to come
  Fortunately, words can be predicted quite well without full understanding.
 \end_layout
 
-\begin_layout Section*
+\begin_layout Section
 Literature survey
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsection
 Standard Trigram method
 \end_layout
 
@@ -118,7 +132,7 @@ Standard trigram method consists of taking a huge amount of text and counting
  Then using those frequencies to make bets on the relative probabilities
  of words, given the two previous words.
  Then we can compute the relative probability that the third word will be
- c (given first two words a, b), versus the thir that would be d, is given
+ c (given first two words a, b), versus the third that would be d, is given
  by the ratios of the counts:
 \end_layout
 
@@ -169,7 +183,7 @@ the dog got flattened in the yard on monday
  never seen- sequences.
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsection
 Yoshua Bengio's Neural Probabilistic Model
 \end_layout
 
@@ -186,10 +200,21 @@ Using a feature representation also allows a context that contains many
 \end_layout
 
 \begin_layout Standard
+\begin_inset VSpace 1cm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Graphics
 	filename fig/bengio1.eps
 	width 11cm
 
+\end_inset
+
+
+\begin_inset VSpace 1cm
 \end_inset
 
 
@@ -202,7 +227,7 @@ The problem with this architecture is that in the output, we have a very
  very high number of hidden units.
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsection
 A Serial Architecture
 \end_layout
 
@@ -211,10 +236,24 @@ One way to avoid is to slightly modify the structure as follows:
 \end_layout
 
 \begin_layout Standard
+\begin_inset VSpace 1cm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Graphics
 	filename fig/bengio2.eps
 	width 11cm
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace 1cm
 \end_inset
 
 
@@ -244,8 +283,17 @@ After computing the logit score for each candidate word, use all of the
  logits in a softmax to get word probabilities
 \end_layout
 
-\begin_layout Part*
+\begin_layout Section
 Neural network design
+\end_layout
+
+\begin_layout Subsection
+Network Architecture
+\end_layout
+
+\begin_layout Standard
+For solving the problem, a feedforward artificial neural network has been
+ used.
 \end_layout
 
 \begin_layout Standard
@@ -277,7 +325,7 @@ The output layer it is just one unit, and represent the logit of that word
 \end_layout
 
 \begin_layout Standard
-In the predictin task, the output is computed for every candidate word,
+In the prediction task, the output is computed for every candidate word,
  and all the logits are transformed according to a softmax activation function:
 \begin_inset Formula 
 \[
@@ -296,6 +344,19 @@ so that we get a probability distribution of all the candidate words.
 \begin_layout Standard
 The cost function that has been used is the standard Mean Square Error function
  of FANN.
+\end_layout
+
+\begin_layout Subsection
+Training Algorithm
+\end_layout
+
+\begin_layout Standard
+The training algorithm that has been used is RPROP (short for resilient
+ backpropagation), which is a learning heuristic for supervised learning
+ in feedforward artificial neural networks.
+ Next to the cascade correlation algorithm and the Levenberg–Marquardt algorithm
+, RPROP is one of the fastest weight update mechanisms.
+ RPROP is a batch update algorithm.
 \end_layout
 
 \begin_layout Section
@@ -373,47 +434,150 @@ N-gram model
 *Negative examples generation
 \end_layout
 
-\begin_layout Section*
-Neural network structure
+\begin_layout Section
+Training & Regularization
 \end_layout
 
 \begin_layout Standard
-repeat blah blah about structure
+Training has been performed over the training dataset, which consists of
+ roughly 60% of the whole corpus.
+ Validation set, consisting of 20% of the corpus, has been used all time
+ during the training to be tested for classifaction error, to prevent overfittin
+g.
+ This technique is called early stopping.
 \end_layout
 
-\begin_layout Subsection*
-Local & distributed encoding of words
-\end_layout
-
-\begin_layout Standard
-The network is 
-\end_layout
-
-\begin_layout Section*
-Training Algorithm
-\end_layout
-
-\begin_layout Standard
-blah!
-\end_layout
-
-\begin_layout Section*
-Test Procedure
-\end_layout
-
-\begin_layout Subsection*
-Bias and variance issues
-\end_layout
-
-\begin_layout Standard
-blah blah overfitting
-\end_layout
-
-\begin_layout Section*
+\begin_layout Section
 Results
 \end_layout
 
-\begin_layout Part*
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename fig/plot-h100-H120-MSE.eps
+	width 12cm
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+Plot of MSE for training with 100 hidden units and 120 hidden units, for
+ 40 epochs.
+ Blue track: training error, Green track: validation error.
+ Early stopping at 17th epoch.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+Plot of MSE for training with 200 hidden units and 60 hidden units, for
+ 20 epochs.
+ Blue track: training error, Green track: validation error.
+ Early stopping at 17th epoch.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename fig/plot-h200-H60-MSE.eps
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+Plot of MSE for training with 1000 hidden units and 600 hidden units, for
+ 14 epochs.
+ Blue track: training error, Green track: validation error.
+ Early stopping at 10th epoch.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename fig/plot-h1000-H600-MSE.eps
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Conclusions and Further Work
 \end_layout
 
