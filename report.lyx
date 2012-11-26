@@ -138,9 +138,10 @@ Introduction
 
 \begin_layout Standard
 Word prediction is a basic problem in speech recognition.
- It is not possible to perfectly identify phonemes in noisy speech; the
- acoustic input is often ambiguous: there are several different words that
- fit the acoustic signal equally well (wreck a nice beach; recognize speech).
+ It is not possible to perfectly identify phonemes in noisy speech because
+ the acoustic input is often ambiguous: there are several different words
+ that fit the acoustic signal equally well (wreck a nice beach; recognize
+ speech).
 \end_layout
 
 \begin_layout Standard
@@ -154,6 +155,8 @@ People use their understanding of the meaning of the utterance to hear the
 This means speech recognizers have to know which words are likely to come
  next and which are not.
  Fortunately, words can be predicted quite well without full understanding.
+ The purpose of this project is, therefore, that of implementing a model
+ of a neural network which performs this activity.
 \end_layout
 
 \begin_layout Section
@@ -165,8 +168,8 @@ Standard Trigram method
 \end_layout
 
 \begin_layout Standard
-Standard trigram method consists of taking a huge amount of text and counting
- the frequencies of all triples of words.
+The standard trigram method consists of taking a huge amount of text and
+ counting the frequencies of all triples of words.
  Then using those frequencies to make bets on the relative probabilities
  of words, given the two previous words.
  Then we can compute the relative probability that the third word will be
@@ -226,8 +229,8 @@ Yoshua Bengio's Neural Probabilistic Model
 \end_layout
 
 \begin_layout Standard
-To overcome this limitation, what we need to do is convert words into a
- vector of semantic and syntactic features, and use the features of the
+To overcome these limitations, what we need to do is to convert words into
+ a vector of semantic and syntactic features, and use the features of the
  previous words to predict the next word.
 \end_layout
 
@@ -259,8 +262,8 @@ Using a feature representation also allows a context that contains many
 \end_layout
 
 \begin_layout Standard
-The problem with this architecture is that in the output, we have a very
- high (i.e.
+The main problem with this architecture is that, in the output, we have
+ a very high (i.e.
  100000) number of outgoing connections, but we cannot afford to have a
  very high number of hidden units.
 \end_layout
@@ -270,7 +273,7 @@ A Serial Architecture
 \end_layout
 
 \begin_layout Standard
-One way to avoid is to slightly modify the structure as follows:
+One way to avoid the problem is to slightly modify the structure as follows:
 \end_layout
 
 \begin_layout Standard
@@ -298,9 +301,9 @@ One way to avoid is to slightly modify the structure as follows:
 \end_layout
 
 \begin_layout Standard
-where we put in the input layers, not only the previous words, but also
- the candidate next word, and what we output is a score for how good is
- that word in that context.
+In this architecture we put in the input layers, not only the previous words,
+ but also the candidate next word, and what we output is a score for how
+ good is that word in that context.
 \end_layout
 
 \begin_layout Standard
@@ -317,8 +320,8 @@ This allows the learned feature vector representation to be used for the
 \end_layout
 
 \begin_layout Standard
-After computing the logit score for each candidate word, use all of the
- logits in a softmax to get word probabilities
+After computing the logit score for each candidate word, we use all of the
+ logits in a softmax to get word probabilities.
 \end_layout
 
 \begin_layout Section
@@ -330,8 +333,8 @@ Network Architecture
 \end_layout
 
 \begin_layout Standard
-For solving the problem, a feedforward artificial neural network has been
- used.
+In order to solve the problem, a feedforward artificial neural network has
+ been used.
 \end_layout
 
 \begin_layout Standard
@@ -340,7 +343,7 @@ The network is composed by an input layer, whose size is N times the number
 \end_layout
 
 \begin_layout Standard
-All units are logistic units with a sigmoid activation function 
+All the units are logistic units with a sigmoid activation function 
 \begin_inset Formula $\frac{1}{1+e^{-kx}}$
 \end_inset
 
@@ -348,18 +351,17 @@ All units are logistic units with a sigmoid activation function
 \end_layout
 
 \begin_layout Standard
-The output layer it is just one unit, and represent the logit of that word
+The output layer it is just one unit, and represents the logit of that word
  N-gram.
- High output (
+ A high output (
 \begin_inset Formula $\thickapprox1$
 \end_inset
 
-) means a N-gram is very likely.
- Low output (
+) means that a N-gram is very likely, while a low output (
 \begin_inset Formula $\thickapprox-1$
 \end_inset
 
-) means a N-gram is very unlikely.
+) means that a N-gram is very unlikely.
 \end_layout
 
 \begin_layout Standard
@@ -376,12 +378,20 @@ f(x_{i})=\frac{e^{x_{i}}}{\sum_{j}e^{x_{j}}}
 \end_layout
 
 \begin_layout Standard
-so that we get a probability distribution of all the candidate words.
+In this way, we get a probability distribution of all the candidate words.
 \end_layout
 
 \begin_layout Standard
-The cost function that has been used is the standard Mean Square Error function
- of FANN.
+As a detail of the implementation of this project, the cost function that
+ has been used is the standard Mean Square Error function of the FANN library.
+\end_layout
+
+\begin_layout Subsection
+FANN Library
+\end_layout
+
+\begin_layout Standard
+some notion about FANN
 \end_layout
 
 \begin_layout Subsection
@@ -389,12 +399,14 @@ Training Algorithm
 \end_layout
 
 \begin_layout Standard
-The training algorithm that has been used is RPROP (short for resilient
- backpropagation), which is a learning heuristic for supervised learning
- in feedforward artificial neural networks.
- Next to the cascade correlation algorithm and the Levenberg–Marquardt algorithm
-, RPROP is one of the fastest weight update mechanisms.
- RPROP is a batch update algorithm.
+The training algorithm that has been used in the project is RPROP (short
+ for resilient backpropagation), which is a learning heuristic for supervised
+ learning in feedforward artificial neural networks.
+ We have chosen to use this algorithm because, next to the cascade correlation
+ algorithm and the Levenberg–Marquardt algorithm, RPROP is one of the fastest
+ weight update mechanisms.
+ Furthermore, RPROP is a batch update algorithm, thus being more suitable
+ for this kind of problems having big datasets.
 \end_layout
 
 \begin_layout Section
@@ -403,7 +415,7 @@ Dataset
 
 \begin_layout Standard
 One of the most challenging problems of this project was that of choosing
- a suitable dataset in order to obtain a good prediction.
+ a suitable dataset in order to obtain a good word prediction.
  The size of the dataset used for the training and validation procedure,
  in fact, is a highly influencing aspect of the work.
 \end_layout
