@@ -452,51 +452,44 @@ Results
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
+We found optimal meta-parameters for the network by performing model validation,
+ against a separate validation dataset.
+ The meta-parameters that have been looked for are only the size of the
+ network (the number of units in the two hidden layers).
+\end_layout
 
-\begin_layout Plain Layout
-\begin_inset Caption
+\begin_layout Standard
+The model that scored better over the validation set, had 200 + 60 hidden
+ units, and achieved 6.77% error on the validation set, and 7.71% error on
+ the test set.
+\end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
+Bigger models have been trained, but not proven useful.
+ In fact they need more time to train, and do overfit the data more easily.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Graphics
 	filename fig/plot-h100-H120-MSE.eps
-	width 12cm
+	width 11cm
 
 \end_inset
 
 
-\begin_inset Box Frameless
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
+\end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 Plot of MSE for training with 100 hidden units and 120 hidden units, for
  40 epochs.
  Blue track: training error, Green track: validation error.
  Early stopping at 17th epoch.
 \end_layout
 
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
+\begin_layout Standard
+\begin_inset Graphics
+	filename fig/plot-h200-H60-MSE.eps
+	width 11cm
 
 \end_inset
 
@@ -504,34 +497,16 @@ Plot of MSE for training with 100 hidden units and 120 hidden units, for
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
 Plot of MSE for training with 200 hidden units and 60 hidden units, for
  20 epochs.
  Blue track: training error, Green track: validation error.
  Early stopping at 17th epoch.
 \end_layout
 
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
+\begin_layout Standard
 \begin_inset Graphics
-	filename fig/plot-h200-H60-MSE.eps
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
+	filename fig/plot-h1000-H600-MSE.eps
+	width 11cm
 
 \end_inset
 
@@ -539,42 +514,10 @@ Plot of MSE for training with 200 hidden units and 60 hidden units, for
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
 Plot of MSE for training with 1000 hidden units and 600 hidden units, for
  14 epochs.
  Blue track: training error, Green track: validation error.
  Early stopping at 10th epoch.
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename fig/plot-h1000-H600-MSE.eps
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Section
