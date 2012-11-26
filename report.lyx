@@ -407,6 +407,81 @@ The training algorithm that has been used in the project is RPROP (short
  weight update mechanisms.
  Furthermore, RPROP is a batch update algorithm, thus being more suitable
  for this kind of problems having big datasets.
+ In detail, RPROP takes into account only the sign of the partial derivative
+ over all patterns (not the magnitude), and acts independently on each "weight".
+ For each weight w
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+i
+\end_layout
+
+\end_inset
+
+, if there was a sign change of the partial derivative (
+\begin_inset Formula $\frac{\partial E(t)}{\partial w^{i}}$
+\end_inset
+
+) of the total error function compared to the last iteration, the update
+ value 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\Delta^{i}(t)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ for that weight is multiplied by a factor 
+\begin_inset Formula $\eta^{-}$
+\end_inset
+
+, where 
+\begin_inset Formula $\eta^{-}<1$
+\end_inset
+
+.
+ If the last iteration t produced the same sign, the update value is multiplied
+ by a factor of 
+\begin_inset Formula $\eta^{+}$
+\end_inset
+
+, where 
+\begin_inset Formula $\eta^{+}>1$
+\end_inset
+
+.
+ Finally the weights are update as follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+w^{i}(t+1)=w^{i}(t)-sign(\frac{\partial E(t)}{\partial w^{i}})*\Delta^{i}(t)
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
