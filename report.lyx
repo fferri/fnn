@@ -528,8 +528,23 @@ Conclusions and Further Work
 blah blah about possible RNN
 \end_layout
 
-\begin_layout Part*
-References
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintAll"
+bibfiles "REFERENCES"
+options "bibtotoc,plain"
+
+\end_inset
+
+
 \end_layout
 
 \end_body
