@@ -298,7 +298,7 @@ The cost function that has been used is the standard Mean Square Error function
  of FANN.
 \end_layout
 
-\begin_layout Section*
+\begin_layout Section
 Dataset
 \end_layout
 
@@ -306,16 +306,10 @@ Dataset
 One of the most challenging problems of this project was that of choosing
  a suitable dataset in order to obtain a good prediction.
  The size of the dataset used for the training and validation procedure,
- in fact, is a highly influencing aspect of this work: in detail, even if
- a big dataset would lead to better learning results, due to the distributed
- encoding which has been used in this implementation, the training procedure
- would require a lot of time and computational resources.
- Moreover, the team had to deal with a trade-off between the need for a
- big dataset and the need for a small dictionary in order to reduce the
- network size and the input vector
+ in fact, is a highly influencing aspect of this work.
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsection
 Dataset source
 \end_layout
 
@@ -331,19 +325,48 @@ Project Gutenberg
 \end_inset
 
 .
- In detail, we produced two different datasets, splitting each of them 
+ In detail, we produced two different datasets, which have been split in
+ three parts, respectively devoted to the training, the validation and the
+ test procedures.
+\end_layout
+
+\begin_layout Subsection
+Dataset encoding and dictionary size
 \end_layout
 
 \begin_layout Standard
-*dictionary dictionary size
+Due to the structure of the network which has been chosen for the implementation
+ of this project, with one unit for each possible nominal value of the input
+ words, there was the need of representing each of them using an input vector.
+ In detail, the vector has been produced using a 1-of-N encoding, with one
+ bit for each possible word in the dictionary.
+ In this way, during the training procedure, only one of the units is active
+ and all the others are off.
+ 
 \end_layout
 
 \begin_layout Standard
-& encoding 1ofN
+Therefore, the first step of our pre processing work has been that of producing
+ a dictionary containing all the words appearing in the dataset.
+ However, taking into account also the words appearing few times in the
+ dataset led to very big input vectors, increasing the time and the computationa
+l resources required by the training procedure.
+ Even if we don't know if the words having a low presence in the text would
+ have a positive or negative influence in the learning phase, the team decided
+ for a trade-off between the dictionary (and consequently the inputs) size,
+ the need for a quite big and various dataset and the low computational
+ capabilities available.
+ In order to achieve the objective of reducing the dictionary size, mantaining
+ a various dataset, we produced a statistics file containing a number for
+ each word corresponding to the times that it appeared in the text.
+ Basing on these statistics file a new dictionary containing only the words
+ appearing more times than an assigned treshold has been produced.
+ In this way, all the phrases in the raw dataset containing words not present
+ in the dictionary itself have not been considered in the final dataset.
 \end_layout
 
-\begin_layout Standard
-*N-gram model
+\begin_layout Subsection
+N-gram model
 \end_layout
 
 \begin_layout Standard
