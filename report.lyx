@@ -85,11 +85,31 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-blah +++
+Word prediction is a basic problem in speech recognition.
+ It is not possible to perfectly identify phonemes in noisy speech; the
+ acoustic input is often ambiguous: there are several different words that
+ fit the acoustic signal equally well (wreck a nice beach; recognize speech).
+\end_layout
+
+\begin_layout Standard
+People use their understanding of the meaning of the utterance to hear the
+ right words.
+ This is mostly done unconsciously, and the human brain is very good at
+ it.
+\end_layout
+
+\begin_layout Standard
+This means speech recognizers have to know which words are likely to come
+ next and which are not.
+ Fortunately, words can be predicted quite well without full understanding.
 \end_layout
 
 \begin_layout Section*
 Literature survey
+\end_layout
+
+\begin_layout Subsection*
+Standard Trigram method
 \end_layout
 
 \begin_layout Standard
@@ -149,6 +169,10 @@ the dog got flattened in the yard on monday
  never seen- sequences.
 \end_layout
 
+\begin_layout Subsection*
+Yoshua Bengio's Neural Probabilistic Model
+\end_layout
+
 \begin_layout Standard
 To overcome this limitation, what we need to do is convert words into a
  vector of semantic and syntactic features, and use the features of the
@@ -162,13 +186,24 @@ Using a feature representation also allows a context that contains many
 \end_layout
 
 \begin_layout Standard
-<<inserire diagramma 4-4 @4:35 Bengio's>>
+\begin_inset Graphics
+	filename fig/bengio1.eps
+	width 11cm
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 The problem with this architecture is that in the output, we have a very
  high (i.e.
- 100000) number of outgoing connections.
+ 100000) number of outgoing connections, but we cannot afford to have a
+ very high number of hidden units.
+\end_layout
+
+\begin_layout Subsection*
+A Serial Architecture
 \end_layout
 
 \begin_layout Standard
@@ -176,7 +211,13 @@ One way to avoid is to slightly modify the structure as follows:
 \end_layout
 
 \begin_layout Standard
-<<inserire diagramma 4-5 @1:10>>
+\begin_inset Graphics
+	filename fig/bengio2.eps
+	width 11cm
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -207,6 +248,56 @@ After computing the logit score for each candidate word, use all of the
 Neural network design
 \end_layout
 
+\begin_layout Standard
+The network is composed by an input layer, whose size is N times the number
+ of words in the dictionary; two hidden layers; and an output layer.
+\end_layout
+
+\begin_layout Standard
+All units are logistic units with a sigmoid activation function 
+\begin_inset Formula $\frac{1}{1+e^{-kx}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The output layer it is just one unit, and represent the logit of that word
+ N-gram.
+ High output (
+\begin_inset Formula $\thickapprox1$
+\end_inset
+
+) means a N-gram is very likely.
+ Low output (
+\begin_inset Formula $\thickapprox-1$
+\end_inset
+
+) means a N-gram is very unlikely.
+\end_layout
+
+\begin_layout Standard
+In the predictin task, the output is computed for every candidate word,
+ and all the logits are transformed according to a softmax activation function:
+\begin_inset Formula 
+\[
+f(x_{i})=\frac{e^{x_{i}}}{\sum_{j}e^{x_{j}}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+so that we get a probability distribution of all the candidate words.
+\end_layout
+
+\begin_layout Standard
+The cost function that has been used is the standard Mean Square Error function
+ of FANN.
+\end_layout
+
 \begin_layout Section*
 Pre & Post Processing
 \end_layout
@@ -221,6 +312,14 @@ Neural network structure
 
 \begin_layout Standard
 repeat blah blah about structure
+\end_layout
+
+\begin_layout Subsection*
+Local & distributed encoding of words
+\end_layout
+
+\begin_layout Standard
+The network is 
 \end_layout
 
 \begin_layout Section*
