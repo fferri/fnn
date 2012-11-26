@@ -75,7 +75,7 @@ int main(int argc, char *argv[]) {
 		if(out[0] * data->output[i][0] < 0) num_errors++;
 
 		float err = num_errors * 100.0 / (float)num_cases;
-		cerr << "\rClassification error: " << err << "%%       ";
+		cerr << "\rClassification error: " << err << "%       ";
 	}
 	cerr << endl;
 

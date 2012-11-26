@@ -114,7 +114,7 @@ int main(int argc, char **argv) {
 				if(sentence.size() >= ngramSize) {
 					outputSentenceData(sentence, 1, ngramSize, count);
 					sentence.clear();
-					makeRandomSentence(sentence, 32);
+					makeRandomSentence(sentence, 256);
 					outputSentenceData(sentence, -1, ngramSize, count);
 					sentence.clear();
 				} else {

@@ -73,7 +73,7 @@ void parseOptions(int argc, char *argv[]) {
 			usage();
 			exit(1);
 		}
-		argv_words[wi] = argv[index];
+		argv_words.push_back(argv[index]);
 	}
 	if(wi < 1) {
 		cerr << "specify exactly 2 words" << endl << endl;
@@ -98,6 +98,12 @@ int main(int argc, char *argv[]) {
 		exit(1);
 	}
 	words.readWordsFromFile(words_filename);
+
+	for(int i = 0; i < argv_words.size(); i++)
+		if(!words.contains(argv_words[i])) {
+			cerr << "error: word " << argv_words[i] << " not in wordlist" << endl;
+			exit(1);
+		}
 
 	struct fann *ann = fann_create_from_file(net_filename.c_str());
 

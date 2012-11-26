@@ -37,7 +37,10 @@ ofstream log_file;
 
 void log(string s) {
 	cerr << s;
-	if(log_file) log_file << s;
+	if(log_file) {
+		log_file << s;
+		log_file.flush();
+	}
 }
 
 void usage() {
@@ -221,7 +224,12 @@ int main(int argc, char *argv[]) {
 				log(ss.str());
 			}
 		}
+
+		{string cmd = "mv \"" + net_filename + "\" \"" + net_filename + ".old\""; system(cmd.c_str());}
+
 		fann_save(ann, net_filename.c_str());
+
+		{string cmd = "rm \"" + net_filename + ".old\""; system(cmd.c_str());}
 
 		if(pseudo_mse < desired_error) {
 			stringstream ss;

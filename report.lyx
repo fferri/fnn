@@ -60,7 +60,7 @@
 \begin_body
 
 \begin_layout Title
-Title
+Word prediction with Neural Nets
 \end_layout
 
 \begin_layout Abstract
@@ -72,7 +72,12 @@ Table of contents
 \end_layout
 
 \begin_layout Standard
-blah
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section*
@@ -198,15 +203,59 @@ After computing the logit score for each candidate word, use all of the
  logits in a softmax to get word probabilities
 \end_layout
 
+\begin_layout Part*
+Neural network design
+\end_layout
+
 \begin_layout Section*
+Pre & Post Processing
+\end_layout
+
+\begin_layout Standard
+blah blah about dataset
+\end_layout
+
+\begin_layout Section*
+Neural network structure
+\end_layout
+
+\begin_layout Standard
+repeat blah blah about structure
+\end_layout
+
+\begin_layout Section*
+Training Algorithm
+\end_layout
+
+\begin_layout Standard
+blah!
+\end_layout
+
+\begin_layout Section*
+Test Procedure
+\end_layout
+
+\begin_layout Subsection*
+Bias and variance issues
+\end_layout
+
+\begin_layout Standard
+blah blah overfitting
+\end_layout
+
+\begin_layout Section*
+Results
+\end_layout
+
+\begin_layout Part*
 Conclusions and Further Work
 \end_layout
 
 \begin_layout Standard
-blah
+blah blah about possible RNN
 \end_layout
 
-\begin_layout Section*
+\begin_layout Part*
 References
 \end_layout
 
