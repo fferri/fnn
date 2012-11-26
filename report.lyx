@@ -329,6 +329,60 @@ Neural network design
 \end_layout
 
 \begin_layout Subsection
+FANN Library
+\end_layout
+
+\begin_layout Standard
+The implementation of this project has been realized through the use of
+ the Fast Artificial Neural Network (FANN) Library, which is a free open
+ source neural network library.
+ It implements multilayer artificial neural networks and it is realized
+ in the C programming language, also including the support for both fully
+ connected and sparsely connected networks.
+ This library includes a framework for the easy handling of training datasets,
+ easy saving and loading of entire Artificial Neural Networks.
+ The team decided to use FANN library, among many other libraries, for several
+ reasons: it is fast, easy to implement, open-source (allowing us to alter
+ it if we needed to) and it is written in C (having no problems for the
+ integration with the C++ programming language).
+ Furthermore, FANN implements a structure where the connections are the
+ central structure, consisting of three levels:
+\end_layout
+
+\begin_layout Enumerate
+fann: the ANN with references to the connection layers.
+ 
+\end_layout
+
+\begin_layout Enumerate
+fann_connection_layer: the connection layers with references to the connections.
+ 
+\end_layout
+
+\begin_layout Enumerate
+fann_connection: the connections with a weight and two pointers to the two
+ connected neurons.
+\end_layout
+
+\begin_layout Standard
+The main advantage of this structure is that one simple loop can run through
+ all the connections between two layers.
+ If these connections are allocated in one long array, the array can be
+ processed completely sequentially.
+ This architecture is shown in the following scheme:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename fig/fann.eps
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
 Network Architecture
 \end_layout
 
@@ -384,14 +438,6 @@ In this way, we get a probability distribution of all the candidate words.
 \begin_layout Standard
 As a detail of the implementation of this project, the cost function that
  has been used is the standard Mean Square Error function of the FANN library.
-\end_layout
-
-\begin_layout Subsection
-FANN Library
-\end_layout
-
-\begin_layout Standard
-some notion about FANN
 \end_layout
 
 \begin_layout Subsection
