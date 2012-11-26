@@ -299,11 +299,55 @@ The cost function that has been used is the standard Mean Square Error function
 \end_layout
 
 \begin_layout Section*
-Pre & Post Processing
+Dataset
 \end_layout
 
 \begin_layout Standard
-blah blah about dataset this is a trial
+One of the most challenging problems of this project was that of choosing
+ a suitable dataset in order to obtain a good prediction.
+ The size of the dataset used for the training and validation procedure,
+ in fact, is a highly influencing aspect of this work: in detail, even if
+ a big dataset would lead to better learning results, due to the distributed
+ encoding which has been used in this implementation, the training procedure
+ would require a lot of time and computational resources.
+ Moreover, the team had to deal with a trade-off between the need for a
+ big dataset and the need for a small dictionary in order to reduce the
+ network size and the input vector
+\end_layout
+
+\begin_layout Subsection*
+Dataset source
+\end_layout
+
+\begin_layout Standard
+In order to obtain and produce a good quantity of text, suitable for the
+ neural network training, validation and test, the team downloaded and pre
+ processed many free e-books provided by the 
+\begin_inset Quotes eld
+\end_inset
+
+Project Gutenberg
+\begin_inset Quotes erd
+\end_inset
+
+.
+ In detail, we produced two different datasets, splitting each of them 
+\end_layout
+
+\begin_layout Standard
+*dictionary dictionary size
+\end_layout
+
+\begin_layout Standard
+& encoding 1ofN
+\end_layout
+
+\begin_layout Standard
+*N-gram model
+\end_layout
+
+\begin_layout Standard
+*Negative examples generation
 \end_layout
 
 \begin_layout Section*
