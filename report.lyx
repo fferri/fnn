@@ -579,17 +579,35 @@ The sequences of words which are provided as an input for the neural network
 Negative examples generation
 \end_layout
 
+\begin_layout Standard
+In order to provide a good dataset as an input for the neural network, we
+ also had to introduce negative classification examples.
+ These inputs, consisting of meaningless trigrams having a -1 score, have
+ been generated through a random composition of words from the dictionary.
+ Though not fully guaranteeing the generation of meaningless examples, this
+ approach has been useful in order to automatically obtain the desired 
+\begin_inset Quotes eld
+\end_inset
+
+wrong
+\begin_inset Quotes erd
+\end_inset
+
+ data from the same dictionary of the meaningful trigrams, also achieving
+ some kind of robustness to noise.
+\end_layout
+
 \begin_layout Section
 Training & Regularization
 \end_layout
 
 \begin_layout Standard
-Training has been performed over the training dataset, which consists of
- roughly 60% of the whole corpus.
- Validation set, consisting of 20% of the corpus, has been used all time
- during the training to be tested for classifaction error, to prevent overfittin
-g.
- This technique is called early stopping.
+As already stated, the training activity has been performed over the training
+ dataset, which roughly represents the 60% of the whole corpus.
+ Furthermore, the validation set, consisting of 20% of the corpus, has been
+ used during the whole training time in order to test the classification
+ error and to prevent the overfitting problem, according to a technique
+ which is called early stopping.
 \end_layout
 
 \begin_layout Section
@@ -597,16 +615,16 @@ Results
 \end_layout
 
 \begin_layout Standard
-We found optimal meta-parameters for the network by performing model validation,
- against a separate validation dataset.
- The meta-parameters that have been looked for are only the size of the
- network (the number of units in the two hidden layers).
+We found the optimal meta-parameters for the network by performing the model
+ validation, against a separate validation dataset.
+ The meta-parameters that we have been looking for regard only the size
+ of the network (the number of units in the two hidden layers).
 \end_layout
 
 \begin_layout Standard
-The model that scored better over the validation set, had 200 + 60 hidden
- units, and achieved 6.77% error on the validation set, and 7.71% error on
- the test set.
+In our experiments, the model that scored better over the validation set,
+ had 200 + 60 hidden units, and achieved 6.77% error on the validation set,
+ and 7.71% error on the test set.
 \end_layout
 
 \begin_layout Standard
