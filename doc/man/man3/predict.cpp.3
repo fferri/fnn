@@ -1,0 +1,97 @@
+.TH "predict.cpp" 3 "26 Nov 2012" "Word Prediction" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+predict.cpp \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <iostream>\fP
+.br
+\fC#include <cstdlib>\fP
+.br
+\fC#include <utility>\fP
+.br
+\fC#include <algorithm>\fP
+.br
+\fC#include <string>\fP
+.br
+\fC#include <vector>\fP
+.br
+\fC#include 'words.hpp'\fP
+.br
+\fC#include 'filenames.hpp'\fP
+.br
+\fC#include <floatfann.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBsort_score\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBusage\fP ()"
+.br
+.ti -1c
+.RI "void \fBparseOptions\fP (int argc, char *argv[])"
+.br
+.ti -1c
+.RI "void \fBsetWord\fP (fann_type *input_vec, size_t word_i, string word)"
+.br
+.ti -1c
+.RI "int \fBmain\fP (int argc, char *argv[])"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "vector< string > \fBargv_words\fP"
+.br
+.ti -1c
+.RI "string \fBnet_filename\fP"
+.br
+.ti -1c
+.RI "string \fBwords_filename\fP"
+.br
+.ti -1c
+.RI "int \fBmax_results\fP = 0"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "int main (int argc, char * argv[])"
+.PP
+Definition at line 92 of file predict.cpp.
+.SS "void parseOptions (int argc, char * argv[])"
+.PP
+Definition at line 36 of file predict.cpp.
+.SS "void setWord (fann_type * input_vec, size_t word_i, string word)"
+.PP
+Definition at line 85 of file predict.cpp.
+.SS "void usage ()"
+.PP
+Definition at line 28 of file predict.cpp.
+.SH "Variable Documentation"
+.PP 
+.SS "vector<string> \fBargv_words\fP"
+.PP
+Definition at line 15 of file predict.cpp.
+.SS "int \fBmax_results\fP = 0"
+.PP
+Definition at line 20 of file predict.cpp.
+.SS "string \fBnet_filename\fP"
+.PP
+Definition at line 17 of file predict.cpp.
+.SS "string \fBwords_filename\fP"
+.PP
+Definition at line 18 of file predict.cpp.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Word Prediction from the source code.

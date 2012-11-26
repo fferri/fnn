@@ -1,0 +1,125 @@
+\hypertarget{predict_8cpp}{
+\section{predict.cpp File Reference}
+\label{predict_8cpp}\index{predict.cpp@{predict.cpp}}
+}
+{\ttfamily \#include $<$iostream$>$}\par
+{\ttfamily \#include $<$cstdlib$>$}\par
+{\ttfamily \#include $<$utility$>$}\par
+{\ttfamily \#include $<$algorithm$>$}\par
+{\ttfamily \#include $<$string$>$}\par
+{\ttfamily \#include $<$vector$>$}\par
+{\ttfamily \#include \char`\"{}words.hpp\char`\"{}}\par
+{\ttfamily \#include \char`\"{}filenames.hpp\char`\"{}}\par
+{\ttfamily \#include $<$floatfann.h$>$}\par
+Include dependency graph for predict.cpp:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=293pt]{predict_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structsort__score}{sort\_\-score}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{predict_8cpp_a2ef30c42cbc289d899a8be5d2d8f77d0}{usage} ()
+\item 
+void \hyperlink{predict_8cpp_a0325d02535e8d07d6cb2b4145e41eb55}{parseOptions} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{predict_8cpp_a037a0890d1d542fe019578d3c0564ab4}{setWord} (fann\_\-type $\ast$input\_\-vec, size\_\-t word\_\-i, string word)
+\item 
+int \hyperlink{predict_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+vector$<$ string $>$ \hyperlink{predict_8cpp_aaa359e034f339ee90abfa5df4f65c137}{argv\_\-words}
+\item 
+string \hyperlink{predict_8cpp_a0198838a9460b4581b63e91d6b864bc3}{net\_\-filename}
+\item 
+string \hyperlink{predict_8cpp_ad0706b4a2122ff236851daf6ce28757a}{words\_\-filename}
+\item 
+int \hyperlink{predict_8cpp_a41dad6aa07e542ce92b8c7d088927911}{max\_\-results} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{predict_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{
+\index{predict.cpp@{predict.cpp}!main@{main}}
+\index{main@{main}!predict.cpp@{predict.cpp}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (int {\em argc}, \/  char $\ast$ {\em argv}\mbox{[}$\,$\mbox{]})}}
+\label{predict_8cpp_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+Definition at line 92 of file predict.cpp.
+
+\hypertarget{predict_8cpp_a0325d02535e8d07d6cb2b4145e41eb55}{
+\index{predict.cpp@{predict.cpp}!parseOptions@{parseOptions}}
+\index{parseOptions@{parseOptions}!predict.cpp@{predict.cpp}}
+\subsubsection[{parseOptions}]{\setlength{\rightskip}{0pt plus 5cm}void parseOptions (int {\em argc}, \/  char $\ast$ {\em argv}\mbox{[}$\,$\mbox{]})}}
+\label{predict_8cpp_a0325d02535e8d07d6cb2b4145e41eb55}
+
+
+Definition at line 36 of file predict.cpp.
+
+\hypertarget{predict_8cpp_a037a0890d1d542fe019578d3c0564ab4}{
+\index{predict.cpp@{predict.cpp}!setWord@{setWord}}
+\index{setWord@{setWord}!predict.cpp@{predict.cpp}}
+\subsubsection[{setWord}]{\setlength{\rightskip}{0pt plus 5cm}void setWord (fann\_\-type $\ast$ {\em input\_\-vec}, \/  size\_\-t {\em word\_\-i}, \/  string {\em word})}}
+\label{predict_8cpp_a037a0890d1d542fe019578d3c0564ab4}
+
+
+Definition at line 85 of file predict.cpp.
+
+\hypertarget{predict_8cpp_a2ef30c42cbc289d899a8be5d2d8f77d0}{
+\index{predict.cpp@{predict.cpp}!usage@{usage}}
+\index{usage@{usage}!predict.cpp@{predict.cpp}}
+\subsubsection[{usage}]{\setlength{\rightskip}{0pt plus 5cm}void usage ()}}
+\label{predict_8cpp_a2ef30c42cbc289d899a8be5d2d8f77d0}
+
+
+Definition at line 28 of file predict.cpp.
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{predict_8cpp_aaa359e034f339ee90abfa5df4f65c137}{
+\index{predict.cpp@{predict.cpp}!argv\_\-words@{argv\_\-words}}
+\index{argv\_\-words@{argv\_\-words}!predict.cpp@{predict.cpp}}
+\subsubsection[{argv\_\-words}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$string$>$ {\bf argv\_\-words}}}
+\label{predict_8cpp_aaa359e034f339ee90abfa5df4f65c137}
+
+
+Definition at line 15 of file predict.cpp.
+
+\hypertarget{predict_8cpp_a41dad6aa07e542ce92b8c7d088927911}{
+\index{predict.cpp@{predict.cpp}!max\_\-results@{max\_\-results}}
+\index{max\_\-results@{max\_\-results}!predict.cpp@{predict.cpp}}
+\subsubsection[{max\_\-results}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf max\_\-results} = 0}}
+\label{predict_8cpp_a41dad6aa07e542ce92b8c7d088927911}
+
+
+Definition at line 20 of file predict.cpp.
+
+\hypertarget{predict_8cpp_a0198838a9460b4581b63e91d6b864bc3}{
+\index{predict.cpp@{predict.cpp}!net\_\-filename@{net\_\-filename}}
+\index{net\_\-filename@{net\_\-filename}!predict.cpp@{predict.cpp}}
+\subsubsection[{net\_\-filename}]{\setlength{\rightskip}{0pt plus 5cm}string {\bf net\_\-filename}}}
+\label{predict_8cpp_a0198838a9460b4581b63e91d6b864bc3}
+
+
+Definition at line 17 of file predict.cpp.
+
+\hypertarget{predict_8cpp_ad0706b4a2122ff236851daf6ce28757a}{
+\index{predict.cpp@{predict.cpp}!words\_\-filename@{words\_\-filename}}
+\index{words\_\-filename@{words\_\-filename}!predict.cpp@{predict.cpp}}
+\subsubsection[{words\_\-filename}]{\setlength{\rightskip}{0pt plus 5cm}string {\bf words\_\-filename}}}
+\label{predict_8cpp_ad0706b4a2122ff236851daf6ce28757a}
+
+
+Definition at line 18 of file predict.cpp.
+

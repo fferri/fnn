@@ -1,0 +1,262 @@
+\hypertarget{train_8cpp}{
+\section{train.cpp File Reference}
+\label{train_8cpp}\index{train.cpp@{train.cpp}}
+}
+{\ttfamily \#include $<$cstdlib$>$}\par
+{\ttfamily \#include $<$sstream$>$}\par
+{\ttfamily \#include $<$string$>$}\par
+{\ttfamily \#include $<$boost/format.hpp$>$}\par
+{\ttfamily \#include $<$unistd.h$>$}\par
+{\ttfamily \#include \char`\"{}words.hpp\char`\"{}}\par
+{\ttfamily \#include \char`\"{}filenames.hpp\char`\"{}}\par
+{\ttfamily \#include $<$floatfann.h$>$}\par
+Include dependency graph for train.cpp:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{train_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{train_8cpp_a1063abcc378c651a34ca0940c0a43645}{log} (string s)
+\item 
+void \hyperlink{train_8cpp_a2ef30c42cbc289d899a8be5d2d8f77d0}{usage} ()
+\item 
+void \hyperlink{train_8cpp_a0325d02535e8d07d6cb2b4145e41eb55}{parseOptions} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\item 
+float \hyperlink{train_8cpp_adc31fac8eb24f19498dab872c974b7a0}{get\_\-classification\_\-error\_\-rate} (struct fann $\ast$ann, fann\_\-train\_\-data $\ast$data)
+\item 
+int \hyperlink{train_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \hyperlink{train_8cpp_aedcff84f4dfd48b49a57a5252384c16c}{word\_\-local\_\-encoding\_\-size} = 724
+\item 
+unsigned int \hyperlink{train_8cpp_ae3e27727556c3cb585a68aaea169b2e2}{num\_\-input\_\-words} = 3
+\item 
+unsigned int \hyperlink{train_8cpp_a3ce5c4d8f867efce12f960e3275b0d1f}{num\_\-layers} = 4
+\item 
+unsigned int \hyperlink{train_8cpp_ac3550a2f70842a7cc82b298046f8dc8a}{num\_\-input} = \hyperlink{train_8cpp_aedcff84f4dfd48b49a57a5252384c16c}{word\_\-local\_\-encoding\_\-size} $\ast$ \hyperlink{train_8cpp_ae3e27727556c3cb585a68aaea169b2e2}{num\_\-input\_\-words}
+\item 
+unsigned int \hyperlink{train_8cpp_aa0d24e0c8a86246696dd174c3d2c9da0}{num\_\-neurons\_\-hidden\_\-1} = 500 $\ast$ \hyperlink{train_8cpp_ae3e27727556c3cb585a68aaea169b2e2}{num\_\-input\_\-words}
+\item 
+unsigned int \hyperlink{train_8cpp_a97ac87202be7cc53d750f623fb468757}{num\_\-neurons\_\-hidden\_\-2} = 700
+\item 
+unsigned int \hyperlink{train_8cpp_ae9c0749c170ed297771c94f797bc232f}{num\_\-output} = 1
+\item 
+float \hyperlink{train_8cpp_a9357a07f78d68a4da59bae97a95430d7}{desired\_\-error} = 0.001
+\item 
+unsigned int \hyperlink{train_8cpp_a609730ea8e84858f4cfcdfc8efca20dd}{max\_\-epochs} = 10000
+\item 
+unsigned int \hyperlink{train_8cpp_ace886b699dd09aff1017b1b39c3564dc}{epochs\_\-between\_\-reports} = 1
+\item 
+string \hyperlink{train_8cpp_aaa89fe3757a9b93589821ecc6bdb4c54}{training\_\-filename}
+\item 
+string \hyperlink{train_8cpp_acdf0caffeea83bee0567d421fa344deb}{validation\_\-filename}
+\item 
+string \hyperlink{train_8cpp_a0198838a9460b4581b63e91d6b864bc3}{net\_\-filename}
+\item 
+string \hyperlink{train_8cpp_ab6a9cd9620478f19898b22a78cadc2ec}{log\_\-filename}
+\item 
+string \hyperlink{train_8cpp_ad0706b4a2122ff236851daf6ce28757a}{words\_\-filename}
+\item 
+ofstream \hyperlink{train_8cpp_a20081073a33c5b86963cd17d7fcea463}{log\_\-file}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{train_8cpp_adc31fac8eb24f19498dab872c974b7a0}{
+\index{train.cpp@{train.cpp}!get\_\-classification\_\-error\_\-rate@{get\_\-classification\_\-error\_\-rate}}
+\index{get\_\-classification\_\-error\_\-rate@{get\_\-classification\_\-error\_\-rate}!train.cpp@{train.cpp}}
+\subsubsection[{get\_\-classification\_\-error\_\-rate}]{\setlength{\rightskip}{0pt plus 5cm}float get\_\-classification\_\-error\_\-rate (struct fann $\ast$ {\em ann}, \/  fann\_\-train\_\-data $\ast$ {\em data})}}
+\label{train_8cpp_adc31fac8eb24f19498dab872c974b7a0}
+
+
+Definition at line 134 of file train.cpp.
+
+\hypertarget{train_8cpp_a1063abcc378c651a34ca0940c0a43645}{
+\index{train.cpp@{train.cpp}!log@{log}}
+\index{log@{log}!train.cpp@{train.cpp}}
+\subsubsection[{log}]{\setlength{\rightskip}{0pt plus 5cm}void log (string {\em s})}}
+\label{train_8cpp_a1063abcc378c651a34ca0940c0a43645}
+
+
+Definition at line 38 of file train.cpp.
+
+\hypertarget{train_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{
+\index{train.cpp@{train.cpp}!main@{main}}
+\index{main@{main}!train.cpp@{train.cpp}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (int {\em argc}, \/  char $\ast$ {\em argv}\mbox{[}$\,$\mbox{]})}}
+\label{train_8cpp_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+Definition at line 144 of file train.cpp.
+
+\hypertarget{train_8cpp_a0325d02535e8d07d6cb2b4145e41eb55}{
+\index{train.cpp@{train.cpp}!parseOptions@{parseOptions}}
+\index{parseOptions@{parseOptions}!train.cpp@{train.cpp}}
+\subsubsection[{parseOptions}]{\setlength{\rightskip}{0pt plus 5cm}void parseOptions (int {\em argc}, \/  char $\ast$ {\em argv}\mbox{[}$\,$\mbox{]})}}
+\label{train_8cpp_a0325d02535e8d07d6cb2b4145e41eb55}
+
+
+Definition at line 60 of file train.cpp.
+
+\hypertarget{train_8cpp_a2ef30c42cbc289d899a8be5d2d8f77d0}{
+\index{train.cpp@{train.cpp}!usage@{usage}}
+\index{usage@{usage}!train.cpp@{train.cpp}}
+\subsubsection[{usage}]{\setlength{\rightskip}{0pt plus 5cm}void usage ()}}
+\label{train_8cpp_a2ef30c42cbc289d899a8be5d2d8f77d0}
+
+
+Definition at line 46 of file train.cpp.
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{train_8cpp_a9357a07f78d68a4da59bae97a95430d7}{
+\index{train.cpp@{train.cpp}!desired\_\-error@{desired\_\-error}}
+\index{desired\_\-error@{desired\_\-error}!train.cpp@{train.cpp}}
+\subsubsection[{desired\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}float {\bf desired\_\-error} = 0.001}}
+\label{train_8cpp_a9357a07f78d68a4da59bae97a95430d7}
+
+
+Definition at line 25 of file train.cpp.
+
+\hypertarget{train_8cpp_ace886b699dd09aff1017b1b39c3564dc}{
+\index{train.cpp@{train.cpp}!epochs\_\-between\_\-reports@{epochs\_\-between\_\-reports}}
+\index{epochs\_\-between\_\-reports@{epochs\_\-between\_\-reports}!train.cpp@{train.cpp}}
+\subsubsection[{epochs\_\-between\_\-reports}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf epochs\_\-between\_\-reports} = 1}}
+\label{train_8cpp_ace886b699dd09aff1017b1b39c3564dc}
+
+
+Definition at line 27 of file train.cpp.
+
+\hypertarget{train_8cpp_a20081073a33c5b86963cd17d7fcea463}{
+\index{train.cpp@{train.cpp}!log\_\-file@{log\_\-file}}
+\index{log\_\-file@{log\_\-file}!train.cpp@{train.cpp}}
+\subsubsection[{log\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}ofstream {\bf log\_\-file}}}
+\label{train_8cpp_a20081073a33c5b86963cd17d7fcea463}
+
+
+Definition at line 36 of file train.cpp.
+
+\hypertarget{train_8cpp_ab6a9cd9620478f19898b22a78cadc2ec}{
+\index{train.cpp@{train.cpp}!log\_\-filename@{log\_\-filename}}
+\index{log\_\-filename@{log\_\-filename}!train.cpp@{train.cpp}}
+\subsubsection[{log\_\-filename}]{\setlength{\rightskip}{0pt plus 5cm}string {\bf log\_\-filename}}}
+\label{train_8cpp_ab6a9cd9620478f19898b22a78cadc2ec}
+
+
+Definition at line 33 of file train.cpp.
+
+\hypertarget{train_8cpp_a609730ea8e84858f4cfcdfc8efca20dd}{
+\index{train.cpp@{train.cpp}!max\_\-epochs@{max\_\-epochs}}
+\index{max\_\-epochs@{max\_\-epochs}!train.cpp@{train.cpp}}
+\subsubsection[{max\_\-epochs}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf max\_\-epochs} = 10000}}
+\label{train_8cpp_a609730ea8e84858f4cfcdfc8efca20dd}
+
+
+Definition at line 26 of file train.cpp.
+
+\hypertarget{train_8cpp_a0198838a9460b4581b63e91d6b864bc3}{
+\index{train.cpp@{train.cpp}!net\_\-filename@{net\_\-filename}}
+\index{net\_\-filename@{net\_\-filename}!train.cpp@{train.cpp}}
+\subsubsection[{net\_\-filename}]{\setlength{\rightskip}{0pt plus 5cm}string {\bf net\_\-filename}}}
+\label{train_8cpp_a0198838a9460b4581b63e91d6b864bc3}
+
+
+Definition at line 32 of file train.cpp.
+
+\hypertarget{train_8cpp_ac3550a2f70842a7cc82b298046f8dc8a}{
+\index{train.cpp@{train.cpp}!num\_\-input@{num\_\-input}}
+\index{num\_\-input@{num\_\-input}!train.cpp@{train.cpp}}
+\subsubsection[{num\_\-input}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf num\_\-input} = {\bf word\_\-local\_\-encoding\_\-size} $\ast$ {\bf num\_\-input\_\-words}}}
+\label{train_8cpp_ac3550a2f70842a7cc82b298046f8dc8a}
+
+
+Definition at line 20 of file train.cpp.
+
+\hypertarget{train_8cpp_ae3e27727556c3cb585a68aaea169b2e2}{
+\index{train.cpp@{train.cpp}!num\_\-input\_\-words@{num\_\-input\_\-words}}
+\index{num\_\-input\_\-words@{num\_\-input\_\-words}!train.cpp@{train.cpp}}
+\subsubsection[{num\_\-input\_\-words}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf num\_\-input\_\-words} = 3}}
+\label{train_8cpp_ae3e27727556c3cb585a68aaea169b2e2}
+
+
+Definition at line 17 of file train.cpp.
+
+\hypertarget{train_8cpp_a3ce5c4d8f867efce12f960e3275b0d1f}{
+\index{train.cpp@{train.cpp}!num\_\-layers@{num\_\-layers}}
+\index{num\_\-layers@{num\_\-layers}!train.cpp@{train.cpp}}
+\subsubsection[{num\_\-layers}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf num\_\-layers} = 4}}
+\label{train_8cpp_a3ce5c4d8f867efce12f960e3275b0d1f}
+
+
+Definition at line 19 of file train.cpp.
+
+\hypertarget{train_8cpp_aa0d24e0c8a86246696dd174c3d2c9da0}{
+\index{train.cpp@{train.cpp}!num\_\-neurons\_\-hidden\_\-1@{num\_\-neurons\_\-hidden\_\-1}}
+\index{num\_\-neurons\_\-hidden\_\-1@{num\_\-neurons\_\-hidden\_\-1}!train.cpp@{train.cpp}}
+\subsubsection[{num\_\-neurons\_\-hidden\_\-1}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf num\_\-neurons\_\-hidden\_\-1} = 500 $\ast$ {\bf num\_\-input\_\-words}}}
+\label{train_8cpp_aa0d24e0c8a86246696dd174c3d2c9da0}
+
+
+Definition at line 21 of file train.cpp.
+
+\hypertarget{train_8cpp_a97ac87202be7cc53d750f623fb468757}{
+\index{train.cpp@{train.cpp}!num\_\-neurons\_\-hidden\_\-2@{num\_\-neurons\_\-hidden\_\-2}}
+\index{num\_\-neurons\_\-hidden\_\-2@{num\_\-neurons\_\-hidden\_\-2}!train.cpp@{train.cpp}}
+\subsubsection[{num\_\-neurons\_\-hidden\_\-2}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf num\_\-neurons\_\-hidden\_\-2} = 700}}
+\label{train_8cpp_a97ac87202be7cc53d750f623fb468757}
+
+
+Definition at line 22 of file train.cpp.
+
+\hypertarget{train_8cpp_ae9c0749c170ed297771c94f797bc232f}{
+\index{train.cpp@{train.cpp}!num\_\-output@{num\_\-output}}
+\index{num\_\-output@{num\_\-output}!train.cpp@{train.cpp}}
+\subsubsection[{num\_\-output}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf num\_\-output} = 1}}
+\label{train_8cpp_ae9c0749c170ed297771c94f797bc232f}
+
+
+Definition at line 23 of file train.cpp.
+
+\hypertarget{train_8cpp_aaa89fe3757a9b93589821ecc6bdb4c54}{
+\index{train.cpp@{train.cpp}!training\_\-filename@{training\_\-filename}}
+\index{training\_\-filename@{training\_\-filename}!train.cpp@{train.cpp}}
+\subsubsection[{training\_\-filename}]{\setlength{\rightskip}{0pt plus 5cm}string {\bf training\_\-filename}}}
+\label{train_8cpp_aaa89fe3757a9b93589821ecc6bdb4c54}
+
+
+Definition at line 29 of file train.cpp.
+
+\hypertarget{train_8cpp_acdf0caffeea83bee0567d421fa344deb}{
+\index{train.cpp@{train.cpp}!validation\_\-filename@{validation\_\-filename}}
+\index{validation\_\-filename@{validation\_\-filename}!train.cpp@{train.cpp}}
+\subsubsection[{validation\_\-filename}]{\setlength{\rightskip}{0pt plus 5cm}string {\bf validation\_\-filename}}}
+\label{train_8cpp_acdf0caffeea83bee0567d421fa344deb}
+
+
+Definition at line 30 of file train.cpp.
+
+\hypertarget{train_8cpp_aedcff84f4dfd48b49a57a5252384c16c}{
+\index{train.cpp@{train.cpp}!word\_\-local\_\-encoding\_\-size@{word\_\-local\_\-encoding\_\-size}}
+\index{word\_\-local\_\-encoding\_\-size@{word\_\-local\_\-encoding\_\-size}!train.cpp@{train.cpp}}
+\subsubsection[{word\_\-local\_\-encoding\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf word\_\-local\_\-encoding\_\-size} = 724}}
+\label{train_8cpp_aedcff84f4dfd48b49a57a5252384c16c}
+
+
+Definition at line 16 of file train.cpp.
+
+\hypertarget{train_8cpp_ad0706b4a2122ff236851daf6ce28757a}{
+\index{train.cpp@{train.cpp}!words\_\-filename@{words\_\-filename}}
+\index{words\_\-filename@{words\_\-filename}!train.cpp@{train.cpp}}
+\subsubsection[{words\_\-filename}]{\setlength{\rightskip}{0pt plus 5cm}string {\bf words\_\-filename}}}
+\label{train_8cpp_ad0706b4a2122ff236851daf6ce28757a}
+
+
+Definition at line 34 of file train.cpp.
+

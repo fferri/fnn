@@ -1,0 +1,96 @@
+.TH "makedataset.cpp" 3 "26 Nov 2012" "Word Prediction" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+makedataset.cpp \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <iostream>\fP
+.br
+\fC#include <vector>\fP
+.br
+\fC#include <cstring>\fP
+.br
+\fC#include <string>\fP
+.br
+\fC#include <cctype>\fP
+.br
+\fC#include <cstdlib>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include 'words.hpp'\fP
+.br
+\fC#include <map>\fP
+.br
+\fC#include <sstream>\fP
+.br
+\fC#include <fstream>\fP
+.br
+\fC#include 'filenames.hpp'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBusage\fP ()"
+.br
+.ti -1c
+.RI "void \fBparseOptions\fP (int argc, char *argv[])"
+.br
+.ti -1c
+.RI "void \fBmakeRandomSentence\fP (vector< string > &sentence, int len)"
+.br
+.ti -1c
+.RI "void \fBoutputSentenceData\fP (vector< string > &sent, int target, int \fBngramSize\fP, int count)"
+.br
+.ti -1c
+.RI "int \fBmain\fP (int argc, char **argv)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "long \fBnumTrainingSamples\fP = 0"
+.br
+.ti -1c
+.RI "int \fBngramSize\fP = 3"
+.br
+.ti -1c
+.RI "string \fBwords_filename\fP"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "int main (int argc, char ** argv)"
+.PP
+Definition at line 91 of file makedataset.cpp.
+.SS "void makeRandomSentence (vector< string > & sentence, int len)"
+.PP
+Definition at line 70 of file makedataset.cpp.
+.SS "void outputSentenceData (vector< string > & sent, int target, int ngramSize, int count)"
+.PP
+Definition at line 78 of file makedataset.cpp.
+.SS "void parseOptions (int argc, char * argv[])"
+.PP
+Definition at line 30 of file makedataset.cpp.
+.SS "void usage ()"
+.PP
+Definition at line 21 of file makedataset.cpp.
+.SH "Variable Documentation"
+.PP 
+.SS "int \fBngramSize\fP = 3"
+.PP
+Definition at line 17 of file makedataset.cpp.
+.SS "long \fBnumTrainingSamples\fP = 0"
+.PP
+Definition at line 15 of file makedataset.cpp.
+.SS "string \fBwords_filename\fP"
+.PP
+Definition at line 19 of file makedataset.cpp.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Word Prediction from the source code.

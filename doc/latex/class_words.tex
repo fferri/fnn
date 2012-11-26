@@ -1,0 +1,237 @@
+\hypertarget{class_words}{
+\section{Words Class Reference}
+\label{class_words}\index{Words@{Words}}
+}
+
+
+{\ttfamily \#include $<$words.hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_words_a7bf5a1cffddebace28da162a366fed0c}{Words} ()
+\item 
+long \hyperlink{class_words_a40260667759acea2b21647f51659580a}{getId} (string word)
+\item 
+string \hyperlink{class_words_a41cf976d022be36c2dcf57977f463f5b}{get} (size\_\-t id)
+\item 
+size\_\-t \hyperlink{class_words_a706c072736f1129d0a13f47d94614ff3}{size} ()
+\item 
+bool \hyperlink{class_words_a1fb2f028a8c2868286db3457a35b7b67}{contains} (size\_\-t wordId)
+\item 
+bool \hyperlink{class_words_af031f07fa8b3798d83348df0e822a9f2}{contains} (string word)
+\item 
+void \hyperlink{class_words_a9423f1c5b91eb1f687b423576b9f72b9}{clear} ()
+\item 
+string \hyperlink{class_words_aff5f07ad739bf8b4b9de0e05caf42a76}{randWord} ()
+\item 
+void \hyperlink{class_words_a0fbf822903274918a58037d28ed67705}{incrCount} (string word)
+\item 
+size\_\-t \hyperlink{class_words_ac6811af00f05b5083e4d1d13f1cd03ce}{getWordCount} (size\_\-t id)
+\item 
+void \hyperlink{class_words_aa5d7388fc0d464db38f60dbfcb4bd875}{readWordsFromFile} (string filename)
+\item 
+void \hyperlink{class_words_afc57ba78c1c58691216fc92dedb427c7}{readStatsFile} (string filename)
+\item 
+string \hyperlink{class_words_a11b5b68cd2d4ed55e903a1604b3877e1}{get1ofNWordEncoding} (size\_\-t wordId)
+\item 
+size\_\-t \hyperlink{class_words_aff70348fa0446494c90ba0a89e793297}{getWordIdFrom1ofNEncoding} (string s)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_words_a2e789250ffeb8d5ef88ee36dc89439cc}{add} (size\_\-t id, string word)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+map$<$ size\_\-t, string $>$ \hyperlink{class_words_a5ee8f73254e0c6df23e2ceca6a1c9fab}{fmap}
+\item 
+map$<$ string, size\_\-t $>$ \hyperlink{class_words_ace9dafad0716c11b073bd3b306ff1316}{rmap}
+\item 
+map$<$ size\_\-t, size\_\-t $>$ \hyperlink{class_words_aa40f09ffa14222f1c174915e506c175a}{counts}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 15 of file words.hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_words_a7bf5a1cffddebace28da162a366fed0c}{
+\index{Words@{Words}!Words@{Words}}
+\index{Words@{Words}!Words@{Words}}
+\subsubsection[{Words}]{\setlength{\rightskip}{0pt plus 5cm}Words::Words ()}}
+\label{class_words_a7bf5a1cffddebace28da162a366fed0c}
+
+
+Definition at line 5 of file words.cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_words_a2e789250ffeb8d5ef88ee36dc89439cc}{
+\index{Words@{Words}!add@{add}}
+\index{add@{add}!Words@{Words}}
+\subsubsection[{add}]{\setlength{\rightskip}{0pt plus 5cm}void Words::add (size\_\-t {\em id}, \/  string {\em word})\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{class_words_a2e789250ffeb8d5ef88ee36dc89439cc}
+
+
+Definition at line 8 of file words.cpp.
+
+\hypertarget{class_words_a9423f1c5b91eb1f687b423576b9f72b9}{
+\index{Words@{Words}!clear@{clear}}
+\index{clear@{clear}!Words@{Words}}
+\subsubsection[{clear}]{\setlength{\rightskip}{0pt plus 5cm}void Words::clear ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{class_words_a9423f1c5b91eb1f687b423576b9f72b9}
+
+
+Definition at line 28 of file words.hpp.
+
+\hypertarget{class_words_af031f07fa8b3798d83348df0e822a9f2}{
+\index{Words@{Words}!contains@{contains}}
+\index{contains@{contains}!Words@{Words}}
+\subsubsection[{contains}]{\setlength{\rightskip}{0pt plus 5cm}bool Words::contains (string {\em word})\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{class_words_af031f07fa8b3798d83348df0e822a9f2}
+
+
+Definition at line 26 of file words.hpp.
+
+\hypertarget{class_words_a1fb2f028a8c2868286db3457a35b7b67}{
+\index{Words@{Words}!contains@{contains}}
+\index{contains@{contains}!Words@{Words}}
+\subsubsection[{contains}]{\setlength{\rightskip}{0pt plus 5cm}bool Words::contains (size\_\-t {\em wordId})\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{class_words_a1fb2f028a8c2868286db3457a35b7b67}
+
+
+Definition at line 25 of file words.hpp.
+
+\hypertarget{class_words_a41cf976d022be36c2dcf57977f463f5b}{
+\index{Words@{Words}!get@{get}}
+\index{get@{get}!Words@{Words}}
+\subsubsection[{get}]{\setlength{\rightskip}{0pt plus 5cm}string Words::get (size\_\-t {\em id})\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{class_words_a41cf976d022be36c2dcf57977f463f5b}
+
+
+Definition at line 21 of file words.hpp.
+
+\hypertarget{class_words_a11b5b68cd2d4ed55e903a1604b3877e1}{
+\index{Words@{Words}!get1ofNWordEncoding@{get1ofNWordEncoding}}
+\index{get1ofNWordEncoding@{get1ofNWordEncoding}!Words@{Words}}
+\subsubsection[{get1ofNWordEncoding}]{\setlength{\rightskip}{0pt plus 5cm}string Words::get1ofNWordEncoding (size\_\-t {\em wordId})}}
+\label{class_words_a11b5b68cd2d4ed55e903a1604b3877e1}
+
+
+Definition at line 60 of file words.cpp.
+
+\hypertarget{class_words_a40260667759acea2b21647f51659580a}{
+\index{Words@{Words}!getId@{getId}}
+\index{getId@{getId}!Words@{Words}}
+\subsubsection[{getId}]{\setlength{\rightskip}{0pt plus 5cm}long Words::getId (string {\em word})\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{class_words_a40260667759acea2b21647f51659580a}
+
+
+Definition at line 19 of file words.hpp.
+
+\hypertarget{class_words_ac6811af00f05b5083e4d1d13f1cd03ce}{
+\index{Words@{Words}!getWordCount@{getWordCount}}
+\index{getWordCount@{getWordCount}!Words@{Words}}
+\subsubsection[{getWordCount}]{\setlength{\rightskip}{0pt plus 5cm}size\_\-t Words::getWordCount (size\_\-t {\em id})\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{class_words_ac6811af00f05b5083e4d1d13f1cd03ce}
+
+
+Definition at line 34 of file words.hpp.
+
+\hypertarget{class_words_aff70348fa0446494c90ba0a89e793297}{
+\index{Words@{Words}!getWordIdFrom1ofNEncoding@{getWordIdFrom1ofNEncoding}}
+\index{getWordIdFrom1ofNEncoding@{getWordIdFrom1ofNEncoding}!Words@{Words}}
+\subsubsection[{getWordIdFrom1ofNEncoding}]{\setlength{\rightskip}{0pt plus 5cm}size\_\-t Words::getWordIdFrom1ofNEncoding (string {\em s})}}
+\label{class_words_aff70348fa0446494c90ba0a89e793297}
+
+
+Definition at line 69 of file words.cpp.
+
+\hypertarget{class_words_a0fbf822903274918a58037d28ed67705}{
+\index{Words@{Words}!incrCount@{incrCount}}
+\index{incrCount@{incrCount}!Words@{Words}}
+\subsubsection[{incrCount}]{\setlength{\rightskip}{0pt plus 5cm}void Words::incrCount (string {\em word})}}
+\label{class_words_a0fbf822903274918a58037d28ed67705}
+
+
+Definition at line 31 of file words.cpp.
+
+\hypertarget{class_words_aff5f07ad739bf8b4b9de0e05caf42a76}{
+\index{Words@{Words}!randWord@{randWord}}
+\index{randWord@{randWord}!Words@{Words}}
+\subsubsection[{randWord}]{\setlength{\rightskip}{0pt plus 5cm}string Words::randWord ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{class_words_aff5f07ad739bf8b4b9de0e05caf42a76}
+
+
+Definition at line 30 of file words.hpp.
+
+\hypertarget{class_words_afc57ba78c1c58691216fc92dedb427c7}{
+\index{Words@{Words}!readStatsFile@{readStatsFile}}
+\index{readStatsFile@{readStatsFile}!Words@{Words}}
+\subsubsection[{readStatsFile}]{\setlength{\rightskip}{0pt plus 5cm}void Words::readStatsFile (string {\em filename})}}
+\label{class_words_afc57ba78c1c58691216fc92dedb427c7}
+
+
+Definition at line 43 of file words.cpp.
+
+\hypertarget{class_words_aa5d7388fc0d464db38f60dbfcb4bd875}{
+\index{Words@{Words}!readWordsFromFile@{readWordsFromFile}}
+\index{readWordsFromFile@{readWordsFromFile}!Words@{Words}}
+\subsubsection[{readWordsFromFile}]{\setlength{\rightskip}{0pt plus 5cm}void Words::readWordsFromFile (string {\em filename})}}
+\label{class_words_aa5d7388fc0d464db38f60dbfcb4bd875}
+
+
+Definition at line 17 of file words.cpp.
+
+\hypertarget{class_words_a706c072736f1129d0a13f47d94614ff3}{
+\index{Words@{Words}!size@{size}}
+\index{size@{size}!Words@{Words}}
+\subsubsection[{size}]{\setlength{\rightskip}{0pt plus 5cm}size\_\-t Words::size ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{class_words_a706c072736f1129d0a13f47d94614ff3}
+
+
+Definition at line 23 of file words.hpp.
+
+
+
+\subsection{Field Documentation}
+\hypertarget{class_words_aa40f09ffa14222f1c174915e506c175a}{
+\index{Words@{Words}!counts@{counts}}
+\index{counts@{counts}!Words@{Words}}
+\subsubsection[{counts}]{\setlength{\rightskip}{0pt plus 5cm}map$<$size\_\-t, size\_\-t$>$ {\bf Words::counts}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{class_words_aa40f09ffa14222f1c174915e506c175a}
+
+
+Definition at line 52 of file words.hpp.
+
+\hypertarget{class_words_a5ee8f73254e0c6df23e2ceca6a1c9fab}{
+\index{Words@{Words}!fmap@{fmap}}
+\index{fmap@{fmap}!Words@{Words}}
+\subsubsection[{fmap}]{\setlength{\rightskip}{0pt plus 5cm}map$<$size\_\-t, string$>$ {\bf Words::fmap}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{class_words_a5ee8f73254e0c6df23e2ceca6a1c9fab}
+
+
+Definition at line 46 of file words.hpp.
+
+\hypertarget{class_words_ace9dafad0716c11b073bd3b306ff1316}{
+\index{Words@{Words}!rmap@{rmap}}
+\index{rmap@{rmap}!Words@{Words}}
+\subsubsection[{rmap}]{\setlength{\rightskip}{0pt plus 5cm}map$<$string, size\_\-t$>$ {\bf Words::rmap}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{class_words_ace9dafad0716c11b073bd3b306ff1316}
+
+
+Definition at line 49 of file words.hpp.
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{words_8hpp}{words.hpp}\item 
+\hyperlink{words_8cpp}{words.cpp}\end{DoxyCompactItemize}

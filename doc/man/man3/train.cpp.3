@@ -1,0 +1,166 @@
+.TH "train.cpp" 3 "26 Nov 2012" "Word Prediction" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+train.cpp \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <cstdlib>\fP
+.br
+\fC#include <sstream>\fP
+.br
+\fC#include <string>\fP
+.br
+\fC#include <boost/format.hpp>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include 'words.hpp'\fP
+.br
+\fC#include 'filenames.hpp'\fP
+.br
+\fC#include <floatfann.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBlog\fP (string s)"
+.br
+.ti -1c
+.RI "void \fBusage\fP ()"
+.br
+.ti -1c
+.RI "void \fBparseOptions\fP (int argc, char *argv[])"
+.br
+.ti -1c
+.RI "float \fBget_classification_error_rate\fP (struct fann *ann, fann_train_data *data)"
+.br
+.ti -1c
+.RI "int \fBmain\fP (int argc, char *argv[])"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "unsigned int \fBword_local_encoding_size\fP = 724"
+.br
+.ti -1c
+.RI "unsigned int \fBnum_input_words\fP = 3"
+.br
+.ti -1c
+.RI "unsigned int \fBnum_layers\fP = 4"
+.br
+.ti -1c
+.RI "unsigned int \fBnum_input\fP = \fBword_local_encoding_size\fP * \fBnum_input_words\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBnum_neurons_hidden_1\fP = 500 * \fBnum_input_words\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBnum_neurons_hidden_2\fP = 700"
+.br
+.ti -1c
+.RI "unsigned int \fBnum_output\fP = 1"
+.br
+.ti -1c
+.RI "float \fBdesired_error\fP = 0.001"
+.br
+.ti -1c
+.RI "unsigned int \fBmax_epochs\fP = 10000"
+.br
+.ti -1c
+.RI "unsigned int \fBepochs_between_reports\fP = 1"
+.br
+.ti -1c
+.RI "string \fBtraining_filename\fP"
+.br
+.ti -1c
+.RI "string \fBvalidation_filename\fP"
+.br
+.ti -1c
+.RI "string \fBnet_filename\fP"
+.br
+.ti -1c
+.RI "string \fBlog_filename\fP"
+.br
+.ti -1c
+.RI "string \fBwords_filename\fP"
+.br
+.ti -1c
+.RI "ofstream \fBlog_file\fP"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "float get_classification_error_rate (struct fann * ann, fann_train_data * data)"
+.PP
+Definition at line 134 of file train.cpp.
+.SS "void log (string s)"
+.PP
+Definition at line 38 of file train.cpp.
+.SS "int main (int argc, char * argv[])"
+.PP
+Definition at line 144 of file train.cpp.
+.SS "void parseOptions (int argc, char * argv[])"
+.PP
+Definition at line 60 of file train.cpp.
+.SS "void usage ()"
+.PP
+Definition at line 46 of file train.cpp.
+.SH "Variable Documentation"
+.PP 
+.SS "float \fBdesired_error\fP = 0.001"
+.PP
+Definition at line 25 of file train.cpp.
+.SS "unsigned int \fBepochs_between_reports\fP = 1"
+.PP
+Definition at line 27 of file train.cpp.
+.SS "ofstream \fBlog_file\fP"
+.PP
+Definition at line 36 of file train.cpp.
+.SS "string \fBlog_filename\fP"
+.PP
+Definition at line 33 of file train.cpp.
+.SS "unsigned int \fBmax_epochs\fP = 10000"
+.PP
+Definition at line 26 of file train.cpp.
+.SS "string \fBnet_filename\fP"
+.PP
+Definition at line 32 of file train.cpp.
+.SS "unsigned int \fBnum_input\fP = \fBword_local_encoding_size\fP * \fBnum_input_words\fP"
+.PP
+Definition at line 20 of file train.cpp.
+.SS "unsigned int \fBnum_input_words\fP = 3"
+.PP
+Definition at line 17 of file train.cpp.
+.SS "unsigned int \fBnum_layers\fP = 4"
+.PP
+Definition at line 19 of file train.cpp.
+.SS "unsigned int \fBnum_neurons_hidden_1\fP = 500 * \fBnum_input_words\fP"
+.PP
+Definition at line 21 of file train.cpp.
+.SS "unsigned int \fBnum_neurons_hidden_2\fP = 700"
+.PP
+Definition at line 22 of file train.cpp.
+.SS "unsigned int \fBnum_output\fP = 1"
+.PP
+Definition at line 23 of file train.cpp.
+.SS "string \fBtraining_filename\fP"
+.PP
+Definition at line 29 of file train.cpp.
+.SS "string \fBvalidation_filename\fP"
+.PP
+Definition at line 30 of file train.cpp.
+.SS "unsigned int \fBword_local_encoding_size\fP = 724"
+.PP
+Definition at line 16 of file train.cpp.
+.SS "string \fBwords_filename\fP"
+.PP
+Definition at line 34 of file train.cpp.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Word Prediction from the source code.

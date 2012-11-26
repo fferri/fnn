@@ -1,0 +1,130 @@
+\hypertarget{makedataset_8cpp}{
+\section{makedataset.cpp File Reference}
+\label{makedataset_8cpp}\index{makedataset.cpp@{makedataset.cpp}}
+}
+{\ttfamily \#include $<$iostream$>$}\par
+{\ttfamily \#include $<$vector$>$}\par
+{\ttfamily \#include $<$cstring$>$}\par
+{\ttfamily \#include $<$string$>$}\par
+{\ttfamily \#include $<$cctype$>$}\par
+{\ttfamily \#include $<$cstdlib$>$}\par
+{\ttfamily \#include $<$unistd.h$>$}\par
+{\ttfamily \#include \char`\"{}words.hpp\char`\"{}}\par
+{\ttfamily \#include $<$map$>$}\par
+{\ttfamily \#include $<$sstream$>$}\par
+{\ttfamily \#include $<$fstream$>$}\par
+{\ttfamily \#include \char`\"{}filenames.hpp\char`\"{}}\par
+Include dependency graph for makedataset.cpp:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=365pt]{makedataset_8cpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=76pt]{makedataset_8cpp__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{makedataset_8cpp_a2ef30c42cbc289d899a8be5d2d8f77d0}{usage} ()
+\item 
+void \hyperlink{makedataset_8cpp_a0325d02535e8d07d6cb2b4145e41eb55}{parseOptions} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{makedataset_8cpp_a19a245e1597c66abb8e4a757bc79d843}{makeRandomSentence} (vector$<$ string $>$ \&sentence, int len)
+\item 
+void \hyperlink{makedataset_8cpp_aee921198b6ed5328fe725448eb416b92}{outputSentenceData} (vector$<$ string $>$ \&sent, int target, int \hyperlink{makedataset_8cpp_a74eedb676163fffe6a1faf8fa0d5b6df}{ngramSize}, int count)
+\item 
+int \hyperlink{makedataset_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+long \hyperlink{makedataset_8cpp_ab6371472b49826189602f09b67de7490}{numTrainingSamples} = 0
+\item 
+int \hyperlink{makedataset_8cpp_a74eedb676163fffe6a1faf8fa0d5b6df}{ngramSize} = 3
+\item 
+string \hyperlink{makedataset_8cpp_ad0706b4a2122ff236851daf6ce28757a}{words\_\-filename}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{makedataset_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{
+\index{makedataset.cpp@{makedataset.cpp}!main@{main}}
+\index{main@{main}!makedataset.cpp@{makedataset.cpp}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (int {\em argc}, \/  char $\ast$$\ast$ {\em argv})}}
+\label{makedataset_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
+
+
+Definition at line 91 of file makedataset.cpp.
+
+\hypertarget{makedataset_8cpp_a19a245e1597c66abb8e4a757bc79d843}{
+\index{makedataset.cpp@{makedataset.cpp}!makeRandomSentence@{makeRandomSentence}}
+\index{makeRandomSentence@{makeRandomSentence}!makedataset.cpp@{makedataset.cpp}}
+\subsubsection[{makeRandomSentence}]{\setlength{\rightskip}{0pt plus 5cm}void makeRandomSentence (vector$<$ string $>$ \& {\em sentence}, \/  int {\em len})}}
+\label{makedataset_8cpp_a19a245e1597c66abb8e4a757bc79d843}
+
+
+Definition at line 70 of file makedataset.cpp.
+
+\hypertarget{makedataset_8cpp_aee921198b6ed5328fe725448eb416b92}{
+\index{makedataset.cpp@{makedataset.cpp}!outputSentenceData@{outputSentenceData}}
+\index{outputSentenceData@{outputSentenceData}!makedataset.cpp@{makedataset.cpp}}
+\subsubsection[{outputSentenceData}]{\setlength{\rightskip}{0pt plus 5cm}void outputSentenceData (vector$<$ string $>$ \& {\em sent}, \/  int {\em target}, \/  int {\em ngramSize}, \/  int {\em count})}}
+\label{makedataset_8cpp_aee921198b6ed5328fe725448eb416b92}
+
+
+Definition at line 78 of file makedataset.cpp.
+
+\hypertarget{makedataset_8cpp_a0325d02535e8d07d6cb2b4145e41eb55}{
+\index{makedataset.cpp@{makedataset.cpp}!parseOptions@{parseOptions}}
+\index{parseOptions@{parseOptions}!makedataset.cpp@{makedataset.cpp}}
+\subsubsection[{parseOptions}]{\setlength{\rightskip}{0pt plus 5cm}void parseOptions (int {\em argc}, \/  char $\ast$ {\em argv}\mbox{[}$\,$\mbox{]})}}
+\label{makedataset_8cpp_a0325d02535e8d07d6cb2b4145e41eb55}
+
+
+Definition at line 30 of file makedataset.cpp.
+
+\hypertarget{makedataset_8cpp_a2ef30c42cbc289d899a8be5d2d8f77d0}{
+\index{makedataset.cpp@{makedataset.cpp}!usage@{usage}}
+\index{usage@{usage}!makedataset.cpp@{makedataset.cpp}}
+\subsubsection[{usage}]{\setlength{\rightskip}{0pt plus 5cm}void usage ()}}
+\label{makedataset_8cpp_a2ef30c42cbc289d899a8be5d2d8f77d0}
+
+
+Definition at line 21 of file makedataset.cpp.
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{makedataset_8cpp_a74eedb676163fffe6a1faf8fa0d5b6df}{
+\index{makedataset.cpp@{makedataset.cpp}!ngramSize@{ngramSize}}
+\index{ngramSize@{ngramSize}!makedataset.cpp@{makedataset.cpp}}
+\subsubsection[{ngramSize}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf ngramSize} = 3}}
+\label{makedataset_8cpp_a74eedb676163fffe6a1faf8fa0d5b6df}
+
+
+Definition at line 17 of file makedataset.cpp.
+
+\hypertarget{makedataset_8cpp_ab6371472b49826189602f09b67de7490}{
+\index{makedataset.cpp@{makedataset.cpp}!numTrainingSamples@{numTrainingSamples}}
+\index{numTrainingSamples@{numTrainingSamples}!makedataset.cpp@{makedataset.cpp}}
+\subsubsection[{numTrainingSamples}]{\setlength{\rightskip}{0pt plus 5cm}long {\bf numTrainingSamples} = 0}}
+\label{makedataset_8cpp_ab6371472b49826189602f09b67de7490}
+
+
+Definition at line 15 of file makedataset.cpp.
+
+\hypertarget{makedataset_8cpp_ad0706b4a2122ff236851daf6ce28757a}{
+\index{makedataset.cpp@{makedataset.cpp}!words\_\-filename@{words\_\-filename}}
+\index{words\_\-filename@{words\_\-filename}!makedataset.cpp@{makedataset.cpp}}
+\subsubsection[{words\_\-filename}]{\setlength{\rightskip}{0pt plus 5cm}string {\bf words\_\-filename}}}
+\label{makedataset_8cpp_ad0706b4a2122ff236851daf6ce28757a}
+
+
+Definition at line 19 of file makedataset.cpp.
+

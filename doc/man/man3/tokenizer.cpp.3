@@ -1,0 +1,102 @@
+.TH "tokenizer.cpp" 3 "26 Nov 2012" "Word Prediction" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+tokenizer.cpp \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <iostream>\fP
+.br
+\fC#include <cctype>\fP
+.br
+\fC#include <cstring>\fP
+.br
+\fC#include <string>\fP
+.br
+\fC#include <vector>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include 'words.hpp'\fP
+.br
+\fC#include 'filenames.hpp'\fP
+.br
+\fC#include 'substwords.hpp'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBiswhitespace\fP(x)   ((x)=='\\n'||(x)=='\\t'||(x)==' ')"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBusage\fP ()"
+.br
+.ti -1c
+.RI "void \fBparseOptions\fP (int argc, char *argv[])"
+.br
+.ti -1c
+.RI "int \fBmain\fP (int argc, char **argv)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "long \fBskipSent\fP = 0"
+.br
+.ti -1c
+.RI "long \fBnumSent\fP = 0"
+.br
+.ti -1c
+.RI "bool \fBtolow\fP = false"
+.br
+.ti -1c
+.RI "int \fBtreshold\fP = 0"
+.br
+.ti -1c
+.RI "string \fBstats_filename\fP"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define iswhitespace(x)   ((x)=='\\n'||(x)=='\\t'||(x)==' ')"
+.PP
+Definition at line 14 of file tokenizer.cpp.
+.SH "Function Documentation"
+.PP 
+.SS "int main (int argc, char ** argv)"
+.PP
+Definition at line 89 of file tokenizer.cpp.
+.SS "void parseOptions (int argc, char * argv[])"
+.PP
+Definition at line 38 of file tokenizer.cpp.
+.SS "void usage ()"
+.PP
+Definition at line 25 of file tokenizer.cpp.
+.SH "Variable Documentation"
+.PP 
+.SS "long \fBnumSent\fP = 0"
+.PP
+Definition at line 17 of file tokenizer.cpp.
+.SS "long \fBskipSent\fP = 0"
+.PP
+Definition at line 16 of file tokenizer.cpp.
+.SS "string \fBstats_filename\fP"
+.PP
+Definition at line 23 of file tokenizer.cpp.
+.SS "bool \fBtolow\fP = false"
+.PP
+Definition at line 19 of file tokenizer.cpp.
+.SS "int \fBtreshold\fP = 0"
+.PP
+Definition at line 21 of file tokenizer.cpp.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Word Prediction from the source code.

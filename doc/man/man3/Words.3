@@ -1,0 +1,143 @@
+.TH "Words" 3 "26 Nov 2012" "Word Prediction" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Words \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <words.hpp>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBWords\fP ()"
+.br
+.ti -1c
+.RI "long \fBgetId\fP (string word)"
+.br
+.ti -1c
+.RI "string \fBget\fP (size_t id)"
+.br
+.ti -1c
+.RI "size_t \fBsize\fP ()"
+.br
+.ti -1c
+.RI "bool \fBcontains\fP (size_t wordId)"
+.br
+.ti -1c
+.RI "bool \fBcontains\fP (string word)"
+.br
+.ti -1c
+.RI "void \fBclear\fP ()"
+.br
+.ti -1c
+.RI "string \fBrandWord\fP ()"
+.br
+.ti -1c
+.RI "void \fBincrCount\fP (string word)"
+.br
+.ti -1c
+.RI "size_t \fBgetWordCount\fP (size_t id)"
+.br
+.ti -1c
+.RI "void \fBreadWordsFromFile\fP (string filename)"
+.br
+.ti -1c
+.RI "void \fBreadStatsFile\fP (string filename)"
+.br
+.ti -1c
+.RI "string \fBget1ofNWordEncoding\fP (size_t wordId)"
+.br
+.ti -1c
+.RI "size_t \fBgetWordIdFrom1ofNEncoding\fP (string s)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBadd\fP (size_t id, string word)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "map< size_t, string > \fBfmap\fP"
+.br
+.ti -1c
+.RI "map< string, size_t > \fBrmap\fP"
+.br
+.ti -1c
+.RI "map< size_t, size_t > \fBcounts\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line 15 of file words.hpp.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Words::Words ()"
+.PP
+Definition at line 5 of file words.cpp.
+.SH "Member Function Documentation"
+.PP 
+.SS "void Words::add (size_t id, string word)\fC [protected]\fP"
+.PP
+Definition at line 8 of file words.cpp.
+.SS "void Words::clear ()\fC [inline]\fP"
+.PP
+Definition at line 28 of file words.hpp.
+.SS "bool Words::contains (string word)\fC [inline]\fP"
+.PP
+Definition at line 26 of file words.hpp.
+.SS "bool Words::contains (size_t wordId)\fC [inline]\fP"
+.PP
+Definition at line 25 of file words.hpp.
+.SS "string Words::get (size_t id)\fC [inline]\fP"
+.PP
+Definition at line 21 of file words.hpp.
+.SS "string Words::get1ofNWordEncoding (size_t wordId)"
+.PP
+Definition at line 60 of file words.cpp.
+.SS "long Words::getId (string word)\fC [inline]\fP"
+.PP
+Definition at line 19 of file words.hpp.
+.SS "size_t Words::getWordCount (size_t id)\fC [inline]\fP"
+.PP
+Definition at line 34 of file words.hpp.
+.SS "size_t Words::getWordIdFrom1ofNEncoding (string s)"
+.PP
+Definition at line 69 of file words.cpp.
+.SS "void Words::incrCount (string word)"
+.PP
+Definition at line 31 of file words.cpp.
+.SS "string Words::randWord ()\fC [inline]\fP"
+.PP
+Definition at line 30 of file words.hpp.
+.SS "void Words::readStatsFile (string filename)"
+.PP
+Definition at line 43 of file words.cpp.
+.SS "void Words::readWordsFromFile (string filename)"
+.PP
+Definition at line 17 of file words.cpp.
+.SS "size_t Words::size ()\fC [inline]\fP"
+.PP
+Definition at line 23 of file words.hpp.
+.SH "Field Documentation"
+.PP 
+.SS "map<size_t, size_t> \fBWords::counts\fP\fC [protected]\fP"
+.PP
+Definition at line 52 of file words.hpp.
+.SS "map<size_t, string> \fBWords::fmap\fP\fC [protected]\fP"
+.PP
+Definition at line 46 of file words.hpp.
+.SS "map<string, size_t> \fBWords::rmap\fP\fC [protected]\fP"
+.PP
+Definition at line 49 of file words.hpp.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Word Prediction from the source code.
