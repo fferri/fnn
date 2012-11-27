@@ -808,10 +808,16 @@ Conclusions and Further Work
 \end_layout
 
 \begin_layout Standard
-As expected, the Cross-Entropy cost function in conjunction with the softmax
- activation function in the output layer gave better results than using
+As expected, the Cross-Entropy cost function, in conjunction with the softmax
+ activation function in the output layer, gave better results than using
  a MSE cost function with a sigmoid unit in the output layer: the training
  has been faster, and the accuracy greater.
+ As a future work, it would be a good idea to realize the training procedure
+ over bigger datasets, considering all the words appearing in the text,
+ in order to understand what's their effect on the learning.
+ As a completely different alternative, it would be interesting the implementati
+on of a word prediction program using Recurrent Neural Networks, as in detail
+ referred by Hinton.
 \end_layout
 
 \begin_layout Standard
