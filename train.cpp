@@ -20,7 +20,11 @@ unsigned int num_layers = 4;
 unsigned int num_input = word_local_encoding_size * num_input_words;
 unsigned int num_neurons_hidden_1 = 500 * num_input_words;
 unsigned int num_neurons_hidden_2 = 700;
+#ifdef SOFTMAX
+unsigned int num_output = 2;
+#else
 unsigned int num_output = 1;
+#endif
 
 float desired_error = 0.001;
 unsigned int max_epochs = 10000;
@@ -136,7 +140,12 @@ float get_classification_error_rate(struct fann* ann, fann_train_data* data) {
 	for(size_t i = 0; i < data->num_data; i++) {
 		d++;
 		fann_type* out = fann_run(ann, data->input[i]);
+#ifdef SOFTMAX
+		if(out[0] < 0.5 && data->output[i][0] > 0.5 ||
+		   out[1] > 0.5 && data->output[i][1] < 0.5) e++;
+#else
 		if(out[0] * data->output[i][0] < 0) e++;
+#endif
 	}
 	return (float)e/(float)d;
 }
@@ -188,6 +197,9 @@ int main(int argc, char *argv[]) {
 		cerr << "  hidden layer 2:   " << num_neurons_hidden_2 << "  units" << endl;
 		cerr << "  output layer:     " << num_output << "  units" << endl;
 		ann = fann_create_standard(num_layers, num_input, num_neurons_hidden_1, num_neurons_hidden_2, num_output);
+#ifdef SOFTMAX
+		fann_set_activation_function_layer(ann, FANN_SOFTMAX, 3);
+#endif
 	}
 
 	log_filename = getLogFilename(net_filename);

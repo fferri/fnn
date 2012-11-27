@@ -14,7 +14,7 @@ string net_filename;
 
 void usage() {
 	cerr
-	<< "usage: predict [options] <testFile.dat>" << endl
+	<< "usage: testnet [options] <testFile.dat>" << endl
 	<< "	-f <file>    use neural network model from file" << endl
 	<< endl;
 
@@ -72,8 +72,12 @@ int main(int argc, char *argv[]) {
 	for(size_t i = 0; i < data->num_data; i++) {
 		out = fann_run(ann, data->input[i]);
 		num_cases++;
+#ifdef SOFTMAX
+		if(out[0] < 0.5 && data->output[i][0] > 0.5 ||
+		   out[1] > 0.5 && data->output[i][1] < 0.5) num_errors++;
+#else
 		if(out[0] * data->output[i][0] < 0) num_errors++;
-
+#endif
 		float err = num_errors * 100.0 / (float)num_cases;
 		cerr << "\rClassification error: " << err << "%       ";
 	}

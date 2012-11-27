@@ -1,4 +1,4 @@
-CXXFLAGS = -std=c++0x -I/opt/local/include
+CXXFLAGS = -std=c++0x -I/opt/local/include -DSOFTMAX
 FANN_CXXFLAGS = $(shell pkg-config --cflags fann)
 
 ifeq ($(DEBUG), 1)
