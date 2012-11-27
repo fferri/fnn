@@ -1,5 +1,5 @@
-CXXFLAGS = -std=c++0x -I/opt/local/include -DSOFTMAX
 FANN_CXXFLAGS = $(shell pkg-config --cflags fann)
+CXXFLAGS = -std=c++0x $(FANN_CXXFLAGS) -I/opt/local/include -DSOFTMAX
 
 ifeq ($(DEBUG), 1)
 	CXXFLAGS += -ggdb -O0
@@ -30,21 +30,18 @@ OBJS = $(SRCS:%.cpp=%.o)
 deps: $(DEPS)
 
 $(DEPS) : %.d : %.cpp
-	$(CXX) -MM $(CXXFLAGS) $(FANN_CXXFLAGS) $< -o $@
+	$(CXX) -MM $(FANN_CXXFLAGS) $(CXXFLAGS) $< -o $@
 
 ifneq ($(MAKECMDGOALS),clean)
 -include $(DEPS)
 endif
 
-train: CXXFLAGS += $(FANN_CXXFLAGS)
-train: LDLIBS   += $(FANN_LDLIBS)
+train: LDLIBS     += $(FANN_LDLIBS)
 train: train.o words.o filenames.o
 
-testnet: CXXFLAGS += $(FANN_CXXFLAGS)
 testnet: LDLIBS   += $(FANN_LDLIBS)
 testnet: testnet.o words.o
 
-predict: CXXFLAGS += $(FANN_CXXFLAGS) 
 predict: LDLIBS   += $(FANN_LDLIBS)
 predict: predict.o words.o filenames.o
 

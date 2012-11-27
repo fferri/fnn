@@ -73,8 +73,8 @@ int main(int argc, char *argv[]) {
 		out = fann_run(ann, data->input[i]);
 		num_cases++;
 #ifdef SOFTMAX
-		if(out[0] < 0.5 && data->output[i][0] > 0.5 ||
-		   out[1] > 0.5 && data->output[i][1] < 0.5) num_errors++;
+		if((out[0] < 0.5 && data->output[i][0] > 0.5) ||
+		   (out[1] > 0.5 && data->output[i][1] < 0.5)) num_errors++;
 #else
 		if(out[0] * data->output[i][0] < 0) num_errors++;
 #endif

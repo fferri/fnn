@@ -522,7 +522,7 @@ i
 \begin_layout Standard
 \begin_inset Formula 
 \[
-w^{i}(t+1)=w^{i}(t)-sign(\frac{\partial E(t)}{\partial w^{i}})*\Delta^{i}(t)
+w^{i}\left(t+1\right)=w^{i}\left(t\right)-sign\left(\frac{\partial E(t)}{\partial w^{i}}\right)\cdot\Delta^{i}\left(t\right)
 \]
 
 \end_inset
@@ -592,7 +592,7 @@ l resources required by the training procedure.
  a various dataset, we produced a statistics file containing a number for
  each word corresponding to the times that it appeared in the text.
  Through the use of these statistics, a new dictionary containing only the
- words appearing more times than an assigned treshold has been produced.
+ words appearing more times than an assigned threshold has been produced.
  In this way, all the phrases in the raw dataset containing words which
  were not in the final dictionary have been no more considered in the final
  dataset.
@@ -601,7 +601,7 @@ l resources required by the training procedure.
 \end_layout
 
 \begin_layout Subsection
-n-gram model
+N-gram model
 \end_layout
 
 \begin_layout Standard

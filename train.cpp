@@ -26,6 +26,8 @@ unsigned int num_output = 2;
 unsigned int num_output = 1;
 #endif
 
+float input_hidden1_connectivity = 1.0;
+
 float desired_error = 0.001;
 unsigned int max_epochs = 10000;
 unsigned int epochs_between_reports = 1;
@@ -58,6 +60,7 @@ void usage() {
 	<< "	-E <num epochs>   epochs between reports [default: " << epochs_between_reports << "]" << endl
 	<< "	-h <num hid 1>    set number of units in 1st hidden layer [default: " << num_neurons_hidden_1 << "]" << endl
 	<< "	-H <num hid 2>    set number of units in 2nd hidden layer [default: " << num_neurons_hidden_2 << "]" << endl
+	<< "    -s <probability>  use sparse input->hidden connections, with probability <p> [default: " << input_hidden1_connectivity << "]" << endl
 	<< endl;
 }
 
@@ -141,8 +144,8 @@ float get_classification_error_rate(struct fann* ann, fann_train_data* data) {
 		d++;
 		fann_type* out = fann_run(ann, data->input[i]);
 #ifdef SOFTMAX
-		if(out[0] < 0.5 && data->output[i][0] > 0.5 ||
-		   out[1] > 0.5 && data->output[i][1] < 0.5) e++;
+		if((out[0] < 0.5 && data->output[i][0] > 0.5) ||
+		   (out[1] > 0.5 && data->output[i][1] < 0.5)) e++;
 #else
 		if(out[0] * data->output[i][0] < 0) e++;
 #endif
