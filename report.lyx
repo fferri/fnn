@@ -808,7 +808,10 @@ Conclusions and Further Work
 \end_layout
 
 \begin_layout Standard
-blah blah about possible RNN
+As expected, the Cross-Entropy cost function in conjunction with the softmax
+ activation function in the output layer gave better results than using
+ a MSE cost function with a sigmoid unit in the output layer: the training
+ has been faster, and the accuracy greater.
 \end_layout
 
 \begin_layout Standard
