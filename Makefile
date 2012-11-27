@@ -10,7 +10,7 @@ endif
 LDLIBS = -lstdc++
 FANN_LDLIBS = $(shell pkg-config --libs fann)
 
-TARGETS = wordstats tokenizer makedataset train testnet predict
+TARGETS = wordstats tokenizer makedataset train testnet predict classify
 
 UNAME = $(shell uname)
 
@@ -44,6 +44,9 @@ testnet: testnet.o words.o
 
 predict: LDLIBS   += $(FANN_LDLIBS)
 predict: predict.o words.o filenames.o
+
+classify: LDLIBS  += $(FANN_LDLIBS)
+classify: classify.o words.o filenames.o
 
 wordstats: wordstats.o words.o
 
