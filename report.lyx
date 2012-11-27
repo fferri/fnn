@@ -543,6 +543,67 @@ w^{i}\left(t+1\right)=w^{i}\left(t\right)-sign\left(\frac{\partial E(t)}{\partia
 
 \end_layout
 
+\begin_layout Subsection
+Cost function
+\end_layout
+
+\begin_layout Standard
+Two different cost functions have been implemented and tested.
+\end_layout
+
+\begin_layout Standard
+Mean Square Error cost function is defined as: 
+\begin_inset Formula 
+\[
+E(w)=\frac{1}{2N}\sum_{i=1}^{N}\left(t_{i}-y_{i}\right)^{2}
+\]
+
+\end_inset
+
+This cost function has been used for training without having the softmax
+ layer during training (the softmax is computed later, in the prediction
+ phase).
+\end_layout
+
+\begin_layout Standard
+Cross-Entropy cost function is defined as: 
+\begin_inset Formula 
+\[
+E(w)=-\frac{1}{N}\sum_{i=1}^{N}t_{i}log\left(y_{i}\right)-\left(1-t_{i}\right)log\left(1-y_{i}\right)
+\]
+
+\end_inset
+
+This cost function has been used for training with a softmax output layer.
+ In this case, the output layer has been changed to have 2 units -one for
+ each class-, in order to make the softmax activation function work properly.
+\end_layout
+
+\begin_layout Standard
+Cross-Entropy cost function is more suitable for classifiers.
+ The cost is zero when 
+\begin_inset Formula $t_{i}$
+\end_inset
+
+ is equal to 
+\begin_inset Formula $y_{i}$
+\end_inset
+
+ (the instance is classified correctly), and it is very big (
+\begin_inset Formula $\thickapprox\infty$
+\end_inset
+
+) when the instance is classified incorrectly (i.e.: 
+\begin_inset Formula $t_{i}=1-y_{i}$
+\end_inset
+
+ or vice versa).
+\end_layout
+
+\begin_layout Standard
+This greatly speeds up the convergence of the minimization algorithm.
+\end_layout
+
 \begin_layout Section
 Dataset
 \end_layout
@@ -656,7 +717,7 @@ wrong
  some kind of robustness to noise.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Training & Regularization
 \end_layout
 
@@ -669,7 +730,7 @@ As already stated, the training activity has been performed over the training
  which is called early stopping.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Results
 \end_layout
 
@@ -742,7 +803,7 @@ Plot of MSE for training with 1000 hidden units and 600 hidden units, for
  Early stopping at 10th epoch.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Conclusions and Further Work
 \end_layout
 
