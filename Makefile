@@ -1,5 +1,9 @@
 FANN_CXXFLAGS = $(shell pkg-config --cflags fann)
-CXXFLAGS = -std=c++0x $(FANN_CXXFLAGS) -I/opt/local/include -DSOFTMAX
+CXXFLAGS = -std=c++0x $(FANN_CXXFLAGS) -I/opt/local/include
+
+ifeq ($(SOFTMAX), 1)
+	CXXFLAGS += -DSOFTMAX
+endif
 
 ifeq ($(DEBUG), 1)
 	CXXFLAGS += -ggdb -O0
