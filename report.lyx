@@ -97,6 +97,13 @@ status open
  MSE in Artificial Intelligence and Robotics
 \end_layout
 
+\begin_layout Standard
+\begin_inset VSpace 6cm
+\end_inset
+
+
+\end_layout
+
 \begin_layout Abstract
 In order to improve speech recognizers accuracy, a word prediction method
  is proposed based on BP feedforward neural network.
@@ -244,7 +251,14 @@ Yoshua Bengio's Neural Probabilistic Model
 \begin_layout Standard
 To overcome these limitations, what we need to do is to convert words into
  a vector of semantic and syntactic features, and use the features of the
- previous words to predict the next word.
+ previous words to predict the next word (see 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Holmes2006"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Standard
@@ -460,7 +474,14 @@ Training Algorithm
 \begin_layout Standard
 The training algorithm that has been used in the project is RPROP (short
  for resilient backpropagation), which is a learning heuristic for supervised
- learning in feedforward artificial neural networks.
+ learning in feedforward artificial neural networks (see 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Riedmiller1993"
+
+\end_inset
+
+).
  We have chosen to use this algorithm because, next to the cascade correlation
  algorithm and the Levenberg–Marquardt algorithm, RPROP is one of the fastest
  weight update mechanisms.
@@ -574,7 +595,28 @@ E(w)=-\frac{1}{N}\sum_{i=1}^{N}t_{i}log\left(y_{i}\right)-\left(1-t_{i}\right)lo
 
 \end_inset
 
-This cost function has been used for training with a softmax output layer.
+This cost function has been used for training with a softmax output layer
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+For this learning task it has been used a patched version of FANN 2.1.0 to
+ include Softmax activation function and Cross-Entropy cost function.
+ The patch has been done by Ph.D.
+ Daniel Oberhoff.
+ See 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Oberhoff2008"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+.
  In this case, the output layer has been changed to have 2 units -one for
  each class-, in order to make the softmax activation function work properly.
 \end_layout
@@ -816,8 +858,15 @@ As expected, the Cross-Entropy cost function, in conjunction with the softmax
  over bigger datasets, considering all the words appearing in the text,
  in order to understand what's their effect on the learning.
  As a completely different alternative, it would be interesting the implementati
-on of a word prediction program using Recurrent Neural Networks, as in detail
- referred by Hinton.
+on of a character-by-character prediction program using Recurrent Neural
+ Networks, as described in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sutskever2011"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
