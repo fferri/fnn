@@ -61,10 +61,6 @@
 
 \begin_layout Title
 Word Prediction with Neural Nets
-\begin_inset Newpage newpage
-\end_inset
-
-
 \end_layout
 
 \begin_layout Author
@@ -102,7 +98,24 @@ status open
 \end_layout
 
 \begin_layout Abstract
-Abstract goes here
+In order to improve speech recognizers accuracy, a word prediction method
+ is proposed based on BP feedforward neural network.
+ Firstly, the features are extracted from a text corpus, and then they are
+ input into the BP neural network to train and obtain the optimal word predictor.
+ The predictor is implemented as a N-gram classifier.
+ 
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+The results show that the proposed method has improved the classification
+ accuracy and reduced the training time compared with traditional classification
+ methods.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Abstract
