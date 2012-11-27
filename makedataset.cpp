@@ -83,7 +83,11 @@ void outputSentenceData(vector<string>& sent, int target, int ngramSize, int cou
 			for(int j = 0; j < ngramSize; j++) {
 				cout << (j ? " " : "") << words.get1ofNWordEncoding(words.getId(sent[i+j]));
 			}
+#ifdef SOFTMAX
+			cout << endl << ((target > 0) ? "1 0" : "0 1") << endl;
+#else
 			cout << endl << target << endl;
+#endif
 		}
 	}
 }
@@ -104,7 +108,13 @@ int main(int argc, char **argv) {
 	for(int count = 1; count >= 0; count--) {
 		vector<string> sentence;
 
-		if(!count) cout << numTrainingSamples << " " << (ngramSize * words.size()) << " 1" << endl;
+		if(!count) {
+#ifdef SOFTMAX
+            cout << numTrainingSamples << " " << (ngramSize * words.size()) << " 2" << endl;
+#else
+            cout << numTrainingSamples << " " << (ngramSize * words.size()) << " 1" << endl;
+#endif
+        }
 
 		for(vector<string>::iterator i = allWords.begin(); i != allWords.end(); ++i) {
 			word = *i;
