@@ -201,6 +201,9 @@ int main(int argc, char *argv[]) {
 		cerr << "  hidden layer 2:   " << num_neurons_hidden_2 << "  units" << endl;
 		cerr << "  output layer:     " << num_output << "  units" << endl;
 		ann = fann_create_standard(num_layers, num_input, num_neurons_hidden_1, num_neurons_hidden_2, num_output);
+
+		fann_set_activation_function_hidden(ann, FANN_SIGMOID_SYMMETRIC);
+		fann_set_activation_function_output(ann, FANN_SIGMOID_SYMMETRIC);
 #ifdef SOFTMAX
 		fann_set_activation_function_layer(ann, FANN_SOFTMAX, 3);
 #endif
@@ -235,8 +238,6 @@ int main(int argc, char *argv[]) {
 		log(" "), log(argv[i]);
 	log("\n");
 
-	fann_set_activation_function_hidden(ann, FANN_SIGMOID_SYMMETRIC);
-	fann_set_activation_function_output(ann, FANN_SIGMOID_SYMMETRIC);
 
 	fann_train_data *train_data = fann_read_train_from_file(training_filename.c_str());
 	fann_train_data *validation_data = NULL;
