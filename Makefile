@@ -5,6 +5,10 @@ ifeq ($(SOFTMAX), 1)
 	CXXFLAGS += -DSOFTMAX
 endif
 
+ifeq ($(PARTITION_NET), 1)
+	CXXFLAGS += -DPARTITION_NET
+endif
+
 ifeq ($(DEBUG), 1)
 	CXXFLAGS += -ggdb -O0
 else

@@ -73,8 +73,16 @@ void parseOptions(int argc, char *argv[]) {
 void setWord(fann_type* input_vec, size_t word_i, string word) {
 	size_t numWords = words.size();
 	size_t wordId = words.getId(word);
-	for(size_t i = 0; i < numWords; i++)
-		input_vec[word_i * numWords + i] = i == wordId ? 1.0 : 0.0;
+	for(size_t i = 0; i < numWords; i++) {
+#ifdef PARTITION_NET
+		input_vec[word_i * (numWords + 1) + i] = (i == wordId ? 1.0 : 0.0);
+#else
+		input_vec[word_i * numWords + i] = (i == wordId ? 1.0 : 0.0);
+#endif
+	}
+#ifdef PARTITION_NET
+	input_vec[numWords * word_i] = 1;
+#endif
 }
 
 int main(int argc, char *argv[]) {
@@ -97,7 +105,11 @@ int main(int argc, char *argv[]) {
 
 	size_t numWords = words.size();
 	fann_type* out;
+#ifdef PARTITION_NET
+	fann_type* in = (fann_type *)calloc((numWords + 1) * 3, sizeof(fann_type));
+#else
 	fann_type* in = (fann_type *)calloc(numWords * 3, sizeof(fann_type));
+#endif
 
 	setWord(in, 0, argv_words[0]);
 	setWord(in, 1, argv_words[1]);

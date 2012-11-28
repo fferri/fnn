@@ -168,7 +168,11 @@ int main(int argc, char *argv[]) {
 		training_file >> a >> b >> c;
 		cerr << "training file header: " << a << " " << b << " " << c << endl;
 		training_file.close();
+#ifdef PARTITION_NET
+		long sz2 = num_input_words * (1 + words.size());
+#else
 		long sz2 = num_input_words * words.size();
+#endif
 		if(b != sz2) {
 			cerr << "ERROR: training input size does not match vocabulary size." << endl;
 			exit(1);
@@ -199,6 +203,26 @@ int main(int argc, char *argv[]) {
 		ann = fann_create_standard(num_layers, num_input, num_neurons_hidden_1, num_neurons_hidden_2, num_output);
 #ifdef SOFTMAX
 		fann_set_activation_function_layer(ann, FANN_SOFTMAX, 3);
+#endif
+
+#ifdef PARTITION_NET
+		// make the input->hidden blocks into 3 partitions
+		fann_layer *input = ann->first_layer, *hidden1 = ann->first_layer + 1;
+		fann_neuron * last_neuron = hidden1->last_neuron - 1;
+		fann_neuron * neuron_it;
+		unsigned int tmp_con, cur_con, i, j, I, J;
+		I = hidden1->last_neuron - hidden1->first_neuron;
+		for(neuron_it = hidden1->first_neuron, i = 0; neuron_it != last_neuron; neuron_it++, i++) {
+			tmp_con = neuron_it->last_con - 1;
+			J = tmp_con - neuron_it->first_con;
+			for(cur_con = neuron_it->first_con, j = 0; cur_con != tmp_con; cur_con++, j++) {
+				if(!((3*i)/I == (3*j)/J))
+					ann->connections[cur_con] = NULL;
+			}
+			// remove bias connection:
+			ann->connections[tmp_con] = NULL;
+			// XXX: remember to feed 3 bias inputs in the right places
+		}
 #endif
 	}
 
