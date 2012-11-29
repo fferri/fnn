@@ -1,3 +1,40 @@
+./predict -f wordpredict-h10-H30-0001.net the cat
+1 .
+0.999953 is
+0.999748 on
+0.997007 the
+0.943301 table
+2.4745e-09 cat
+
+
+webrot@webrot-laptop:~/wordPrediction$ ./predict -f wordpredict-h10-H30-0001.net cat is
+1 .
+0.961016 on
+0.00113934 table
+1.73548e-05 the
+1.94672e-08 is
+2.47535e-09 cat
+
+
+webrot@webrot-laptop:~/wordPrediction$ ./predict -f wordpredict-h10-H30-0001.net is on
+1 .
+0.99994 the
+4.12444e-05 is
+1.69891e-05 on
+2.47476e-09 cat
+3.33388e-10 table
+
+
+webrot@webrot-laptop:~/wordPrediction$ ./predict -f wordpredict-h10-H30-0001.net on the
+1 .
+0.961664 table
+1.93884e-05 is
+3.6026e-08 on
+2.47565e-09 cat
+1.43419e-10 the
+
+
+
 ./predict -f wordpredict-h90-H30-0001.net -n 20 no one
 3.73098e-06 told
 3.72483e-06 saw

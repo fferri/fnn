@@ -76,21 +76,35 @@ void makeRandomSentence(vector<string>& sentence, int len) {
 	sentence.push_back(".");
 }
 
-void outputSentenceData(vector<string>& sent, int target, int ngramSize, int count) {
-	for(int i = 0; i < (sent.size() - ngramSize + 1); i++) {
+void outputSentenceData(vector<string>& sent, int target[], int sentenceSize, int ngramSize, int count) {
+	for(int i = 0; i < (sentenceSize - ngramSize + 1); i++) {
 		if(count) {
 			numTrainingSamples++;
 		} else {
 			for(int j = 0; j < ngramSize; j++) {
 				cout << (j ? " " : "") << words.get1ofNWordEncoding(words.getId(sent[i+j]));
+
+#if PARTITION_NET
+				cout << " 1"; // bias
+#endif
+			}
+
+#ifdef SOFTMAX
+			cout << endl << ((target[0] > 0) ? "1 0" : "0 1") << endl;
+#else
+			cout << endl << target[0] << endl;
+#endif
+			for(int j = 0; j < ngramSize; j++) {
+				cout << (j ? " " : "") << words.get1ofNWordEncoding(words.getId(sent[sentenceSize+i+j]));
+
 #if PARTITION_NET
 				cout << " 1"; // bias
 #endif
 			}
 #ifdef SOFTMAX
-			cout << endl << ((target > 0) ? "1 0" : "0 1") << endl;
+			cout << endl << ((target[1] > 0) ? "1 0" : "0 1") << endl;
 #else
-			cout << endl << target << endl;
+			cout << endl << target[1] << endl;
 #endif
 		}
 	}
@@ -131,11 +145,10 @@ int main(int argc, char **argv) {
 
 			if(word == ".") {
 				if(sentence.size() >= ngramSize) {
-					outputSentenceData(sentence, 1, ngramSize, count);
+					int targets[2] = {1, -1};
 					int size = sentence.size();
-					sentence.clear();
 					makeRandomSentence(sentence, size);
-					outputSentenceData(sentence, -1, ngramSize, count);
+					outputSentenceData(sentence, targets, size, ngramSize, count);
 					sentence.clear();
 				} else {
 					sentence.clear();
