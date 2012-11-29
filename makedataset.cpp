@@ -71,7 +71,7 @@ void makeRandomSentence(vector<string>& sentence, int len) {
 	while(len--) {
 		string word;
 		do {word = words.randWord();} while(word == ".");
-		sentence.push_back("dog");
+		sentence.push_back(word);
 	}
 	sentence.push_back(".");
 }
