@@ -8,11 +8,12 @@
 . word stats
 . list of common words file
 . dataset encoder/decoder
-* network setup [input->hidden connection should be split in 3 partitions, each fully connected. now it is ALL fully connected]
+. network setup [input->hidden connection should be split in 3 partitions, each fully connected. now it is ALL fully connected]
 . training program
-* prediction program
-* training (produce a .net model, MSE history)
-* validation (MSE history log)
-* test (MSE, total classification error)
-* regularization
-* report
+. prediction program
+. training (produce a .net model, MSE history)
+. validation (MSE history log)
+. test (MSE, total classification error)
+. regularization
+. use CE and softmax
+. report
