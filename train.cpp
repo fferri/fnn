@@ -140,6 +140,7 @@ float get_classification_error_rate(struct fann* ann, fann_train_data* data) {
 	for(size_t i = 0; i < data->num_data; i++) {
 		d++;
 		fann_type* out = fann_run(ann, data->input[i]);
+
 #ifdef SOFTMAX
 		if((out[0] < 0.5 && data->output[i][0] > 0.5) ||
 		   (out[1] > 0.5 && data->output[i][1] < 0.5)) e++;

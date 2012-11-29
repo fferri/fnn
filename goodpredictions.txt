@@ -1,0 +1,24 @@
+./predict -f wordpredict-h90-H30-0001.net -n 20 no one
+3.73098e-06 told
+3.72483e-06 saw
+3.72471e-06 can
+3.72214e-06 rest
+3.71527e-06 mountains
+
+
+sleep at
+2.79968e-05 ,
+1.62909e-05 home
+1.62019e-05 down
+1.37749e-05 at
+1.34265e-05 night
+
+ there was
+0.0589046 ,
+0.0153772 at
+0.00148472 to
+0.00137293 the
+0.0013655 and
+0.000870354 down
+0.00071914 ?
+0.000519736 of

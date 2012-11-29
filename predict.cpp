@@ -134,13 +134,6 @@ int main(int argc, char *argv[]) {
 		score.push_back(make_pair(i, out[0]));
 	}
 
-//#ifndef SOFTMAX
-	// compute softmax output from logits
-	double sum = 0;
-	for(size_t i = 0; i < numWords; i++) sum += exp(score[i].second);
-	for(size_t i = 0; i < numWords; i++) score[i] = make_pair(score[i].first, exp(score[i].second)/sum);
-//#endif
-
 	sort(score.begin(), score.end(), sort_score());
 
 	// output scores

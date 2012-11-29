@@ -71,7 +71,7 @@ void makeRandomSentence(vector<string>& sentence, int len) {
 	while(len--) {
 		string word;
 		do {word = words.randWord();} while(word == ".");
-		sentence.push_back(word);
+		sentence.push_back("dog");
 	}
 	sentence.push_back(".");
 }
@@ -132,8 +132,9 @@ int main(int argc, char **argv) {
 			if(word == ".") {
 				if(sentence.size() >= ngramSize) {
 					outputSentenceData(sentence, 1, ngramSize, count);
+					int size = sentence.size();
 					sentence.clear();
-					makeRandomSentence(sentence, 30);
+					makeRandomSentence(sentence, size);
 					outputSentenceData(sentence, -1, ngramSize, count);
 					sentence.clear();
 				} else {
