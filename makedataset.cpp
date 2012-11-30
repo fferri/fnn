@@ -68,7 +68,7 @@ void parseOptions(int argc, char *argv[]) {
 }
 
 void makeRandomSentence(vector<string>& sentence, int len) {
-	while(len--) {
+	while(--len) {
 		string word;
 		do {word = words.randWord();} while(word == ".");
 		sentence.push_back(word);
